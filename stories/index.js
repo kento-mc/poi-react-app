@@ -3,6 +3,7 @@ import { storiesOf } from "@storybook/react";
 import 'fomantic-ui-css/semantic.css';
 import { Table, Tab } from 'semantic-ui-react';
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
+import NavBar from '../src/components/navBar';
 import POIList from '../src/components/poiList';
 import POI from '../src/components/poiListSingle';
 
@@ -25,6 +26,11 @@ const samplePOI = {
     fullName: "Homer Simpson"
   }
 };
+
+storiesOf("Global/Nav Bar", module)
+  .add("default", () => {
+    return <NavBar />
+});
 
 storiesOf("POI List Page/POI List Item", module)
   .add("default", () => {
