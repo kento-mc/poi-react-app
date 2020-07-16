@@ -17,7 +17,7 @@
     "semantic-ui-react": "^0.88.2"
   },
   "scripts": {
-    "storybook": "start-storybook -p 6006 -c ./.storybook",
+    "storybook": "start-storybook -s ./public -p 6006 -c ./.storybook",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
