@@ -1,6 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import 'fomantic-ui-css/semantic.css';
+import { Table, Tab } from 'semantic-ui-react';
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import POIList from '../src/components/poiList';
 import POI from '../src/components/poiListSingle';
@@ -25,14 +26,48 @@ const samplePOI = {
   }
 };
 
-storiesOf("POI List Page/POI", module)
-  .add("default", () => <POI poi={samplePOI} />)
+storiesOf("POI List Page/POI List Item", module)
+  .add("default", () => {
+    return (
+      <Table padded>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Image</Table.HeaderCell>
+            <Table.HeaderCell>Name</Table.HeaderCell>
+            <Table.HeaderCell>Description</Table.HeaderCell>
+            <Table.HeaderCell>Location</Table.HeaderCell>
+            <Table.HeaderCell>Categories</Table.HeaderCell>
+            <Table.HeaderCell>Contributor</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          <POI poi={samplePOI} />
+        </Table.Body>
+      </Table>
+    )
+  })
   .add("exception", () => {
     const samplePOINoThumbnail = { ...samplePOI, thumbnailURL: undefined };
-    return <POI poi={samplePOINoThumbnail} />;
+    return (
+      <Table padded>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Image</Table.HeaderCell>
+            <Table.HeaderCell>Name</Table.HeaderCell>
+            <Table.HeaderCell>Description</Table.HeaderCell>
+            <Table.HeaderCell>Location</Table.HeaderCell>
+            <Table.HeaderCell>Categories</Table.HeaderCell>
+            <Table.HeaderCell>Contributor</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          <POI poi={samplePOINoThumbnail} />
+        </Table.Body>
+      </Table>
+    )
   });
 
-storiesOf("POI List Page/POIList", module)
+storiesOf("POI List Page/POI List", module)
   .add("default", () => {
     const pois= [samplePOI, samplePOI, samplePOI, samplePOI, samplePOI]
     return <POIList pois={pois} />
