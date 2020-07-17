@@ -19,8 +19,8 @@ export default class NavBar extends Component {
             onClick={this.handleItemClick}
           />
           <Menu.Item
-            name="pois"
-            active={activeItem === 'pois'}
+            name="points of interest"
+            active={activeItem === 'points of interest'}
             onClick={this.handleItemClick}
           />
           <Menu.Item

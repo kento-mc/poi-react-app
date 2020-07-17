@@ -3,9 +3,13 @@ import { storiesOf } from "@storybook/react";
 import 'fomantic-ui-css/semantic.css';
 import { Table, Tab } from 'semantic-ui-react';
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
+import TemplateGlobal from '../src/components/templateGlobal';
 import NavBar from '../src/components/navBar';
 import POIList from '../src/components/poiList';
 import POI from '../src/components/poiListSingle';
+import AddPoiForrm from '../src/components/addPoiForm';
+import Dashboard from '../src/pages/dashboardPage';
+import AddPoiForm from "../src/components/addPoiForm";
 
 const samplePOI = {
   "id": 1,
@@ -27,12 +31,17 @@ const samplePOI = {
   }
 };
 
+storiesOf("Global/Template Global", module)
+  .add("default", () => {
+    return <TemplateGlobal />
+});
+
 storiesOf("Global/Nav Bar", module)
   .add("default", () => {
     return <NavBar />
 });
 
-storiesOf("POI List Page/POI List Item", module)
+storiesOf("POI List Container/POI List Item", module)
   .add("default", () => {
     return (
       <Table padded>
@@ -77,4 +86,18 @@ storiesOf("POI List Page/POI List", module)
   .add("default", () => {
     const pois= [samplePOI, samplePOI, samplePOI, samplePOI, samplePOI]
     return <POIList pois={pois} />
+});
+
+storiesOf("Dashboard/Add POI Form", module)
+  .add("default", () => {
+    return <AddPoiForm />
+});
+
+storiesOf("Pages/Dashboard", module)
+  .add("default", () => {
+    const pois= [samplePOI, samplePOI, samplePOI]
+    return <Dashboard pois={pois}/>
+  })
+  .add("empty", () => {
+  return <Dashboard />
 });
