@@ -1,13 +1,12 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import 'fomantic-ui-css/semantic.css';
-import { Table, Tab } from 'semantic-ui-react';
+import { Table } from 'semantic-ui-react';
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import TemplateGlobal from '../src/components/templateGlobal';
 import NavBar from '../src/components/navBar';
 import POIList from '../src/components/poiList';
 import POI from '../src/components/poiListSingle';
-import AddPoiForrm from '../src/components/addPoiForm';
 import Dashboard from '../src/pages/dashboardPage';
 import AddPoiForm from "../src/components/addPoiForm";
 
