@@ -53,11 +53,13 @@ const AddPoiForm = ({ columns }) => {
             <i class="image icon"></i>
             Upload Image
           </label>
+          <input id="file-upload" type="file" name="image" style={{display: "none"}}></input>
           <Form.Field
             id='form-button-control-public'
             control={Button}
             content='Submit'
             label='Label with htmlFor'
+            color='blue'
           />
         </Form>
       </Segment>
