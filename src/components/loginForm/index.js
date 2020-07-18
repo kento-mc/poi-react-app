@@ -19,12 +19,6 @@ const AddPoiForm = ({ columns }) => {
             label='Name'
             placeholder='Name'
           />
-          <Form.Field
-            id='form-textarea-control-description'
-            control={TextArea}
-            label='Description'
-            placeholder='description'
-          />
           <Form.Group widths='equal'>
             <Form.Field
               id='form-input-control-lat'
@@ -44,19 +38,31 @@ const AddPoiForm = ({ columns }) => {
           <Form.Field
             control={Select}
             options={categoryOptions}
-            label={{ children: 'Category', htmlFor: 'form-select-control-category' }}
+            label={{ children: 'Gender', htmlFor: 'form-select-control-category' }}
             placeholder='Category'
             search
             searchInput={{ id: 'form-select-control-category' }}
           />
-          <label for="file-upload" class="ui blue button">
-            <i class="image icon"></i>
-            Upload Image
-          </label>
+          <Form.Field
+            id='form-textarea-control-opinion'
+            control={TextArea}
+            label='Opinion'
+            placeholder='Opinion'
+          />
+          <Form.Field
+            id='form-input-control-error-email'
+            control={Input}
+            label='Email'
+            placeholder='joe@schmoe.com'
+            error={{
+              content: 'Please enter a valid email address',
+              pointing: 'below',
+            }}
+          />
           <Form.Field
             id='form-button-control-public'
             control={Button}
-            content='Submit'
+            content='Confirm'
             label='Label with htmlFor'
           />
         </Form>
