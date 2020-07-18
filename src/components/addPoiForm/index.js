@@ -7,9 +7,9 @@ const categoryOptions = [
   { key: '2', text: 'Trail', value: 'trail' },
 ]
 
-const AddPoiForm = ({ columns }) => {
+const AddPoiForm = ({ columnCount }) => {
   return (
-    <Grid.Column width={columns}>
+    <Grid.Column width={columnCount}>
       <Segment fluid>
         <Form>
           <Header>Add a new Point of Interest</Header>

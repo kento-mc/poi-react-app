@@ -6,8 +6,8 @@ import PoiList from '../components/poiList';
 const Dashboard = ({ pois }) => {
   return (
     <Template>
-      <AddPoiForm columns='6' />
-      <PoiList columns='10' pois={pois} />
+      <PoiList columnCount='10' pois={pois} />
+      <AddPoiForm columnCount='6' />
     </Template>
   )
 };

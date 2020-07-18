@@ -1,14 +1,16 @@
 import React from "react";
 import { Grid, Table } from 'semantic-ui-react';
 import POI from '../poiListSingle';
+import FilterBar from "../filterBar";
 
-const poiList = props => {
-  const pois = props.pois?.map(poi => (
+const poiList = ({ columnCount, pois }) => {
+  const poiList = pois?.map(poi => (
     <POI key={poi.id} poi={poi} />
   ));
 
   return (
-    <Grid.Column width={props.columns}>
+    <Grid.Column width={columnCount}>
+      <FilterBar />
       <Table padded>
         <Table.Header>
           <Table.Row>
@@ -21,7 +23,7 @@ const poiList = props => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {pois}
+          {poiList}
         </Table.Body>
       </Table>
     </Grid.Column>
