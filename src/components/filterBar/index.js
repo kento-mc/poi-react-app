@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dropdown, Input, Header, Grid, Table } from 'semantic-ui-react'
+import { Dropdown, Input, Header, Table } from 'semantic-ui-react'
 
 const FilterBar = () => {
 

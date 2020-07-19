@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Segment, Button, Input, Grid, Header, Table  } from 'semantic-ui-react';
+import { Form, Segment, Button, Input, Header, Table  } from 'semantic-ui-react';
 
 const catHeader = `Custom Categories`;
 
