@@ -7,7 +7,7 @@ import TemplateGlobal from '../src/components/templateGlobal';
 import NavBar from '../src/components/navBar';
 import POIList from '../src/components/poiList';
 import POI from '../src/components/poiListSingle';
-import Dashboard from '../src/pages/dashboardPage';
+import DashboardPage from '../src/pages/dashboardPage';
 import AddPoiForm from '../src/components/addPoiForm';
 import FilterBar from '../src/components/filterBar';
 
@@ -101,8 +101,8 @@ storiesOf("Dashboard/Filter Bar", module)
 storiesOf("Pages/Dashboard", module)
   .add("default", () => {
     const pois= [samplePOI, samplePOI, samplePOI]
-    return <Dashboard pois={pois}/>
+    return <DashboardPage pois={pois}/>
   })
   .add("empty", () => {
-  return <Dashboard />
+  return <DashboardPage />
 });

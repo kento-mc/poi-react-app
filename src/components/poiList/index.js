@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Table } from 'semantic-ui-react';
+import { Table } from 'semantic-ui-react';
 import POI from '../poiListSingle';
 import FilterBar from "../filterBar";
 
@@ -9,7 +9,7 @@ const poiList = ({ columnCount, pois }) => {
   ));
 
   return (
-    <Grid.Column width={columnCount}>
+    <>
       <FilterBar />
       <Table padded>
         <Table.Header>
@@ -26,7 +26,7 @@ const poiList = ({ columnCount, pois }) => {
           {poiList}
         </Table.Body>
       </Table>
-    </Grid.Column>
+    </>
   );
 };
 

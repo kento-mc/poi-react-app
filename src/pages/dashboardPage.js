@@ -2,14 +2,19 @@ import React from 'react';
 import Template from '../components/templateGlobal';
 import AddPoiForm from '../components/addPoiForm';
 import PoiList from '../components/poiList';
+import Panel from '../components/panel';
 
-const Dashboard = ({ pois }) => {
+const DashboardPage = ({ pois }) => {
   return (
     <Template>
-      <PoiList columnCount='10' pois={pois} />
-      <AddPoiForm columnCount='6' />
+      <Panel columnCount='10' >
+        <PoiList pois={pois} />
+      </Panel>
+      <Panel columnCount='6' >
+        <AddPoiForm />
+      </Panel>
     </Template>
   )
 };
 
-export default Dashboard;
+export default DashboardPage;
