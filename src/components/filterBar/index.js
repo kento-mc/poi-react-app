@@ -14,7 +14,7 @@ const FilterBar = () => {
   return (
     <Table basic='very' compact='very'>
       <Table.Row>
-        <Table.Cell>
+        <Table.Cell verticalAlign='middle'>
           <Header as='h2'>{listHeader}</Header>
         </Table.Cell>
         <Table.Cell textAlign='right'>

@@ -23,7 +23,7 @@ const AddCategories = ({ columnCount }) => {
     <Segment fluid>
       <Table basic='very' compact='very'>
         <Table.Row>
-          <Table.Cell>
+          <Table.Cell verticalAlign='middle'>
             <Header as='h4' floated='left'>{catHeader}</Header>
           </Table.Cell>
           <Table.Cell>
