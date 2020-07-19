@@ -4,6 +4,7 @@ import POI from '../poiListSingle';
 import FilterBar from "../filterBar";
 
 const poiList = ({ columnCount, pois }) => {
+  
   const poiList = pois?.map(poi => (
     <POI key={poi.id} poi={poi} />
   ));
@@ -11,7 +12,7 @@ const poiList = ({ columnCount, pois }) => {
   return (
     <>
       <FilterBar />
-      <Table padded>
+      <Table>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Image</Table.HeaderCell>

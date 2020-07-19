@@ -1,69 +1,51 @@
 import React from 'react';
-import { Form, Grid, Segment, Input, TextArea, Button, Select, Header  } from 'semantic-ui-react';
+import { Form, Segment, Button, Input, Grid, Header, Table  } from 'semantic-ui-react';
+
+const catHeader = `Custom Categories`;
 
 const categoryOptions = [
-  { key: '0', text: 'Park', value: 'park' },
-  { key: '1', text: 'Dining', value: 'dining' },
-  { key: '2', text: 'Trail', value: 'trail' },
+  { key: '0', text: 'D\'oh!', value: 'd\'oh' },
+  { key: '1', text: 'Mmmmm Duff', value: 'mmmmm duff' },
+  { key: '2', text: 'Go Topes!', value: 'go topes!' },
 ]
 
 const AddCategories = ({ columnCount }) => {
+
+  const catList = categoryOptions?.map(cat => (
+    <Table.Row>
+      <Table.Cell key={cat.key}>
+        {cat.text}
+      </Table.Cell>
+    </Table.Row>
+  ));
+
   return (
-    <Grid.Column width={columnCount}>
-      <Segment fluid>
-        <Form>
-          <Header>Add a new Point of Interest</Header>
-          <Form.Field
-            id='form-input-control-name'
-            control={Input}
-            label='Name'
-            placeholder='Name'
-          />
-          <Form.Field
-            id='form-textarea-control-description'
-            control={TextArea}
-            label='Description'
-            placeholder='description'
-          />
-          <Form.Group widths='equal'>
-            <Form.Field
-              id='form-input-control-lat'
-              control={Input}
-              label='Latitude'
-              placeholder='0.000000'
-              step='0.000001'
-            />
-            <Form.Field
-              id='form-input-control-lon'
-              control={Input}
-              label='Longitude'
-              placeholder='0.000000'
-              step='0.000001'
-            />
-          </Form.Group>
-          <Form.Field
-            control={Select}
-            options={categoryOptions}
-            label={{ children: 'Category', htmlFor: 'form-select-control-category' }}
-            placeholder='Category'
-            search
-            searchInput={{ id: 'form-select-control-category' }}
-          />
-          <label for="file-upload" class="ui blue button">
-            <i class="image icon"></i>
-            Upload Image
-          </label>
-          <input id="file-upload" type="file" name="image" style={{display: "none"}}></input>
-          <Form.Field
-            id='form-button-control-public'
-            control={Button}
-            content='Submit'
-            label='Label with htmlFor'
-            color='blue'
-          />
-        </Form>
-      </Segment>
-    </Grid.Column>
+    <Segment fluid>
+      <Table basic='very' compact='very'>
+        <Table.Row>
+          <Table.Cell>
+            <Header as='h4' floated='left'>{catHeader}</Header>
+          </Table.Cell>
+          <Table.Cell>
+            <Form>
+              <Form.Field
+                id='form-input-control-name'
+                control={Input}
+                placeholder='Add new category'
+                action={
+                  <Button id='form-button-control-public' content='+' color='blue' />
+                }
+              />
+            </Form> 
+          </Table.Cell>
+        </Table.Row>  
+      </Table>
+      <Table>
+        <Table.Body>
+          {catList}
+        </Table.Body>
+      </Table>
+    </Segment>
   )
 }
 
