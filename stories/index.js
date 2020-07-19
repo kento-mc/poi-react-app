@@ -10,6 +10,7 @@ import POI from '../src/components/poiListSingle';
 import DashboardPage from '../src/pages/dashboardPage';
 import AddPoiForm from '../src/components/addPoiForm';
 import FilterBar from '../src/components/filterBar';
+import AddCategories from "../src/components/addCategories";
 
 const samplePOI = {
   "id": 1,
@@ -96,6 +97,11 @@ storiesOf("Dashboard/Add POI Form", module)
 storiesOf("Dashboard/Filter Bar", module)
   .add("default", () => {
     return <FilterBar />
+});
+
+storiesOf("Dashboard/Add Categories", module)
+  .add("default", () => {
+    return <AddCategories />
 });
 
 storiesOf("Pages/Dashboard", module)
