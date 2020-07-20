@@ -11,6 +11,7 @@ import DashboardPage from '../src/pages/dashboardPage';
 import AddPoiForm from '../src/components/addPoiForm';
 import FilterBar from '../src/components/filterBar';
 import AddCategories from "../src/components/addCategories";
+import PoiDetailPage from "../src/pages/poiDetailPage";
 
 const samplePOI = {
   "id": 1,
@@ -20,7 +21,11 @@ const samplePOI = {
     "lat": 30.23,
     "lon": -30.234
   },
-  "categories": [],
+  "categories": [
+    "Walk",
+    "Dining",
+    "Drive"
+  ],
   "imageURL": [
     "http://res.cloudinary.com/dwgak0rbs/image/upload/v1583704472/gimkezvtnsmjosc4wg6e.png",
     "http://res.cloudinary.com/dwgak0rbs/image/upload/v1583704498/bmcsxbgu8xqgri9tljda.png",
@@ -111,4 +116,13 @@ storiesOf("Pages/Dashboard", module)
   })
   .add("empty", () => {
   return <DashboardPage />
+});
+
+storiesOf("Pages/POI Detaial", module)
+  .add("default", () => {
+    const poi = samplePOI;
+    return <PoiDetailPage poi={poi}/>
+  })
+  .add("empty", () => {
+  return <PoiDetailPage />
 });
