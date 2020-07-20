@@ -1,4 +1,5 @@
 import React from 'react';
+import { Segment } from 'semantic-ui-react';
 import Template from '../components/templateGlobal';
 import Panel from '../components/panel';
 import PoiDetail from '../components/poiDetail';
@@ -12,8 +13,10 @@ const PoiDetailPage = ({ poi }) => {
         <PoiDetail poi={poi} />
       </Panel>
       <Panel columnCount='10' >
-        <PoiMap poi={poi}/>
-        <ImageGallery poi={poi} /> 
+        <Segment fluid>
+          <PoiMap poi={poi}/>
+          <ImageGallery poi={poi} /> 
+        </Segment>
       </Panel>
     </Template>
   )

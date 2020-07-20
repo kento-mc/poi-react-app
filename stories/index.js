@@ -14,6 +14,7 @@ import AddCategories from "../src/components/addCategories";
 import PoiDetailPage from "../src/pages/poiDetailPage";
 import PoiMap from "../src/components/poiMap";
 import ImageGallery from "../src/components/imageGallery";
+import PoiListPage from "../src/pages/poiListPage";
 
 const samplePOI = {
   "id": 1,
@@ -125,18 +126,24 @@ storiesOf("POI Detail/Image Gallery", module)
 
 storiesOf("Pages/Dashboard", module)
   .add("default", () => {
-    const pois= [samplePOI, samplePOI, samplePOI]
+    const pois= [samplePOI, samplePOI, samplePOI, samplePOI, samplePOI]
     return <DashboardPage pois={pois}/>
   })
   .add("empty", () => {
   return <DashboardPage />
 });
 
-storiesOf("Pages/POI Detaial", module)
+storiesOf("Pages/POI List", module)
   .add("default", () => {
-    const poi = samplePOI;
-    return <PoiDetailPage poi={poi}/>
+    const pois= [samplePOI, samplePOI, samplePOI, samplePOI, samplePOI]
+    return <PoiListPage pois={pois}/>
   })
   .add("empty", () => {
   return <PoiDetailPage />
+});
+
+storiesOf("Pages/POI Detail", module)
+  .add("default", () => {
+    const poi = samplePOI;
+    return <PoiDetailPage poi={poi}/>
 });

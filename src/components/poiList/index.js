@@ -3,8 +3,8 @@ import { Table } from 'semantic-ui-react';
 import POI from '../poiListSingle';
 import FilterBar from "../filterBar";
 
-const poiList = ({ columnCount, pois }) => {
-  
+const poiList = ({ pois }) => {
+
   const poiList = pois?.map(poi => (
     <POI key={poi.id} poi={poi} />
   ));
