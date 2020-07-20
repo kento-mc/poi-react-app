@@ -5,7 +5,7 @@ import PoiDetail from '../components/poiDetail';
 import PoiMap from '../components/poiMap';
 import ImageGallery from '../components/imageGallery';
 
-const PoiDetailPage = ({ poi }) => {
+const PoiListPage = ({ poi }) => {
   return (
     <Template>
       <Panel columnCount='6' >
@@ -19,4 +19,4 @@ const PoiDetailPage = ({ poi }) => {
   )
 };
 
-export default PoiDetailPage;
+export default PoiListPage;

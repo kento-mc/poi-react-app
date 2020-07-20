@@ -12,6 +12,8 @@ import AddPoiForm from '../src/components/addPoiForm';
 import FilterBar from '../src/components/filterBar';
 import AddCategories from "../src/components/addCategories";
 import PoiDetailPage from "../src/pages/poiDetailPage";
+import PoiMap from "../src/components/poiMap";
+import ImageGallery from "../src/components/imageGallery";
 
 const samplePOI = {
   "id": 1,
@@ -107,6 +109,18 @@ storiesOf("Dashboard/Filter Bar", module)
 storiesOf("Dashboard/Add Categories", module)
   .add("default", () => {
     return <AddCategories />
+});
+
+storiesOf("POI Detail/POI Map", module)
+  .add("default", () => {
+    const poi = samplePOI;
+    return <PoiMap poi={poi}/>
+});
+
+storiesOf("POI Detail/Image Gallery", module)
+  .add("default", () => {
+    const poi = samplePOI;
+    return <ImageGallery poi={poi}/>
 });
 
 storiesOf("Pages/Dashboard", module)
