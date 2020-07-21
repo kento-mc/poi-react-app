@@ -5,8 +5,10 @@ import Panel from '../components/panel';
 import PoiList from '../components/poiList';
 import PoiMap from '../components/poiMap';
 
-const PoiListPage = ({ pois }) => {
+const PoiListPage = ({ user, pois }) => {
 
+  let poi;
+  pois ? poi = pois[0] : poi = {}
   const panes = [
     { menuItem: 'All POIs', render: () => (
       <Tab.Pane>
@@ -15,14 +17,14 @@ const PoiListPage = ({ pois }) => {
     )},
     { menuItem: 'Map View', render: () => (
       <Tab.Pane>
-        <PoiMap poi={pois[0]} />
+        <PoiMap poi={poi} />
       </Tab.Pane>
     )},
     { menuItem: 'Loadinig', render: () => <Tab.Pane loading>Tab 3 Content</Tab.Pane> },
   ]
 
   return (
-    <Template>
+    <Template user={user}>
       <Panel columnCount='16' >
         <Tab panes={panes} />
       </Panel>

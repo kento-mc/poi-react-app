@@ -5,7 +5,7 @@ import NavBar from '../navBar';
 const templateGlobal = (props) => {
   return (
     <>
-      <NavBar />
+      <NavBar user={props.user} />
       <Segment raised fluid>
         <Grid>
           {props.children}

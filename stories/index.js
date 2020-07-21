@@ -40,6 +40,13 @@ const samplePOI = {
   }
 };
 
+const sampleUser = {
+  firstName: 'Homer',
+  lastName: 'Simpson',
+  fullName: 'Homer Simpson',
+  isAdmin: false
+};
+
 storiesOf("Global/Template Global", module)
   .add("default", () => {
     return <TemplateGlobal />
@@ -47,6 +54,9 @@ storiesOf("Global/Template Global", module)
 
 storiesOf("Global/Nav Bar", module)
   .add("default", () => {
+    return <NavBar user={sampleUser} />
+  })
+  .add("logged out", () => {
     return <NavBar />
 });
 
@@ -127,23 +137,23 @@ storiesOf("POI Detail/Image Gallery", module)
 storiesOf("Pages/Dashboard", module)
   .add("default", () => {
     const pois= [samplePOI, samplePOI, samplePOI, samplePOI, samplePOI]
-    return <DashboardPage pois={pois}/>
+    return <DashboardPage user={sampleUser} pois={pois}/>
   })
   .add("empty", () => {
-  return <DashboardPage />
+  return <DashboardPage user={sampleUser} />
 });
 
 storiesOf("Pages/POI List", module)
   .add("default", () => {
     const pois= [samplePOI, samplePOI, samplePOI, samplePOI, samplePOI]
-    return <PoiListPage pois={pois}/>
+    return <PoiListPage user={sampleUser} pois={pois}/>
   })
   .add("empty", () => {
-  return <PoiDetailPage />
+  return <PoiListPage user={sampleUser} />
 });
 
 storiesOf("Pages/POI Detail", module)
   .add("default", () => {
     const poi = samplePOI;
-    return <PoiDetailPage poi={poi}/>
+    return <PoiDetailPage user={sampleUser} poi={poi}/>
 });

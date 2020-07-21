@@ -6,9 +6,9 @@ import PoiDetail from '../components/poiDetail';
 import PoiMap from '../components/poiMap';
 import ImageGallery from '../components/imageGallery';
 
-const PoiDetailPage = ({ poi }) => {
+const PoiDetailPage = ({ user, poi }) => {
   return (
-    <Template>
+    <Template user={user}>
       <Panel columnCount='6' >
         <PoiDetail poi={poi} />
       </Panel>

@@ -5,9 +5,9 @@ import PoiList from '../components/poiList';
 import Panel from '../components/panel';
 import AddCategories from '../components/addCategories';
 
-const DashboardPage = ({ pois }) => {
+const DashboardPage = ({ user, pois }) => {
   return (
-    <Template>
+    <Template user={user}>
       <Panel columnCount='10' >
         <PoiList pois={pois} />
       </Panel>

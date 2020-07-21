@@ -2,17 +2,15 @@ import React, { Component } from 'react'
 import { Menu } from 'semantic-ui-react'
 
 export default class NavBar extends Component {
-  state = { activeItem: 'home' }
+  state = { 
+    activeItem: 'home', 
+    user: this.props.user
+  }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-
-  render() {
-    const { activeItem } = this.state
-
-    return (
-      <Menu inverted>
-        <header class="header item">Points of Interest</header>
-        <div class="right menu">
+  menu = (user, activeItem) => {
+    if (user) {
+      return (
+        <>
           <Menu.Item
             name='dashboard'
             active={activeItem === 'dashboard'}
@@ -33,6 +31,36 @@ export default class NavBar extends Component {
             active={activeItem === 'log out'}
             onClick={this.handleItemClick}
           />
+        </>
+      )
+    }else {
+      return (
+        <>
+          <Menu.Item
+            name='log in'
+            active={activeItem === 'log in'}
+            onClick={this.handleItemClick}
+          />
+          <Menu.Item
+            name="sign up"
+            active={activeItem === 'sign up'}
+            onClick={this.handleItemClick}
+          />
+        </>
+      )
+    }
+  };
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  render() {
+    const { user, activeItem } = this.state
+
+    return (
+      <Menu inverted>
+        <header class="header item">Points of Interest</header>
+        <div class="right menu">
+          {this.menu(user, activeItem)}
         </div>
       </Menu>
     )
