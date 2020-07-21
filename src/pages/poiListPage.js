@@ -3,7 +3,6 @@ import { Tab } from 'semantic-ui-react';
 import Template from '../components/templateGlobal';
 import Panel from '../components/panel';
 import PoiList from '../components/poiList';
-import POI from '../components/poiListSingle';
 import PoiMap from '../components/poiMap';
 
 const PoiListPage = ({ pois }) => {

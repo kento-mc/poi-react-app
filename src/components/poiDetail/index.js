@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Form, Segment, Input, Image, TextArea, Button, Header, Table } from 'semantic-ui-react';
+import { Card, Form, Segment, Input, Image, TextArea, Button, Header } from 'semantic-ui-react';
 
 
 const PoiDetail = ({ poi }) => {

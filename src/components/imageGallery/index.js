@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Image, Segment, Card } from 'semantic-ui-react';
+import { Header, Image, Card } from 'semantic-ui-react';
 
 const ImageGallery = ({ poi }) => {
 
