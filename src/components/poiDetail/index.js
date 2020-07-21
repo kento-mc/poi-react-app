@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Segment, Input, Image, TextArea, Button, Header, Table } from 'semantic-ui-react';
+import { Card, Form, Segment, Input, Image, TextArea, Button, Header, Table } from 'semantic-ui-react';
 
 
 const PoiDetail = ({ poi }) => {
@@ -33,7 +33,6 @@ const PoiDetail = ({ poi }) => {
             id='form-input-control-lon'
             control={Input}
             label='Longitude'
-            content={poi.location.lon}
             placeholder={poi.location.lon}
             step='0.000001'
           />
@@ -41,19 +40,16 @@ const PoiDetail = ({ poi }) => {
         <Form.Field
           label='Categories'
         ></Form.Field>
-        <Table>
-          <Table.Body>
-            {poi.categories.map(cat => {
-              return (
-                <Table.Row>
-                  <Table.Cell>
-                    {cat}
-                  </Table.Cell>
-                </Table.Row>
-              );
-            })}
-          </Table.Body>
-        </Table>
+        <Card.Group stackable='true' itemsPerRow='5'>
+          {poi.categories.map((cat, i) => {
+            return (
+              <Card key={i}>
+                <Button disabled basic size='mini'>{cat}</Button>
+              </Card>
+            );
+          })}
+        </Card.Group>
+        <br />
         <Form.Field
           id='form-textarea-control-contributor'
           control={Input}
