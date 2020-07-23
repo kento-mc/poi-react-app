@@ -8,7 +8,7 @@ const PoiTabs = ({ pois }) => {
   let poi;
   pois ? poi = pois[0] : poi = {}
   const panes = [
-    { menuItem: 'All POIs', render: () => (
+    { menuItem: 'List View', render: () => (
       <Tab.Pane>
         <PoiList pois={pois} />
       </Tab.Pane> 

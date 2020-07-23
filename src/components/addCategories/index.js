@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Segment, Button, Input, Header, Table  } from 'semantic-ui-react';
+import { Card, Form, Segment, Button, Input, Header, Table  } from 'semantic-ui-react';
 
 const catHeader = `Custom Categories`;
 
@@ -11,13 +11,21 @@ const categoryOptions = [
 
 const AddCategories = ({ columnCount }) => {
 
-  const catList = categoryOptions?.map(cat => (
-    <Table.Row>
-      <Table.Cell key={cat.key}>
-        {cat.text}
-      </Table.Cell>
-    </Table.Row>
+  const catList = categoryOptions?.map((cat, i) => (
+    <Card key={i}>
+      <Button disabled basic size='mini'>{cat.text}</Button>
+    </Card>
   ));
+
+  // <Card.Group stackable='true' itemsPerRow='5'>
+  // {poi.categories.map((cat, i) => {
+  //   return (
+  //     <Card key={i}>
+  //       <Button disabled basic size='mini'>{cat}</Button>
+  //     </Card>
+  //   );
+  // })}
+  // </Card.Group>
 
   return (
     <Segment fluid>
@@ -40,11 +48,9 @@ const AddCategories = ({ columnCount }) => {
           </Table.Cell>
         </Table.Row>  
       </Table>
-      <Table>
-        <Table.Body>
-          {catList}
-        </Table.Body>
-      </Table>
+      <Card.Group stackable='true' itemsPerRow='3'>
+        {catList}
+      </Card.Group>
     </Segment>
   )
 }

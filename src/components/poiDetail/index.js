@@ -39,8 +39,8 @@ const PoiDetail = ({ poi }) => {
         </Form.Group>
         <Form.Field
           label='Categories'
-        ></Form.Field>
-        <Card.Group stackable='true' itemsPerRow='5'>
+        />
+        <Card.Group stackable='true' itemsPerRow='4'>
           {poi.categories.map((cat, i) => {
             return (
               <Card key={i}>

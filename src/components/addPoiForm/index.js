@@ -42,7 +42,7 @@ const AddPoiForm = ({ columnCount }) => {
         </Form.Group>
         <Form.Field
           control={Select}
-          options={categoryOptions}
+          fluid multiple selection options={categoryOptions}
           label={{ children: 'Category', htmlFor: 'form-select-control-category' }}
           placeholder='Category'
           search
