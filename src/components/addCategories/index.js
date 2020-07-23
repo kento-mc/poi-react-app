@@ -17,16 +17,6 @@ const AddCategories = ({ columnCount }) => {
     </Card>
   ));
 
-  // <Card.Group stackable='true' itemsPerRow='5'>
-  // {poi.categories.map((cat, i) => {
-  //   return (
-  //     <Card key={i}>
-  //       <Button disabled basic size='mini'>{cat}</Button>
-  //     </Card>
-  //   );
-  // })}
-  // </Card.Group>
-
   return (
     <Segment fluid>
       <Table basic='very' compact='very'>
