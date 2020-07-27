@@ -1,12 +1,26 @@
 import React from 'react';
 import { Form, Grid, Segment, Input, Button, Header  } from 'semantic-ui-react';
 
-const LoginForm = ({ columns }) => {
+const SignupForm = ({ columns }) => {
   return (
     <Grid.Column width={columns}>
       <Segment fluid>
         <Form>
-          <Header>Login</Header>
+          <Header>Sign Up</Header>
+          <Form.Group widths='equal'>
+            <Form.Field
+              id='form-input-control-fname'
+              control={Input}
+              label='First Name'
+              placeholder='First Name'
+            />
+            <Form.Field
+              id='form-input-control-lname'
+              control={Input}
+              label='Last Name'
+              placeholder='Last Name'
+            />
+          </Form.Group>
           <Form.Field
             id='form-input-control-email'
             control={Input}
@@ -24,7 +38,7 @@ const LoginForm = ({ columns }) => {
           <Form.Field
             id='form-button-control-login'
             control={Button}
-            content='Login'
+            content='Sign Up'
             color='blue'
           />
         </Form>
@@ -33,4 +47,4 @@ const LoginForm = ({ columns }) => {
   )
 }
 
-export default LoginForm;
+export default SignupForm;

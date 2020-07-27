@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Header, Input, Segment } from 'semantic-ui-react'
+import { Button, Form, Header, Input, Segment } from 'semantic-ui-react'
 
 const SettingsForm = () => {
   return (
@@ -33,6 +33,12 @@ const SettingsForm = () => {
             type='password'
             label='Password'
             placeholder='********'
+          />
+          <Form.Field
+            id='form-button-control-update-settings'
+            control={Button}
+            content='Update'
+            color='blue'
           />
       </Form>
     </Segment>

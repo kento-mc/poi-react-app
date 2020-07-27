@@ -16,6 +16,8 @@ import PoiMap from "../src/components/poiMap";
 import ImageGallery from "../src/components/imageGallery";
 import PoiListPage from "../src/pages/poiListPage";
 import SettingsPage from "../src/pages/settingsPage";
+import LoginPage from "../src/pages/loginPage";
+import SignupPage from "../src/pages/signupPage";
 
 const samplePOI = {
   "id": 1,
@@ -162,4 +164,14 @@ storiesOf("Pages/POI Detail", module)
 storiesOf("Pages/Settings", module)
   .add("default", () => {
     return <SettingsPage user={sampleUser} />
+});
+
+storiesOf("Pages/Login", module)
+  .add("default", () => {
+    return <LoginPage />
+});
+
+storiesOf("Pages/Sign Up", module)
+  .add("default", () => {
+    return <SignupPage />
 });
