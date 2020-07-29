@@ -3,36 +3,38 @@ import ReactDOM from "react-dom";
 import 'fomantic-ui-css/semantic.css';
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
-import HomePage from "./pages/homePage";
-import MoviePage from './pages/movieDetailsPage'
-import FavoriteMoviesPage from './pages/favoritesMoviesPage'
-import MovieReviewPage from "./pages/movieReviewPage";
-import SiteHeader from './components/siteHeader'
-import MoviesContextProvider from "./contexts/moviesContext";
-import GenresContextProvider from "./contexts/genresContext";
-import AddMovieReviewPage from './pages/addMovieReviewPage'
+import DashboardPage from "./pages/dashboardPage";
+import PoiListPage from "./pages/poiListPage";
+import PoiDetailPage from "./pages/poiDetailPage";
+import SettingsPage from "./pages/settingsPage";
+import LoginPage from "./pages/loginPage";
+import SignupPage from "./pages/signupPage";
 
 const App = () => {
+
+  const user = {
+    firstName: 'Homer',
+    lastName: 'Simpson',
+    fullName: 'Homer Simpson',
+    isAdmin: false
+  };
+
   return (
     <BrowserRouter>
-      <div className="jumbotron">
-        <SiteHeader />
-      <div className="container-fluid">
-        <MoviesContextProvider>
-          <GenresContextProvider>
-            <Switch>
-              <Route exact path="/reviews/form" component={AddMovieReviewPage} />
-              <Route path="/reviews/:id" component={MovieReviewPage} />
-              <Route exact path="/movies/favorites" component={FavoriteMoviesPage} />
-              <Route path="/movies/:id" component={MoviePage} />
-              <Route path="/" component={HomePage} />
-              <Redirect from="*" to="/" />
-            </Switch>
-          </GenresContextProvider>
-        </MoviesContextProvider>
-      </div>
-    </div>
-  </BrowserRouter>
+      <Switch>
+        <Route exact path="/dashboard" component={DashboardPage} />
+        <Route exact path="/pois" component={PoiListPage} />
+        <Route path="/pois/:id" component={PoiDetailPage} />
+        <Route path="/pois/:id/update" component={PoiDetailPage} />
+        <Route path="/pois/:id/images" component={PoiDetailPage} />
+        <Route path="/pois/:id/images/:image" component={PoiDetailPage} />
+        <Route exact path="/settings" component={SettingsPage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/signup" component={SignupPage} />
+        <Route path="/" component={user ? DashboardPage : LoginPage} />
+        <Redirect from="*" to="/" />
+      </Switch>
+    </BrowserRouter>
   );
 };
 

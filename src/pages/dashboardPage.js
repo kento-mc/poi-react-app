@@ -7,8 +7,15 @@ import AddCategories from '../components/addCategories';
 
 const DashboardPage = ({ user, pois }) => {
 
+  const tempUser = {
+    firstName: 'Homer',
+    lastName: 'Simpson',
+    fullName: 'Homer Simpson',
+    isAdmin: false
+  };
+
   return (
-    <Template user={user}>
+    <Template user={tempUser}>
       <Panel columnCount='10' >
         <PoiTabs pois={pois} />
       </Panel>
