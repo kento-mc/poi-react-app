@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { getPois } from '../api/poi-api';
-import PoisContext from '../contexts/poisContext';
+import { PoisContext } from '../contexts/poisContext';
 import Template from '../components/templateGlobal';
 import AddPoiForm from '../components/addPoiForm';
 import PoiTabs from '../components/poiTabs';
@@ -11,14 +11,14 @@ const DashboardPage = ({ user }) => {
   
   const context = useContext(PoisContext);
 
-  const [pois, setPois] = useState([]);
+  // const [pois, setPois] = useState([]);
 
-  useEffect(() => {
-    getPois().then((pois) => {
-      console.log(pois);
-      setPois(pois);
-    });
-  }, [pois]);
+  // useEffect(() => {
+  //   getPois().then((pois) => {
+  //     console.log(pois);
+  //     setPois(pois);
+  //   });
+  // }, [pois]);
 
   const tempUser = {
     firstName: 'Homer',
@@ -30,7 +30,7 @@ const DashboardPage = ({ user }) => {
   return (
     <Template user={tempUser}>
       <Panel columnCount='10' >
-        <PoiTabs pois={pois} />
+        <PoiTabs pois={context.pois} />
       </Panel>
       <Panel columnCount='6' >
         <AddPoiForm />

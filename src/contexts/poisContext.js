@@ -1,32 +1,41 @@
-import React, { useEffect, createContext, useReducer } from "react";
+import React, { useEffect, createContext, useState } from "react";
 import { getPois } from "../api/poi-api";
 
 export const PoisContext = createContext(null);
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    // case "add-favorite":
-    //   return {
-    //     movies: state.movies.filter((m) => m.id !== action.payload.movie.id),
-    //     favorites: [...state.favorites, action.payload.movie],
-    //   };
-    case "load-pois":
-      return { pois: [...action.payload.pois]};
-    // case "add-review":
-    //   return {
-    //     movies: [...state.movies],
-    //     favorites: [
-    //       ...state.favorites.filter((m) => m.id !== action.payload.movie.id),
-    //       { ...action.payload.movie, review: action.payload.review },
-    //     ],
-    //   };
-    default:
-      return state;
-  }
-};
+// const reducer = (state, action) => {
+//   switch (action.type) {
+//     case "add-favorite":
+//       return {
+//         movies: state.movies.filter((m) => m.id !== action.payload.movie.id),
+//         favorites: [...state.favorites, action.payload.movie],
+//       };
+//     case "load-pois":
+//       return { pois: [...action.payload.pois]};
+//     case "add-review":
+//       return {
+//         movies: [...state.movies],
+//         favorites: [
+//           ...state.favorites.filter((m) => m.id !== action.payload.movie.id),
+//           { ...action.payload.movie, review: action.payload.review },
+//         ],
+//       };
+//     default:
+//       return state;
+//   }
+// };
 
 const PoisContextProvider = (props) => {
-  const [state, dispatch] = useReducer(reducer, { pois: []});
+
+  const [pois, setPois] = useState([]);
+
+  useEffect(() => {
+    getPois().then((pois) => {
+      setPois(pois);
+    });
+  }, []);
+
+  // const [state, dispatch] = useReducer(reducer, { pois: []});
 
   // const addToFavorites = (movieId) => {
   //   const index = state.movies.map((m) => m.id).indexOf(movieId);
@@ -37,16 +46,17 @@ const PoisContextProvider = (props) => {
   //   dispatch({ type: "add-review", payload: { movie, review } });
   // }; 
 
-  useEffect(() => {
-    getPois().then((pois) => {
-      dispatch({ type: "load-pois", payload: { pois } });
-    });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   getPois().then((pois) => {
+  //     dispatch({ type: "load-pois", payload: { pois } });
+  //   });
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
   return (
     <PoisContext.Provider
       value={{
-        pois: state.pois,
+        pois: pois
         // favorites: state.favorites,
         // addToFavorites: addToFavorites,
         // addReview: addReview,
