@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { getPois } from '../api/poi-api';
 import { PoisContext } from '../contexts/poisContext';
 import Template from '../components/templateGlobal';
 import AddPoiForm from '../components/addPoiForm';
