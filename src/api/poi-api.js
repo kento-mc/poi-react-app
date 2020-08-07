@@ -1,16 +1,28 @@
 const apiURL = 'http://localhost:3000'
 
 export const authenticate = (email, password) => {
+
+  const details = {
+    'email': 'homer@simpson.com',
+    'password': 'secret',
+    // 'grant_type': 'password'
+  };
+
+  let formBody = [];
+  for (let property in details) {
+    const encodedKey = encodeURIComponent(property);
+    const encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
+  formBody = formBody.join("&");
+
   return fetch(
     `${apiURL}/api/users/authenticate`, {
       method: 'post',
-      headers: new Headers({
-        'Authorization': 'something'
-      }),
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      },
+      body: formBody
     }
   )
     .then(res => res.json())

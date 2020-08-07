@@ -15,6 +15,7 @@ const LoginForm = ({ columns }) => {
     let success = false;
     try {
       const response = await authenticate(email, password);
+      console.log(response);
       const status = await response.content;
       if (status.success) {
         this.httpClient.configure((configuration) => {
@@ -58,9 +59,7 @@ const LoginForm = ({ columns }) => {
             placeholder='********'
             value='secret' // TODO remove
           />
-          <Form.Field id='form-button-control-login'>
-            <Button type='submit' color='blue'>Login</Button>
-          </Form.Field>
+          <Button id='form-button-control-login' type='submit' color='blue'>Login</Button>
         </Form>
       </Segment>
     </Grid.Column>
