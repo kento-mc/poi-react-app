@@ -1,5 +1,6 @@
-import React, { useEffect, createContext, useState } from "react";
+import React, { useEffect, useState, createContext, useContext } from "react";
 import { getPois } from "../api/poi-api";
+import AuthContextProvider from '../contexts/authContext';
 
 export const PoisContext = createContext(null);
 

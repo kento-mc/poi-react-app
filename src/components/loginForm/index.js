@@ -1,41 +1,50 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import useForm from "react-hook-form";
 import { Form, Grid, Segment, Input, Button, Header  } from 'semantic-ui-react';
-import { authenticate } from '../../api/poi-api';
+import { Redirect } from "react-router-dom";
+import { authenticate, getPois } from '../../api/poi-api';
+import AuthContextProvider from '../../contexts/authContext';
 
 const LoginForm = ({ columns }) => {
 
+  const authContext = useContext(AuthContextProvider);
   const { register, handleSubmit, errors, reset } = useForm();
 
   const onSubmit = data => {
-    authenticateUser(data.email, data.password);
+    const response = authenticateUser(data.email, data.password);
+    if (response.success) {
+      authContext.setAuth(true);
+      authContext.setToken(response.token);
+    }
+    // return success ? <Redirect to='/dashboard' /> : <Redirect to='/' />;
   };
 
   const authenticateUser = async (email, password) => {
     let success = false;
+    let response;
     try {
-      const response = await authenticate(email, password);
+      response = await authenticate(email, password);
       console.log(response);
-      const status = await response.content;
-      if (status.success) {
-        this.httpClient.configure((configuration) => {
-          configuration.withHeader('Authorization', 'bearer ' + status.token);
-        });
-        localStorage.poi = JSON.stringify(response.content);
-        await this.getUsers();
-        const user = this.users.get(email);
-        this.loggedInUser = user;
-        await this.getPOIs();
-        await this.getUserPOIs(this.loggedInUser._id);
-        await this.getCategories();
-        await this.getUserCategories();
+      if (response.success) {
+        authContext.updateAuth(true);
+        authContext.addToken(response.token);
+        const pois = getPois(authContext.token);
+        console.log(pois);
+        window.localStorage.poi = JSON.stringify(response);
+        // await this.getUsers();
+        // const user = this.users.get(email);
+        // this.loggedInUser = user;
+        // await this.getPOIs();
+        // await this.getUserPOIs(this.loggedInUser._id);
+        // await this.getCategories();
+        // await this.getUserCategories();
 
-        success = status.success;
+        success = response.success;
       }
     } catch (e) {
       success = false;
     }
-    return success;
+    return response;
   }
 
   return (

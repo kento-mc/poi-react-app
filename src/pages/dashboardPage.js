@@ -8,7 +8,7 @@ import AddCategories from '../components/addCategories';
 
 const DashboardPage = ({ user }) => {
   
-  const context = useContext(PoisContext);
+  const poisContext = useContext(PoisContext);
 
   // const [pois, setPois] = useState([]);
 
@@ -29,7 +29,7 @@ const DashboardPage = ({ user }) => {
   return (
     <Template user={tempUser}>
       <Panel columnCount='10' >
-        <PoiTabs pois={context.pois} />
+        <PoiTabs pois={poisContext.pois} />
       </Panel>
       <Panel columnCount='6' >
         <AddPoiForm />
