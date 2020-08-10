@@ -3,18 +3,18 @@ import useForm from "react-hook-form";
 import { Form, Grid, Segment, Input, Button, Header  } from 'semantic-ui-react';
 import { Redirect } from "react-router-dom";
 import { authenticate, getPois } from '../../api/poi-api';
-import AuthContextProvider from '../../contexts/authContext';
+import { AuthContext } from '../../contexts/authContext';
 
 const LoginForm = ({ columns }) => {
 
-  const authContext = useContext(AuthContextProvider);
+  const authContext = useContext(AuthContext);
   const { register, handleSubmit, errors, reset } = useForm();
 
-  const onSubmit = data => {
-    const response = authenticateUser(data.email, data.password);
+  const onSubmit = async (data) => {
+    const response = await authenticateUser(data.email, data.password);
     if (response.success) {
-      authContext.setAuth(true);
-      authContext.setToken(response.token);
+      authContext.updateAuth(true);
+      authContext.addToken(response.token);
     }
     // return success ? <Redirect to='/dashboard' /> : <Redirect to='/' />;
   };
@@ -26,11 +26,12 @@ const LoginForm = ({ columns }) => {
       response = await authenticate(email, password);
       console.log(response);
       if (response.success) {
-        authContext.updateAuth(true);
-        authContext.addToken(response.token);
-        const pois = getPois(authContext.token);
-        console.log(pois);
-        window.localStorage.poi = JSON.stringify(response);
+        // authContext.updateAuth(true);
+        // authContext.addToken(response.token);
+        // const pois = getPois(authContext.token);
+        // console.log(pois);
+        // window.localStorage.poi = JSON.stringify(response);
+
         // await this.getUsers();
         // const user = this.users.get(email);
         // this.loggedInUser = user;
