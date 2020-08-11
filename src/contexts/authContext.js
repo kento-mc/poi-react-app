@@ -29,16 +29,23 @@ const AuthContextProvider = (props) => {
     setToken(token)
   };
 
-  const getUsers = () => {
-
-  }
+  // const getAuth = async (email, password) => {
+  //   let response = await authenticate(email, password);
+  //   response = await response.json();
+  //   setAuth(response);
+  // };
 
   useEffect(() => {
     // localStorage.setItem('authenticated', auth);
     // localStorage.setItem('token', token);
-    console.log('authenticated');
     console.log(credentials);
-
+    const getAuth = async (email, password) => {
+      const response = await authenticate(email, password);
+      setAuth(response.success);
+      setToken(response.token);
+    };
+    getAuth();
+    console.log(auth, token);
   }, [credentials]);
 
   // const defaultContext = {
