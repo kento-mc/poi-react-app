@@ -1,4 +1,5 @@
 import React, { useEffect, useState, createContext } from 'react';
+import { authenticate, getUsers, getUser, getPois } from '../api/poi-api';
 
 export const AuthContext = createContext();
 
@@ -6,6 +7,9 @@ const AuthContextProvider = (props) => {
 
   const [auth, setAuth] = useState(false);
   const [token, setToken] = useState(null);
+  const [users, setUsers] = useState(null);
+  const [usersById, setUsersById] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   // const prevAuth = window.localStorage.getItem('auth') || false;
   // const prevAuthBody = window.localStorage.getItem('authBody') || null;
@@ -23,10 +27,19 @@ const AuthContextProvider = (props) => {
     setToken(token)
   };
 
+  const authenticate = (email, password) => {
+    return authenticate(email, password);
+  }
+
+  const getUsers = () => {
+
+  }
+
   useEffect(() => {
-    window.localStorage.setItem('authenticated', auth);
-    window.localStorage.setItem('token', token);
-  });
+    // localStorage.setItem('authenticated', auth);
+    // localStorage.setItem('token', token);
+
+  }, [auth]);
 
   // const defaultContext = {
   //   authenticated,
@@ -41,7 +54,8 @@ const AuthContextProvider = (props) => {
         auth: auth,
         token: token,
         updateAuth: updateAuth,
-        addToken: addToken
+        addToken: addToken,
+        authenticate: authenticate
       }}
     >
       {props.children}

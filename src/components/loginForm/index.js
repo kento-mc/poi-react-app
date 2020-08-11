@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import useForm from "react-hook-form";
 import { Form, Grid, Segment, Input, Button, Header  } from 'semantic-ui-react';
 import { Redirect } from "react-router-dom";
-import { authenticate, getPois } from '../../api/poi-api';
+import { authenticate, getUsers, getUser, getPois } from '../../api/poi-api';
 import { AuthContext } from '../../contexts/authContext';
 
 const LoginForm = ({ columns }) => {
@@ -11,11 +11,7 @@ const LoginForm = ({ columns }) => {
   const { register, handleSubmit, errors, reset } = useForm();
 
   const onSubmit = async (data) => {
-    const response = await authenticateUser(data.email, data.password);
-    if (response.success) {
-      authContext.updateAuth(true);
-      authContext.addToken(response.token);
-    }
+    await authenticateUser(data.email, data.password);
     // return success ? <Redirect to='/dashboard' /> : <Redirect to='/' />;
   };
 
@@ -26,8 +22,10 @@ const LoginForm = ({ columns }) => {
       response = await authenticate(email, password);
       console.log(response);
       if (response.success) {
-        // authContext.updateAuth(true);
-        // authContext.addToken(response.token);
+        authContext.updateAuth(true);
+        authContext.addToken(response.token);
+        const users = await getUsers();
+        console.log(users);
         // const pois = getPois(authContext.token);
         // console.log(pois);
         // window.localStorage.poi = JSON.stringify(response);

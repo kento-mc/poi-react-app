@@ -28,6 +28,34 @@ export const authenticate = (email, password) => {
     .then(res => res.json())
 };
 
+export const getUsers = async () => {
+  return fetch(
+    `${apiURL}/api/users`, {
+      method: 'get',
+      credentials: 'omit',
+      headers: {
+        'Authorization': 'bearer ' + localStorage.getItem('token'), 
+        'Content-Type': 'application/json'
+      },  
+    }
+  )
+  .then(res => res.json())
+  // .then(json => json.results);
+};
+
+export const getUser = async (user) => {
+  return fetch(
+    `${apiURL}/api/users/${user.id}`, {
+      method: 'get',
+      headers: {
+        'Authorization': 'bearer ' + localStorage.getItem('token'), 
+      },  
+    }
+  )
+  .then(res => res.json())
+  // .then(json => json.results);
+};
+
 // export const getPois = () => {
 //   return fetch(
 //     `${apiURL}/api/pois`
@@ -36,12 +64,12 @@ export const authenticate = (email, password) => {
 //     // .then(json => json.results);
 // };
 
-export const getPois = async (token) => {
+export const getPois = async () => {
   return fetch(
     `${apiURL}/api/pois`, {
       method: 'get',
       headers: {
-        'Authorization': 'bearer ' + token, 
+        'Authorization': 'bearer ' + localStorage.getItem('token'), 
       },  
     }
   )
