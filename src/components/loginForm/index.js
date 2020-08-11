@@ -11,12 +11,12 @@ const LoginForm = ({ columns }) => {
 
   const authContext = useContext(AuthContext);
 
+  const { register, errors, handleSubmit, setValue, triggerValidation } = useForm();
+
   useEffect(() => {
     register({ name: "email" }, { required: true });
     register({ name: "password" }, { required: true });
-  }, []);
-
-  const { register, errors, handleSubmit, setValue, triggerValidation } = useForm();
+  }, [register]);
 
   const onSubmit = (data, e) => {
     console.log(data, e);
@@ -87,7 +87,7 @@ const LoginForm = ({ columns }) => {
               error={errors.lastName ? true : false}
             />
           </Form.Group>
-          <Button type="submit">Submit</Button>
+          <Button type='submit' color='blue'>Submit</Button>
         </Form>
       </Segment>
     </Grid.Column>

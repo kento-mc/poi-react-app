@@ -8,7 +8,8 @@ const AuthContextProvider = (props) => {
   const [credentials, setCredentials] = useState({});
   const [auth, setAuth] = useState(false);
   const [token, setToken] = useState(null);
-  const [users, setUsers] = useState(null);
+  const [usersByEmail, setUsersByEmail] = useState(null);
+  const [usersByID, setUsersByID] = useState(null);
   const [usersById, setUsersById] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
 
@@ -34,10 +35,20 @@ const AuthContextProvider = (props) => {
     updateAuth(response.success, response.token);
   };
 
-  const retrieveUsers = async () => {
+  const mapUsers = async () => {
     const users = await getUsers();
-    setUsers(users);
     console.log(users);
+    const userEmailKeys = new Map();
+    const userIdKeys = new Map();
+    for (let i = 0; i < users.length; i++) {
+    // for (let user of users) {
+      userEmailKeys.set(users[i].email, users[i]);
+      userIdKeys.set(users[i]._id, users[i]);
+    };
+    setUsersByEmail(userEmailKeys);
+    setUsersByID(userIdKeys);
+    console.log(usersByEmail);
+    console.log(usersByID);
   };
 
   useEffect(() => {
@@ -45,7 +56,7 @@ const AuthContextProvider = (props) => {
     // localStorage.setItem('token', token);
     console.log(credentials);
     getAuth(credentials.email, credentials.password);
-    retrieveUsers();
+    mapUsers();
     console.log(auth, token);
   }, [credentials]);
 
