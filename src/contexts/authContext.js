@@ -25,26 +25,27 @@ const AuthContextProvider = (props) => {
   const updateAuth = (auth, token) => {
     localStorage.setItem('authenticated', auth);
     localStorage.setItem('token', token);
-    setAuth(auth)
-    setToken(token)
+    setAuth(auth);
+    setToken(token);
   };
 
-  // const getAuth = async (email, password) => {
-  //   let response = await authenticate(email, password);
-  //   response = await response.json();
-  //   setAuth(response);
-  // };
+  const getAuth = async (email, password) => {
+    const response = await authenticate(email, password);
+    updateAuth(response.success, response.token);
+  };
+
+  const retrieveUsers = async () => {
+    const users = await getUsers();
+    setUsers(users);
+    console.log(users);
+  };
 
   useEffect(() => {
     // localStorage.setItem('authenticated', auth);
     // localStorage.setItem('token', token);
     console.log(credentials);
-    const getAuth = async (email, password) => {
-      const response = await authenticate(email, password);
-      setAuth(response.success);
-      setToken(response.token);
-    };
-    getAuth();
+    getAuth(credentials.email, credentials.password);
+    retrieveUsers();
     console.log(auth, token);
   }, [credentials]);
 

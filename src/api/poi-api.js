@@ -3,8 +3,8 @@ const apiURL = 'http://localhost:3000'
 export const authenticate = (email, password) => {
 
   const details = {
-    'email': 'homer@simpson.com',
-    'password': 'secret',
+    'email': email,
+    'password': password,
     // 'grant_type': 'password'
   };
 
