@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 
 const AuthContextProvider = (props) => {
 
+  const [credentials, setCredentials] = useState({});
   const [auth, setAuth] = useState(false);
   const [token, setToken] = useState(null);
   const [users, setUsers] = useState(null);
@@ -17,19 +18,16 @@ const AuthContextProvider = (props) => {
   // const [authenticated, setAuthenticated] = useState(prevAuth);
   // const [authBody, setAuthBody] = useState(prevAuthBody);
 
-  const updateAuth = (auth) => {
-    localStorage.setItem('authenticated', auth);
-    setAuth(auth)
+  const submitCredentials = (email, password) => {
+    setCredentials({email: email, password: password});
   };
 
-  const addToken = (token) => {
+  const updateAuth = (auth, token) => {
+    localStorage.setItem('authenticated', auth);
     localStorage.setItem('token', token);
+    setAuth(auth)
     setToken(token)
   };
-
-  const authenticate = (email, password) => {
-    return authenticate(email, password);
-  }
 
   const getUsers = () => {
 
@@ -38,8 +36,10 @@ const AuthContextProvider = (props) => {
   useEffect(() => {
     // localStorage.setItem('authenticated', auth);
     // localStorage.setItem('token', token);
+    console.log('authenticated');
+    console.log(credentials);
 
-  }, [auth]);
+  }, [credentials]);
 
   // const defaultContext = {
   //   authenticated,
@@ -54,8 +54,7 @@ const AuthContextProvider = (props) => {
         auth: auth,
         token: token,
         updateAuth: updateAuth,
-        addToken: addToken,
-        authenticate: authenticate
+        submitCredentials: submitCredentials
       }}
     >
       {props.children}

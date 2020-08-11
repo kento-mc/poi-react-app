@@ -10,8 +10,8 @@ const LoginForm = ({ columns }) => {
   const authContext = useContext(AuthContext);
   const { register, handleSubmit, errors, reset } = useForm();
 
-  const onSubmit = async (data) => {
-    await authenticateUser(data.email, data.password);
+  const onSubmit = async ({email, password}) => {
+    await authenticateUser(email, password);
     // return success ? <Redirect to='/dashboard' /> : <Redirect to='/' />;
   };
 
@@ -19,11 +19,11 @@ const LoginForm = ({ columns }) => {
     let success = false;
     let response;
     try {
+      authContext.submitCredentials(email, password);
       response = await authenticate(email, password);
       console.log(response);
       if (response.success) {
-        authContext.updateAuth(true);
-        authContext.addToken(response.token);
+        authContext.updateAuth(true, response.token);
         const users = await getUsers();
         console.log(users);
         // const pois = getPois(authContext.token);
@@ -57,7 +57,7 @@ const LoginForm = ({ columns }) => {
             type='email'
             label='Email'
             placeholder='name@example.com'
-            value='homer@simpson.com' // TODO remove
+            defaultValue='homer@simpson.com' // TODO remove
           />
           <Form.Field
             id='form-input-control-password'
@@ -65,7 +65,7 @@ const LoginForm = ({ columns }) => {
             type='password'
             label='Password'
             placeholder='********'
-            value='secret' // TODO remove
+            defaultValue='secret' // TODO remove
           />
           <Button id='form-button-control-login' type='submit' color='blue'>Login</Button>
         </Form>
