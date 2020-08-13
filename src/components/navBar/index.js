@@ -58,7 +58,7 @@ export default class NavBar extends Component {
 
     return (
       <Menu inverted>
-        <header class="header item">Points of Interest</header>
+        <header className="header item">Points of Interest</header>
         <div class="right menu">
           {this.menu(user, activeItem)}
         </div>

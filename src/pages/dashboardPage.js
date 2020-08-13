@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { PoisContext } from '../contexts/poisContext';
 import Template from '../components/templateGlobal';
 import AddPoiForm from '../components/addPoiForm';
 import PoiTabs from '../components/poiTabs';
 import Panel from '../components/panel';
 import AddCategories from '../components/addCategories';
 
-const DashboardPage = ({ user, pois }) => {
+const DashboardPage = ({ user }) => {
+  
+  const poisContext = useContext(PoisContext);
+
+  // const [pois, setPois] = useState([]);
+
+  // useEffect(() => {
+  //   getPois().then((pois) => {
+  //     console.log(pois);
+  //     setPois(pois);
+  //   });
+  // }, [pois]);
 
   const tempUser = {
     firstName: 'Homer',
@@ -17,7 +29,7 @@ const DashboardPage = ({ user, pois }) => {
   return (
     <Template user={tempUser}>
       <Panel columnCount='10' >
-        <PoiTabs pois={pois} />
+        <PoiTabs pois={poisContext.pois} />
       </Panel>
       <Panel columnCount='6' >
         <AddPoiForm />
