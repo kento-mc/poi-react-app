@@ -6,10 +6,12 @@ export const AuthContext = createContext();
 const AuthContextProvider = (props) => {
 
   const [auth, setAuth] = useState(null);
-  const [allUsers, setAllUsers] = useState(null);
   const [usersByEmail, setUsersByEmail] = useState(null);
   const [usersByID, setUsersByID] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
+
+  const userEmailKeys = new Map();
+  const userIdKeys = new Map();
 
   // const prevAuth = window.localStorage.getItem('auth') || false;
   // const prevAuthBody = window.localStorage.getItem('authBody') || null;
@@ -22,63 +24,39 @@ const AuthContextProvider = (props) => {
   // };
 
   const updateAuth = (email, auth, token) => {
-    localStorage.setItem('authenticated', auth);
-    localStorage.setItem('token', token);
     setAuth({email: email, auth: auth, token: token});
   };
 
-  // const getAuth = async (email, password) => {
-  //   const response = await authenticate(email, password);
-  //   updateAuth(response.success, response.token);
-  // };
+  const usersByEmailSetup = (users) => {
+    for (let i = 0; i < users.length; i++) {
+      userEmailKeys.set(users[i].email, users[i]);
+      userIdKeys.set(users[i]._id, users[i]);
+    };
+    setUsersByEmail(userEmailKeys);
+  }
 
-  // const retrieveUsers = async () => {
-  //   const users = await getUsers();
-  //   console.log(users);
-  //   mapUsers(users);
-  //   return users;
-  // };
+  const usersByIdSetup = (users) => {
+    setUsersByID(userIdKeys);
+  }
 
-  const getAllUsers = async () => {
-    const users = await getUsers();
-    setAllUsers(users);
-    console.log(allUsers);
-    return users;
-  };
-
-  const getLoggedIn = (users) => {
+  const getLoggedIn = () => {
     const user = usersByEmail[auth.email];
-    return user;
+    setLoggedInUser(user);
   };
 
   useEffect(() => {
+    if (auth) {
+      getLoggedIn();
+    }
     // localStorage.setItem('authenticated', auth);
     // localStorage.setItem('token', token);
-    if (auth) {
-      getAllUsers();
-      // const user = getLoggedIn(users);
-      // setLoggedInUser(user);
-      // console.log(loggedInUser);
-    }
-  }, [auth]);
-
-  useEffect(() => {
-    if (allUsers) {
-      const userEmailKeys = new Map();
-      const userIdKeys = new Map();
-      for (let i = 0; i < allUsers.length; i++) {
-        userEmailKeys.set(allUsers[i].email, allUsers[i]);
-        userIdKeys.set(allUsers[i]._id, allUsers[i]);
-      };
-      console.log(userEmailKeys);
-      console.log(userIdKeys);
-      setUsersByEmail(userEmailKeys);
-      setUsersByID(userIdKeys);
-      console.log(allUsers);
-      console.log(usersByEmail);
-      console.log(usersByID);
-    }
-  }, [allUsers]);
+    
+    console.log('Inside the authConetext useEffect Hook:')
+    console.log(usersByEmail);
+    console.log(usersByID);
+    // console.log(`${loggedInUser.fullName} logged in`)
+  
+  }, [usersByID]);
 
   // const defaultContext = {
   //   authenticated,
@@ -93,6 +71,8 @@ const AuthContextProvider = (props) => {
         auth: auth?.auth,
         token: auth?.token,
         updateAuth: updateAuth,
+        usersByEmailSetup: usersByEmailSetup,
+        usersByIdSetup: usersByIdSetup,
       }}
     >
       {props.children}

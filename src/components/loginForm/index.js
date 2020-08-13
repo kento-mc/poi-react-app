@@ -28,7 +28,12 @@ const LoginForm = ({ columns }) => {
   const getAuth = async (email, password) => {
     const response = await authenticate(email, password);
     console.log(response);
+    localStorage.setItem('authenticated', response.success);
+    localStorage.setItem('token', response.token);
+    const users = await getUsers();
     authContext.updateAuth(email, response.success, response.token);
+    authContext.usersByEmailSetup(users);
+    authContext.usersByIdSetup(users);
   };
 
   const onSubmit = (data, e) => {
