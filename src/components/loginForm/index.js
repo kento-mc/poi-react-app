@@ -25,15 +25,19 @@ const LoginForm = ({ columns }) => {
     }
   }, [credentials]);
 
+
   const getAuth = async (email, password) => {
-    const response = await authenticate(email, password);
-    console.log(response);
-    localStorage.setItem('authenticated', response.success);
-    localStorage.setItem('token', response.token);
-    const users = await getUsers();
-    authContext.updateAuth(email, response.success, response.token);
-    authContext.usersByEmailSetup(users);
-    authContext.usersByIdSetup(users);
+    try {
+      const response = await authenticate(email, password);
+      localStorage.setItem('authenticated', response.success);
+      localStorage.setItem('token', response.token);
+      const users = await getUsers();
+      authContext.updateAuth(email, response.success, response.token);
+      authContext.usersByEmailSetup(users);
+      authContext.usersByIdSetup(users);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const onSubmit = (data, e) => {
@@ -41,39 +45,6 @@ const LoginForm = ({ columns }) => {
   };
 
   // console.log(errors);
-
-  const authenticateUser = async (email, password) => {
-    console.log('hello', email, password);
-
-    let success = false;
-    let response;
-    try {
-      authContext.submitCredentials(email, password);
-      // response = await authenticate(email, password);
-      // console.log(response);
-      // if (response.success) {
-      //   authContext.updateAuth(true, response.token);
-      //   const users = await getUsers();
-      //   console.log(users);
-      //   const pois = getPois(authContext.token);
-      //   console.log(pois);
-      //   window.localStorage.poi = JSON.stringify(response);
-
-      //   await this.getUsers();
-      //   const user = this.users.get(email);
-      //   this.loggedInUser = user;
-      //   await this.getPOIs();
-      //   await this.getUserPOIs(this.loggedInUser._id);
-      //   await this.getCategories();
-      //   await this.getUserCategories();
-
-      //   success = response.success;
-      // }
-    } catch (e) {
-      success = false;
-    }
-    return response;
-  }
   
   return (
     <Grid.Column width={columns}>

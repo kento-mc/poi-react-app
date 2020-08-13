@@ -13,6 +13,21 @@ const AuthContextProvider = (props) => {
   const userEmailKeys = new Map();
   const userIdKeys = new Map();
 
+  useEffect(() => {
+    console.log(auth);
+    console.log('Inside the authConetext useEffect Hook:')
+    console.log(usersByEmail);
+    console.log(usersByID);
+    if (usersByEmail) {
+      const user = usersByEmail.get(auth.email);
+      getLoggedIn(user);
+    }
+  }, [usersByID]);
+
+  useEffect(() => {
+    if (loggedInUser) console.log(`${loggedInUser?.fullName} logged in`)
+  }, [loggedInUser])
+
   // const prevAuth = window.localStorage.getItem('auth') || false;
   // const prevAuthBody = window.localStorage.getItem('authBody') || null;
 
@@ -24,7 +39,7 @@ const AuthContextProvider = (props) => {
   // };
 
   const updateAuth = (email, auth, token) => {
-    setAuth({email: email, auth: auth, token: token});
+    setAuth({email: email, status: auth, token: token});
   };
 
   const usersByEmailSetup = (users) => {
@@ -39,24 +54,9 @@ const AuthContextProvider = (props) => {
     setUsersByID(userIdKeys);
   }
 
-  const getLoggedIn = () => {
-    const user = usersByEmail[auth.email];
+  const getLoggedIn = (user) => {
     setLoggedInUser(user);
   };
-
-  useEffect(() => {
-    if (auth) {
-      getLoggedIn();
-    }
-    // localStorage.setItem('authenticated', auth);
-    // localStorage.setItem('token', token);
-    
-    console.log('Inside the authConetext useEffect Hook:')
-    console.log(usersByEmail);
-    console.log(usersByID);
-    // console.log(`${loggedInUser.fullName} logged in`)
-  
-  }, [usersByID]);
 
   // const defaultContext = {
   //   authenticated,
@@ -73,6 +73,7 @@ const AuthContextProvider = (props) => {
         updateAuth: updateAuth,
         usersByEmailSetup: usersByEmailSetup,
         usersByIdSetup: usersByIdSetup,
+        getLoggedIn: getLoggedIn
       }}
     >
       {props.children}
