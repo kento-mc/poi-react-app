@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import useForm from "react-hook-form";
 import { Form, Grid, Segment, Input, Button, Header  } from 'semantic-ui-react';
 import { Redirect } from "react-router-dom";
@@ -12,15 +12,27 @@ const LoginForm = ({ columns }) => {
   const authContext = useContext(AuthContext);
 
   const { register, errors, handleSubmit, setValue, triggerValidation } = useForm();
+  const [credentials, setCredentials] = useState(null);
 
   useEffect(() => {
     register({ name: "email" }, { required: true });
     register({ name: "password" }, { required: true });
   }, [register]);
 
+  useEffect(() => {
+    if (credentials) {
+      getAuth(credentials.email, credentials.password);
+    }
+  }, [credentials]);
+
+  const getAuth = async (email, password) => {
+    const response = await authenticate(email, password);
+    console.log(response);
+    authContext.updateAuth(email, response.success, response.token);
+  };
+
   const onSubmit = (data, e) => {
-    console.log(data, e);
-    authenticateUser(data.email, data.password);
+    setCredentials({ email: data.email, password: data.password });
   };
 
   // console.log(errors);
@@ -63,7 +75,6 @@ const LoginForm = ({ columns }) => {
       <Segment fluid>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Header>Login</Header>
-          <Form.Group widths="equal">
             <Form.Input
               name='email'
               fluid
@@ -77,6 +88,7 @@ const LoginForm = ({ columns }) => {
             />
             <Form.Input
               name='password'
+              type='password'
               fluid
               label='Password'
               placeholder='*********'
@@ -86,98 +98,11 @@ const LoginForm = ({ columns }) => {
               }}
               error={errors.lastName ? true : false}
             />
-          </Form.Group>
           <Button type='submit' color='blue'>Submit</Button>
         </Form>
       </Segment>
     </Grid.Column>
   );
 };
-
-
-
-
-
-
-  // const handleChange = (e) => {
-  //   console.log(e);
-  //   setValue('email', e.target.value);
-  //   setValue('password', e.taret.value);
-  // }
-  // const onSubmit = (data) => {
-  //   console.log(data);
-  //   authenticateUser(data.email, data.password);
-  //   // return success ? <Redirect to='/dashboard' /> : <Redirect to='/' />;
-  // };
-
-  // const authenticateUser = async (email, password) => {
-  //   let success = false;
-  //   let response;
-  //   try {
-  //     authContext.submitCredentials(email, password);
-  //     response = await authenticate(email, password);
-  //     console.log(response);
-  //     if (response.success) {
-  //       authContext.updateAuth(true, response.token);
-  //       const users = await getUsers();
-  //       console.log(users);
-  //       // const pois = getPois(authContext.token);
-  //       // console.log(pois);
-  //       // window.localStorage.poi = JSON.stringify(response);
-
-  //       // await this.getUsers();
-  //       // const user = this.users.get(email);
-  //       // this.loggedInUser = user;
-  //       // await this.getPOIs();
-  //       // await this.getUserPOIs(this.loggedInUser._id);
-  //       // await this.getCategories();
-  //       // await this.getUserCategories();
-
-  //       success = response.success;
-  //     }
-  //   } catch (e) {
-  //     success = false;
-  //   }
-  //   return response;
-  // }
-
-  // return (
-  //   <Grid.Column width={columns}>
-  //     <Segment fluid>
-  //       <Form onSubmit={handleSubmit(onSubmit)}>
-  //         <Header>Login</Header>
-  //         <Form.Input
-  //           onChange={handleChange}
-  //           id='form-input-control-email'
-  //           name='email' 
-  //           type='email'
-  //           label='Email'
-  //           placeholder='name@example.com'
-  //           defaultValue='homer@simpson.com' // TODO remove
-  //           // onChange={async (e, { name, value }) => {
-  //           //   setValue(name, value);
-  //           //   await triggerValidation({ name });
-  //           // }}
-  //           error={errors.firstName ? true : false}
-  //         />
-  //         <Form.Input
-  //           onChange={handleChange}
-  //           id='form-input-control-password'
-  //           name='email'
-  //           type='password'
-  //           label='Password'
-  //           placeholder='********'
-  //           defaultValue='secret' // TODO remove
-  //           // onChange={async (e, { name, value }) => {
-  //           //   setValue(name, value);
-  //           //   await triggerValidation({ name });
-  //           // }}
-  //         />
-  //         <Button id='form-button-control-login' type='submit' color='blue'>Login</Button>
-  //       </Form>
-  //     </Segment>
-  //   </Grid.Column>
-  // )
-// };
 
 export default withRouter(LoginForm);

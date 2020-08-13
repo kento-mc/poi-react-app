@@ -47,8 +47,10 @@ export const getUser = async (user) => {
   return fetch(
     `${apiURL}/api/users/${user.id}`, {
       method: 'get',
+      credentials: 'omit',
       headers: {
         'Authorization': 'bearer ' + localStorage.getItem('token'), 
+        'Content-Type': 'application/json'
       },  
     }
   )
