@@ -7,12 +7,13 @@ import { AuthContext } from '../../contexts/authContext';
 import { withRouter } from "react-router-dom";
 
 
-const LoginForm = ({ columns }) => {
+const LoginForm = (props) => {
 
   const authContext = useContext(AuthContext);
 
   const { register, errors, handleSubmit, setValue, triggerValidation } = useForm();
   const [credentials, setCredentials] = useState(null);
+  const [toDashboard, setToDashboard] = useState(false);
 
   useEffect(() => {
     register({ name: "email" }, { required: true });
@@ -25,6 +26,13 @@ const LoginForm = ({ columns }) => {
     }
   }, [credentials]);
 
+  useEffect(() => {
+    if (authContext.loggedInUser) {
+      console.log('hi');
+      return <Redirect to={{ pathname: "/" }} />;
+    }
+  },[]);
+
 
   const getAuth = async (email, password) => {
     try {
@@ -35,6 +43,7 @@ const LoginForm = ({ columns }) => {
       authContext.updateAuth(email, response.success, response.token);
       authContext.usersByEmailSetup(users);
       authContext.usersByIdSetup(users);
+      setToDashboard(true);
     } catch (e) {
       console.log(e);
     }
@@ -46,8 +55,14 @@ const LoginForm = ({ columns }) => {
 
   // console.log(errors);
   
+  // const { from } = props.location.state || { from: { pathname: "/" } };
+
+  if (toDashboard) {
+    console.log('byeeeeeee');
+    return <Redirect to='/' />;
+  }
   return (
-    <Grid.Column width={columns}>
+    <Grid.Column width={props.columns}>
       <Segment fluid>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Header>Login</Header>
