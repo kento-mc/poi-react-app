@@ -24,7 +24,7 @@ const Router = (props) => {
         <Route exact path="/settings" component={SettingsPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/signup" component={SignupPage} />
-        <Route path="/" component={DashboardPage} />
+        <Route path="/" component={authContext.loggedInUser ? DashboardPage : LoginPage} />
         <Redirect from="*" to="/" />
       </Switch>
     </BrowserRouter>

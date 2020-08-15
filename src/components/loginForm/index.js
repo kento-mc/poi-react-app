@@ -26,12 +26,12 @@ const LoginForm = (props) => {
     }
   }, [credentials]);
 
-  useEffect(() => {
-    if (authContext.loggedInUser) {
-      console.log('hi');
-      return <Redirect to={{ pathname: "/" }} />;
-    }
-  },[]);
+  // useEffect(() => {
+  //   if (authContext.loggedInUser) {
+  //     console.log('hi');
+  //     return <Redirect to={{ pathname: "/" }} />;
+  //   }
+  // },[]);
 
 
   const getAuth = async (email, password) => {
