@@ -1,6 +1,6 @@
 import React, { useEffect, useState, createContext, useContext } from "react";
 import { getPois } from "../api/poi-api";
-import AuthContextProvider from '../contexts/authContext';
+import { AuthContext } from '../contexts/authContext';
 
 export const PoisContext = createContext(null);
 
@@ -30,11 +30,17 @@ const PoisContextProvider = (props) => {
 
   const [pois, setPois] = useState([]);
 
+  const authContext = useContext(AuthContext);
+
   useEffect(() => {
-    getPois().then((pois) => {
-      setPois(pois);
-    });
-  }, []);
+    fetchPOIs()
+  }, [authContext.auth]);
+
+  const fetchPOIs = async () => {
+    const pois = await getPois();
+    setPois(pois);
+  };
+  
 
   // const [state, dispatch] = useReducer(reducer, { pois: []});
 

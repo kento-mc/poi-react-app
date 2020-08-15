@@ -38,10 +38,12 @@ const LoginForm = (props) => {
       const response = await authenticate(email, password);
       localStorage.setItem('authenticated', response.success);
       localStorage.setItem('token', response.token);
-      const users = await getUsers();
-      authContext.updateAuth(email, response.success, response.token);
-      authContext.usersByEmailSetup(users);
-      authContext.usersByIdSetup(users);
+      localStorage.setItem('email', email);
+      authContext.updateAuth(email, response.success);
+      // const users = await getUsers();
+      // authContext.updateAuth(response.success);
+      // authContext.usersByEmailSetup(users);
+      // authContext.usersByIdSetup(users);
       setToDashboard(true);
     } catch (e) {
       console.log(e);
@@ -57,8 +59,7 @@ const LoginForm = (props) => {
   // const { from } = props.location.state || { from: { pathname: "/" } };
 
   if (toDashboard) {
-    console.log('byeeeeeee');
-    return <Redirect to='/' />;
+    return <Redirect to='/dashboard' />;
   }
   return (
     <Grid.Column width={props.columns}>
