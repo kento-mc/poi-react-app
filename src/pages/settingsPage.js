@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Image } from 'semantic-ui-react';
+import { AuthContext } from '../contexts/authContext';
 import Template from '../components/templateGlobal';
 import Panel from '../components/panel';
 import SettingsForm from '../components/settingsForm';
 
-const SettingsPage = ({ user, pois }) => {
+const SettingsPage = () => {
+
+  const authContext = useContext(AuthContext);
 
   return (
-    <Template user={user}>
+    <Template user={authContext.loggedInUser}>
       <Panel columnCount='8' >
         <SettingsForm />
       </Panel>

@@ -4,7 +4,7 @@ import Template from '../components/templateGlobal';
 import Panel from '../components/panel';
 import LoginForm from '../components/loginForm';
 
-const LoginPage = ({ user, pois }) => {
+const LoginPage = () => {
 
   return (
     <Template>

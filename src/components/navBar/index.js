@@ -1,68 +1,78 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
+import { Link } from "react-router-dom";
 import { Menu } from 'semantic-ui-react'
 
-export default class NavBar extends Component {
-  state = { 
-    activeItem: 'home', 
-    user: this.props.user
-  }
+const NavBar = ({ user }) => {
 
-  menu = (user, activeItem) => {
+  const [activeItem, setActiveItem] = useState('home')
+
+  const menu = (user, activeItem) => {
     if (user) {
       return (
         <>
-          <Menu.Item
-            name='dashboard'
-            active={activeItem === 'dashboard'}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            name="points of interest"
-            active={activeItem === 'points of interest'}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            name='settings'
-            active={activeItem === 'settings'}
-            onClick={this.handleItemClick}
-          />
+          <Link to='/dashboard'>
+            <Menu.Item
+              name='dashboard'
+              active={activeItem === 'dashboard'}
+              onClick={handleItemClick}
+            />
+          </Link>
+          <Link to='/pois'>
+            <Menu.Item
+              name="points of interest"
+              active={activeItem === 'points of interest'}
+              onClick={handleItemClick}
+            />
+          </Link>
+          <Link to='/settings'>
+            <Menu.Item
+              name='settings'
+              active={activeItem === 'settings'}
+              onClick={handleItemClick}
+            />
+          </Link>
           <Menu.Item
             name='log out'
             active={activeItem === 'log out'}
-            onClick={this.handleItemClick}
+            onClick={handleItemClick}
           />
         </>
       )
     }else {
       return (
         <>
-          <Menu.Item
-            name='log in'
-            active={activeItem === 'log in'}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            name="sign up"
-            active={activeItem === 'sign up'}
-            onClick={this.handleItemClick}
-          />
+          <Link to='/login'>
+            <Menu.Item
+              name='log in'
+              active={activeItem === 'log in'}
+              onClick={handleItemClick}
+            />
+          </Link>
+          <Link to='/signup'>
+            <Menu.Item
+              name="sign up"
+              active={activeItem === 'sign up'}
+              onClick={handleItemClick}
+            />
+          </Link>
         </>
       )
     }
   };
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  const handleItemClick = (e, { name }) => setActiveItem({ activeItem: name })
 
-  render() {
-    const { user, activeItem } = this.state
-
-    return (
-      <Menu inverted>
+  return (
+    <Menu inverted>
+      <Link to='/dashboard'>
         <header className="header item">Points of Interest</header>
-        <div class="right menu">
-          {this.menu(user, activeItem)}
-        </div>
-      </Menu>
-    )
-  }
+      </Link>
+      <div class="right menu">
+        {menu(user, activeItem)}
+      </div>
+    </Menu>
+  )
+  
 }
+
+export default  NavBar;

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../contexts/authContext';
 import { PoisContext } from '../contexts/poisContext';
 import Template from '../components/templateGlobal';
 import AddPoiForm from '../components/addPoiForm';
@@ -6,28 +7,13 @@ import PoiTabs from '../components/poiTabs';
 import Panel from '../components/panel';
 import AddCategories from '../components/addCategories';
 
-const DashboardPage = ({ user }) => {
+const DashboardPage = () => {
   
+  const authContext = useContext(AuthContext);
   const poisContext = useContext(PoisContext);
 
-  // const [pois, setPois] = useState([]);
-
-  // useEffect(() => {
-  //   getPois().then((pois) => {
-  //     console.log(pois);
-  //     setPois(pois);
-  //   });
-  // }, [pois]);
-
-  const tempUser = {
-    firstName: 'Homer',
-    lastName: 'Simpson',
-    fullName: 'Homer Simpson',
-    isAdmin: false
-  };
-
   return (
-    <Template user={tempUser}>
+    <Template user={authContext.loggedInUser}>
       <Panel columnCount='10' >
         <PoiTabs pois={poisContext.pois} />
       </Panel>

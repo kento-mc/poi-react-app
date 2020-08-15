@@ -50,7 +50,7 @@ const AuthContextProvider = (props) => {
     setUsersByEmail(userEmailKeys);
   }
 
-  const usersByIdSetup = (users) => {
+  const usersByIdSetup = () => {
     setUsersByID(userIdKeys);
   }
 
@@ -70,6 +70,7 @@ const AuthContextProvider = (props) => {
       value={{
         auth: auth?.auth,
         token: auth?.token,
+        loggedInUser: loggedInUser,
         updateAuth: updateAuth,
         usersByEmailSetup: usersByEmailSetup,
         usersByIdSetup: usersByIdSetup,
