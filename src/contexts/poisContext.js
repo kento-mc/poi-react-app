@@ -33,7 +33,7 @@ const PoisContextProvider = (props) => {
 //////////////////////////////////////////////////////
 
   const [pois, setPois] = useState([]);
-  const [user, setUser] = useState(null);
+  const [poiUser, setPoiUser] = useState(null);
   const [userPOIs, setUserPOIs] = useState([]);
 
   // useEffect(() => {
@@ -41,14 +41,13 @@ const PoisContextProvider = (props) => {
   // }, []);
 
   useEffect(() => {
-    if (user) getUserPOIs(user);
-  }, [user]);
+    if (poiUser) getUserPOIs(poiUser);
+  }, [poiUser]);
 
   const getAllPOIs = async (user) => {
     const pois = await getPois();
     setPois(pois);
-    setUser(user);
-    console.log('is this reached?');
+    setPoiUser(user);
   };
 
   const getUserPOIs = (user) => {
@@ -91,7 +90,6 @@ const PoisContextProvider = (props) => {
       value={{
         pois: pois,
         getAllPOIs: getAllPOIs,
-        setUser: setUser,
         getUserPOIs: getUserPOIs
         // favorites: state.favorites,
         // addToFavorites: addToFavorites,

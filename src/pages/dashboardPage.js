@@ -14,8 +14,7 @@ const DashboardPage = () => {
 
   useEffect(() => {
     poisContext.getAllPOIs(authContext.loggedInUser);
-    console.log('Dashboard useEffect');
-  }, []);
+  }, [authContext.loggedInUser]);
 
   return (
     <Template user={authContext.loggedInUser}>
