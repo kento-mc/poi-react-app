@@ -89,6 +89,7 @@ const PoisContextProvider = (props) => {
     <PoisContext.Provider
       value={{
         pois: pois,
+        userPOIs: userPOIs,
         getAllPOIs: getAllPOIs,
         getUserPOIs: getUserPOIs
         // favorites: state.favorites,
