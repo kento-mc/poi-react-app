@@ -1,46 +1,67 @@
-import React, { useEffect, useState, createContext, useContext } from "react";
+import React, { useEffect, useState, useReducer, createContext, useContext } from "react";
 import { getPois } from "../api/poi-api";
 import { AuthContext } from '../contexts/authContext';
 
 export const PoisContext = createContext(null);
 
-// const reducer = (state, action) => {
-//   switch (action.type) {
-//     case "add-favorite":
-//       return {
-//         movies: state.movies.filter((m) => m.id !== action.payload.movie.id),
-//         favorites: [...state.favorites, action.payload.movie],
-//       };
-//     case "load-pois":
-//       return { pois: [...action.payload.pois]};
-//     case "add-review":
-//       return {
-//         movies: [...state.movies],
-//         favorites: [
-//           ...state.favorites.filter((m) => m.id !== action.payload.movie.id),
-//           { ...action.payload.movie, review: action.payload.review },
-//         ],
-//       };
-//     default:
-//       return state;
-//   }
-// };
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "add-favorite":
+      return {
+        movies: state.movies.filter((m) => m.id !== action.payload.movie.id),
+        favorites: [...state.favorites, action.payload.movie],
+      };
+    case "load-all-pois":
+      return { pois: [...action.payload.pois]};
+    case "add-review":
+      return {
+        movies: [...state.movies],
+        favorites: [
+          ...state.favorites.filter((m) => m.id !== action.payload.movie.id),
+          { ...action.payload.movie, review: action.payload.review },
+        ],
+      };
+    default:
+      return state;
+  }
+};
 
 const PoisContextProvider = (props) => {
 
-  const [pois, setPois] = useState([]);
 
-  const authContext = useContext(AuthContext);
+
+//////////////////////////////////////////////////////
+
+  const [pois, setPois] = useState([]);
+  const [user, setUser] = useState(null);
+  const [userPOIs, setUserPOIs] = useState([]);
+
+  // useEffect(() => {
+  //   getAllPOIs()
+  // }, []);
 
   useEffect(() => {
-    fetchPOIs()
-  }, [authContext.auth]);
+    if (user) getUserPOIs(user);
+  }, [user]);
 
-  const fetchPOIs = async () => {
+  const getAllPOIs = async (user) => {
     const pois = await getPois();
     setPois(pois);
+    setUser(user);
+    console.log('is this reached?');
   };
-  
+
+  const getUserPOIs = (user) => {
+    const uPOIs = pois.filter(poi => poi.contributor === user._id);
+    console.log(uPOIs)
+    setUserPOIs(uPOIs);
+  };
+
+//////////////////////////////////////////////////////
+
+
+
+  // const authContext = useContext(AuthContext);
 
   // const [state, dispatch] = useReducer(reducer, { pois: []});
 
@@ -54,16 +75,24 @@ const PoisContextProvider = (props) => {
   // }; 
 
   // useEffect(() => {
-  //   getPois().then((pois) => {
-  //     dispatch({ type: "load-pois", payload: { pois } });
-  //   });
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  //   const getAllPOIs = async () => {
+  //     console.log(authContext.auth);
+
+  //     const pois = await getPois();
+  //     dispatch({ type: "load-all-pois", payload: { pois } });
+  //   };
+  //   // if (authContext.auth) {
+  //     getAllPOIs();
+  //   // }
+  // }, [authContext.auth]);
 
   return (
     <PoisContext.Provider
       value={{
-        pois: pois
+        pois: pois,
+        getAllPOIs: getAllPOIs,
+        setUser: setUser,
+        getUserPOIs: getUserPOIs
         // favorites: state.favorites,
         // addToFavorites: addToFavorites,
         // addReview: addReview,
