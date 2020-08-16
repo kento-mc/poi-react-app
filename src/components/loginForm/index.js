@@ -22,6 +22,7 @@ const LoginForm = (props) => {
   useEffect(() => {
     if (credentials) {
       getAuth(credentials.email, credentials.password);
+      console.log('Login Form useEffect');
     }
   }, [credentials]);
 

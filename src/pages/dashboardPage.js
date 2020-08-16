@@ -12,6 +12,10 @@ const DashboardPage = () => {
   const authContext = useContext(AuthContext);
   const poisContext = useContext(PoisContext);
 
+  useEffect(() => {
+    poisContext.getAllPOIs(authContext.loggedInUser);
+  }, [authContext.loggedInUser]);
+
   return (
     <Template user={authContext.loggedInUser}>
       <Panel columnCount='10' >

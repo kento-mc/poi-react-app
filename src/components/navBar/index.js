@@ -4,7 +4,7 @@ import { Menu } from 'semantic-ui-react'
 
 const NavBar = ({ user }) => {
 
-  const [activeItem, setActiveItem] = useState('home')
+  const [activeItem, setActiveItem] = useState('dashboard')
 
   const menu = (user, activeItem) => {
     if (user) {
