@@ -24,15 +24,20 @@ const Router = (props) => {
     poisContext.getAllPOIs(authContext.loggedInUser);
   }, [authContext.loggedInUser]);
 
-  let displayedPOIs = poisContext.userPOIs
-    .filter(poi => {
-      return poi.name.toLowerCase().search(poiFilter.toLowerCase()) !== -1;
-    })
-    .filter(poi => {
-      return  catCount > 0
-        ? poi.categories.includes(Number(categoryFilter))
-        : true;
-    });
+  const displayedPOIs = (pois) => {
+    return pois
+      .filter(poi => {
+        return poi.name.toLowerCase().search(poiFilter.toLowerCase()) !== -1;
+      })
+      .filter(poi => {
+        return  catCount > 0
+          ? poi.categories.includes(Number(categoryFilter))
+          : true;
+      });
+  }
+
+  let userPOIs = displayedPOIs(poisContext.userPOIs);
+  let allPOIs = displayedPOIs(poisContext.pois);
 
   const handleChange = (type, value) => {
     if (type === "name") setPoiFilter(value);
@@ -47,7 +52,7 @@ const Router = (props) => {
             render={props => {
               return <DashboardPage {...props} 
                 user={authContext.loggedInUser} 
-                pois={displayedPOIs}
+                pois={userPOIs}
                 listHeader={listHeader}
                 catCount={catCount} 
                 handleChange={handleChange} 
@@ -59,7 +64,7 @@ const Router = (props) => {
             render={props => {
               return <PoiListPage {...props} 
                 user={authContext.loggedInUser} 
-                pois={displayedPOIs}
+                pois={allPOIs}
                 listHeader={listHeader}
                 catCount={catCount} 
                 handleChange={handleChange} 
