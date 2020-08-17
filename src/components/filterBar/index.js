@@ -33,9 +33,9 @@ const FilterBar = (props) => {
   return (
     <Table basic='very' compact='very'>
       <Table.Row>
-        <Table.Cell verticalAlign='middle'>
+        {/* <Table.Cell verticalAlign='middle'>
           <Header as='h2'>{listHeader}</Header>
-        </Table.Cell>
+        </Table.Cell> */}
         <Table.Cell textAlign='right'>
           <Input 
             onChange={handleTextChange}
