@@ -3,7 +3,7 @@ import { Tab } from 'semantic-ui-react';
 import PoiList from '../poiList';
 import PoiMap from '../poiMap';
 
-const PoiTabs = ({ pois }) => {
+const PoiTabs = ({ user, pois }) => {
 
   const [poiFilter, setPoiFilter] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("0");
@@ -29,12 +29,12 @@ const PoiTabs = ({ pois }) => {
   const panes = [
     { menuItem: 'List View', render: () => (
       <Tab.Pane>
-        <PoiList pois={displayedPOIs} onUserInput={handleChange} poiCount={displayedPOIs.length} />
+        <PoiList user={user} pois={displayedPOIs} onUserInput={handleChange} poiCount={displayedPOIs.length} />
       </Tab.Pane> 
     )},
     { menuItem: 'Map View', render: () => (
       <Tab.Pane>
-        <PoiMap poi={poi} />
+        <PoiMap pois={displayedPOIs} onUserInput={handleChange} poiCount={displayedPOIs.length} />
       </Tab.Pane>
     )},
     { menuItem: 'Loadinig', render: () => 

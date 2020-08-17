@@ -3,15 +3,15 @@ import { Table } from 'semantic-ui-react';
 import POI from '../poiListSingle';
 import FilterBar from "../filterBar";
 
-const poiList = ({ pois }) => {
+const poiList = (props) => {
 
-  const poiList = pois?.map(poi => (
+  const poiList = props.pois?.map(poi => (
     <POI key={poi.id} poi={poi} />
   ));
 
   return (
     <>
-      <FilterBar />
+      <FilterBar user={props.user} onUserInput={props.onUserInput} poiCount={props.poiCount} />
       <Table>
         <Table.Header>
           <Table.Row>

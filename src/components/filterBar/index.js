@@ -1,15 +1,25 @@
-import React from 'react'
-import { Dropdown, Input, Header, Table } from 'semantic-ui-react'
+import React, { useContext } from 'react';
+import { Dropdown, Input, Header, Table } from 'semantic-ui-react';
+import { AuthContext } from '../../contexts/authContext';
+import { authenticate } from '../../api/poi-api';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 const FilterBar = (props) => {
 
-  const user = 'Homer';
-  const listHeader = `${user}'s Points of Interest`;
+  const authContext = useContext(AuthContext);
+  const listHeader = `${ props.user ? props.user.firstName : 'User' }'s Points of Interest`;
+  // const [listHeader, setListHeader] = useState("User's Points of Interest");
 
   const options = [
     { key: 'name-des', text: 'Name/Des', value: 'name-des' },
     { key: 'categories', text: 'Categories', value: 'categories' },
   ]
+
+  // useEffect(() => {
+  //   // setListHeader(`${ authContext.auth ? authContext.loggedInUser.firstName : 'User' }'s Points of Interest`);
+  //   console.log(props);
+  // }, []);
 
   const handleChange = (e, type, value) => {
     e.preventDefault();

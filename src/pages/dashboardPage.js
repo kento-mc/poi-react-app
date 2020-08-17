@@ -19,7 +19,7 @@ const DashboardPage = () => {
   return (
     <Template user={authContext.loggedInUser}>
       <Panel columnCount='10' >
-        <PoiTabs pois={poisContext.userPOIs} />
+        <PoiTabs user ={authContext.loggedInUser} pois={poisContext.userPOIs} />
       </Panel>
       <Panel columnCount='6' >
         <AddPoiForm />
