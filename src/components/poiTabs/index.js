@@ -5,25 +5,6 @@ import PoiMap from '../poiMap';
 
 const PoiTabs = ({ pois }) => {
 
-  // const [poiFilter, setPoiFilter] = useState("");
-  // const [categoryFilter, setCategoryFilter] = useState("0");
-  // const catCount = Number(categoryFilter);
-
-  // let displayedPOIs = pois
-  //   .filter(poi => {
-  //     return poi.name.toLowerCase().search(poiFilter.toLowerCase()) !== -1;
-  //   })
-  //   .filter(poi => {
-  //     return  catCount > 0
-  //       ? poi.categories.includes(Number(categoryFilter))
-  //       : true;
-  //   });
-
-  // const handleChange = (type, value) => {
-  //   if (type === "name") setPoiFilter(value);
-  //   else setCategoryFilter(value);
-  // };
-
   let poi;
   pois ? poi = pois[0] : poi = {}
 

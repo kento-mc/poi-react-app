@@ -31,25 +31,19 @@ const FilterBar = (props) => {
   };
 
   return (
-    <Table basic='very' compact='very'>
-      <Table.Row>
-        {/* <Table.Cell verticalAlign='middle'>
-          <Header as='h2'>{listHeader}</Header>
-        </Table.Cell> */}
-        <Table.Cell textAlign='right'>
-          <Input 
-            onChange={handleTextChange}
-            label={{ icon: 'filter' }}
-            action={
-              <Dropdown button basic floating options={options} defaultValue='name-des' />
-            }
-            placeholder='Filter...' 
-            style={{align: 'right'}}
-          />
-        </Table.Cell>
-      </Table.Row>
-    </Table>
+    <>
+      <Input fluid
+        onChange={handleTextChange}
+        label={{ icon: 'filter' }}
+        action={
+          <Dropdown button basic floating options={options} defaultValue='name-des' />
+        }
+        placeholder='Filter...' 
+        // style={{align: 'right'}}
+      />
+      <br />
+    </>
   )
-}
+};
 
-export default FilterBar
+export default FilterBar;
