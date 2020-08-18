@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import { AuthContext } from '../../contexts/authContext';
 import { PoisContext } from '../../contexts/poisContext';
+import { CategoriesContext } from '../../contexts/categoriesContext';
 import DashboardPage from '../../pages/dashboardPage';
 import PoiListPage from "../../pages/poiListPage";
 import PoiDetailPage from "../../pages/poiDetailPage";
@@ -13,6 +14,7 @@ const Router = (props) => {
 
   const authContext = useContext(AuthContext);
   const poisContext = useContext(PoisContext);
+  const categoriesContext = useContext(CategoriesContext);
   
   const [poiFilter, setPoiFilter] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
@@ -21,7 +23,10 @@ const Router = (props) => {
   const listHeader = `${ authContext.loggedInUser ? authContext.loggedInUser.firstName + '\'s Points of Interest' : '' }`;
 
   useEffect(() => {
-    if (authContext.loggedInUser) poisContext.getAllPOIs(authContext.loggedInUser);
+    if (authContext.loggedInUser) {
+      poisContext.getAllPOIs(authContext.loggedInUser);
+      categoriesContext.getAllCategories(authContext.loggedInUser);
+    }
   }, [authContext.loggedInUser]);
 
   const displayedPOIs = (pois) => {

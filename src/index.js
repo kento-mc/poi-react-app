@@ -4,7 +4,7 @@ import 'fomantic-ui-css/semantic.css';
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import AuthContextProvider from './contexts/authContext';
 import PoisContextProvider from './contexts/poisContext';
-import Template from './components/templateGlobal';
+import CategoriesContextProvider from './contexts/categoriesContext';
 import Router from './components/router';
 
 const App = () => {
@@ -12,9 +12,9 @@ const App = () => {
   return (
       <AuthContextProvider>
         <PoisContextProvider>
-          {/* <Template> */}
+          <CategoriesContextProvider>
             <Router/>
-          {/* </Template> */}
+          </CategoriesContextProvider>
         </PoisContextProvider>
       </AuthContextProvider>
   );

@@ -78,3 +78,16 @@ export const getPois = async () => {
   .then(res => res.json())
   // .then(json => json.results);
 };
+
+export const getCategories = async () => {
+  return fetch(
+    `${apiURL}/api/categories`, {
+      method: 'get',
+      headers: {
+        'Authorization': 'bearer ' + localStorage.getItem('token'), 
+      },  
+    }
+  )
+  .then(res => res.json())
+  // .then(json => json.results);
+};
