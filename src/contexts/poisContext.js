@@ -52,7 +52,7 @@ const PoisContextProvider = (props) => {
 
   const getUserPOIs = (user) => {
     const uPOIs = pois.filter(poi => poi.contributor === user._id);
-    console.log(uPOIs)
+    console.log(uPOIs);
     setUserPOIs(uPOIs);
   };
 

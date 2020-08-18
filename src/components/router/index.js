@@ -15,33 +15,37 @@ const Router = (props) => {
   const poisContext = useContext(PoisContext);
   
   const [poiFilter, setPoiFilter] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("0");
+  const [categoryFilter, setCategoryFilter] = useState("");
   
-  const catCount = Number(categoryFilter);
+  const categoryID = categoryFilter.length;
   const listHeader = `${ authContext.loggedInUser ? authContext.loggedInUser.firstName + '\'s Points of Interest' : '' }`;
 
   useEffect(() => {
-    poisContext.getAllPOIs(authContext.loggedInUser);
+    if (authContext.loggedInUser) poisContext.getAllPOIs(authContext.loggedInUser);
   }, [authContext.loggedInUser]);
 
   const displayedPOIs = (pois) => {
-    return pois
+    const filteredPOIs = pois
       .filter(poi => {
         return poi.name.toLowerCase().search(poiFilter.toLowerCase()) !== -1;
       })
       .filter(poi => {
-        return  catCount > 0
-          ? poi.categories.includes(Number(categoryFilter))
+        return  categoryID > 0
+          ? poi.categories.includes(categoryFilter)
           : true;
       });
+    return filteredPOIs;
   }
 
   let userPOIs = displayedPOIs(poisContext.userPOIs);
   let allPOIs = displayedPOIs(poisContext.pois);
 
   const handleChange = (type, value) => {
-    if (type === "name") setPoiFilter(value);
-    else setCategoryFilter(value);
+    if (type === "name") {
+      setPoiFilter(value) 
+    } else {
+      setCategoryFilter(value);
+    }
   };
 
   return (
@@ -54,7 +58,6 @@ const Router = (props) => {
                 user={authContext.loggedInUser} 
                 pois={userPOIs}
                 listHeader={listHeader}
-                catCount={catCount} 
                 handleChange={handleChange} 
               />
             }}
@@ -66,7 +69,6 @@ const Router = (props) => {
                 user={authContext.loggedInUser} 
                 pois={allPOIs}
                 listHeader={listHeader}
-                catCount={catCount} 
                 handleChange={handleChange} 
               />
             }}

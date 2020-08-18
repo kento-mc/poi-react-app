@@ -1,25 +1,12 @@
-import React, { useContext } from 'react';
-import { Dropdown, Input, Header, Table } from 'semantic-ui-react';
-import { AuthContext } from '../../contexts/authContext';
-import { authenticate } from '../../api/poi-api';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import React from 'react';
+import { Dropdown, Input } from 'semantic-ui-react';
 
 const FilterBar = (props) => {
 
-  const authContext = useContext(AuthContext);
-  const listHeader = `${ props.user ? props.user.firstName : 'User' }'s Points of Interest`;
-  // const [listHeader, setListHeader] = useState("User's Points of Interest");
-
   const options = [
-    { key: 'name-des', text: 'Name/Des', value: 'name-des' },
-    { key: 'categories', text: 'Categories', value: 'categories' },
+    { key: 'cat-1', text: 'Category 1', value: '1' },
+    { key: 'cat-2', text: 'Category 2', value: '2' },
   ]
-
-  // useEffect(() => {
-  //   // setListHeader(`${ authContext.auth ? authContext.loggedInUser.firstName : 'User' }'s Points of Interest`);
-  //   console.log(props);
-  // }, []);
 
   const handleChange = (e, type, value) => {
     e.preventDefault();
@@ -30,17 +17,26 @@ const FilterBar = (props) => {
     handleChange(e, "name", e.target.value);
   };
 
+  const handleCategoryChange = e => {
+    handleChange(e, "category", e.target.textContent);
+  };
+
   return (
     <>
       <Input fluid
         onChange={handleTextChange}
-        label={{ icon: 'filter' }}
-        action={
-          <Dropdown button basic floating options={options} defaultValue='name-des' />
-        }
+        // action={
+          
+        // }
+        icon='filter'
+        iconPosition='left'
         placeholder='Filter...' 
         // style={{align: 'right'}}
       />
+      <Dropdown button basic floating 
+            onChange={handleCategoryChange}
+            fluid multiple selection options={options} 
+            placeholder='All Cagegories' />
       <br />
     </>
   )
