@@ -20,8 +20,9 @@ const poiListSingle = ({ poi }) => {
         <div>Lon: {poi.location.lon}</div>
       </Table.Cell>
       <Table.Cell>
-        <div>category 1</div>
-        <div>category 2</div>
+        {poi.categories.map((cat, i) => (
+            <div>{cat.name}</div>
+        ))}
       </Table.Cell>
       <Table.Cell>{poi.contributor.fullName}</Table.Cell>
     </Table.Row>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, createContext, useContext } from 'react';
-import { authenticate, getUser, getUsers, getPois } from '../api/poi-api';
+import { authenticate, getUsers, getPois } from '../api/poi-api';
 
 export const AuthContext = createContext();
 
