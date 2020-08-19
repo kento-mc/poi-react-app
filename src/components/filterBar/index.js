@@ -1,12 +1,39 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Dropdown, Input } from 'semantic-ui-react';
+import { AuthContext } from '../../contexts/authContext';
+import { CategoriesContext } from '../../contexts/categoriesContext';
 
 const FilterBar = (props) => {
 
-  const options = [
-    { key: 'cat-1', text: 'Category 1', value: '1' },
-    { key: 'cat-2', text: 'Category 2', value: '2' },
-  ]
+  const authContext = useContext(AuthContext);
+  const categoriesContext = useContext(CategoriesContext);
+
+  const [options, setOptions] = useState('');
+
+  useEffect(() => {
+
+    let adminUser;
+
+    if (authContext.loggedInUser) {
+      for (let user of authContext.users) {
+        if (user.isAdmin && user.firstName === 'Admin') {
+          adminUser = user;
+          break;
+        }
+      }
+      
+      const availableCats = categoriesContext.categories.filter(cat => {
+        return cat.contributor === adminUser._id || cat.contributor === authContext.loggedInUser._id;
+      });
+
+      const options = availableCats.map((cat, i) => (
+        { key: `cat-${i}`, text: cat.name, value: i }
+      ));
+
+      setOptions(options);
+    }
+  },[])
+
 
   const handleChange = (e, type, value) => {
     e.preventDefault();
@@ -36,7 +63,7 @@ const FilterBar = (props) => {
       <Dropdown button basic floating 
             onChange={handleCategoryChange}
             fluid multiple selection options={options} 
-            placeholder='All Cagegories' />
+            placeholder='All Categories' />
       <br />
     </>
   )

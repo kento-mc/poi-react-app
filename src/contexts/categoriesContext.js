@@ -12,7 +12,8 @@ const CategoriesContextProvider = (props) => {
   const [userCategories, setUserCategories] = useState([]);
 
   useEffect(() => {
-    if (catUser) getUserCategories(catUser);
+    if (catUser) getUserCustomCats(catUser);
+    console.log(categories);
   }, [catUser]);
 
   const getAllCategories = async (user) => {
@@ -21,7 +22,7 @@ const CategoriesContextProvider = (props) => {
     setCatUser(user);
   };
 
-  const getUserCategories = (user) => {
+  const getUserCustomCats = (user) => {
     const uCats = categories.filter(cat => cat.contributor === user._id);
     console.log(uCats);
     setUserCustomCats (uCats);
@@ -33,9 +34,8 @@ const CategoriesContextProvider = (props) => {
       value={{
         categories: categories,
         userCustomCats: userCustomCats,
-        userCategories: userCategories,
         getAllCategories: getAllCategories,
-        getUserCategories: getUserCategories
+        getUserCustomCats: getUserCustomCats
       }}
     >
       {props.children}

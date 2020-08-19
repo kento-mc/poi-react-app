@@ -35,9 +35,18 @@ const Router = (props) => {
         return poi.name.toLowerCase().search(poiFilter.toLowerCase()) !== -1;
       })
       .filter(poi => {
-        return  categoryID > 0
-          ? poi.categories.includes(categoryFilter)
-          : true;
+        if (categoryID > 0) {
+          // let hasCategory;
+          for (let cat of poi.categories) {
+            return cat.name === categoryFilter ? true : false;
+          }
+        } else {
+          return true;
+        }
+        
+        // return  categoryID > 0
+        //   ? poi.categories.name === categoryFilter
+        //   : true;
       });
     return filteredPOIs;
   }
