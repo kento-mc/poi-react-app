@@ -12,6 +12,7 @@ const PoiListPage = ({ user, pois, listHeader, handleChange }) => {
       <Panel columnCount='16' >
         <Header as='H2'>{`${listHeader} (${pois.length})`}</Header>
         <FilterBar onUserInput={handleChange} />
+        <br />
         <PoiTabs pois={pois} />
       </Panel>
     </Template>

@@ -32,7 +32,8 @@ const Router = (props) => {
   const displayedPOIs = (pois) => {
     const filteredPOIs = pois
       .filter(poi => {
-        return poi.name.toLowerCase().search(poiFilter.toLowerCase()) !== -1;
+        return poi.name.toLowerCase().search(poiFilter.toLowerCase()) !== -1 ||
+               poi.description.toLowerCase().search(poiFilter.toLowerCase()) !== -1;
       });
 
       let catFiltered = []
