@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from 'semantic-ui-react';
+import { Grid, Header } from 'semantic-ui-react';
 import Template from '../components/templateGlobal';
 import AddPoiForm from '../components/addPoiForm';
 import FilterBar from '../components/filterBar';
@@ -14,6 +14,7 @@ const DashboardPage = ({ user, pois, listHeader, handleChange }) => {
       <Panel columnCount='10' >
         <Header as='H2'>{`${listHeader} (${pois?.length})`}</Header>
         <FilterBar onUserInput={handleChange} />
+        <br />
         <PoiTabs pois={pois} />
       </Panel>
       <Panel columnCount='6' >

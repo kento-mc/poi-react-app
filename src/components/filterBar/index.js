@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Dropdown, Input } from 'semantic-ui-react';
+import { Dropdown, Grid, Input } from 'semantic-ui-react';
 import { AuthContext } from '../../contexts/authContext';
 import { CategoriesContext } from '../../contexts/categoriesContext';
 
@@ -49,23 +49,22 @@ const FilterBar = (props) => {
   };
 
   return (
-    <>
-      <Input fluid
-        onChange={handleTextChange}
-        // action={
-          
-        // }
-        icon='filter'
-        iconPosition='left'
-        placeholder='Filter...' 
-        // style={{align: 'right'}}
-      />
-      <Dropdown button basic floating 
-            onChange={handleCategoryChange}
-            fluid multiple selection options={options} 
-            placeholder='All Categories' />
-      <br />
-    </>
+    <Grid>
+      <Grid.Column width='8'>
+        <Input fluid
+          onChange={handleTextChange}
+          icon='filter'
+          iconPosition='left'
+          placeholder='Filter Name/Description...' 
+        />
+      </Grid.Column>
+      <Grid.Column width='8'>
+        <Dropdown button basic floating 
+              onChange={handleCategoryChange}
+              fluid multiple selection options={options} 
+              placeholder='All Categories' />
+      </Grid.Column>
+    </Grid>  
   )
 };
 
