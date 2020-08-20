@@ -83,7 +83,8 @@ const Router = (props) => {
           <Route 
             exact path={"/dashboard"}
             render={props => {
-              return <DashboardPage {...props} 
+              return <DashboardPage {...props}
+                updateAuth={authContext.updateAuth} 
                 user={authContext.loggedInUser} 
                 pois={userPOIs}
                 listHeader={listHeader}
@@ -95,6 +96,7 @@ const Router = (props) => {
             exact path={"/pois"}
             render={props => {
               return <PoiListPage {...props} 
+                updateAuth={authContext.updateAuth} 
                 user={authContext.loggedInUser} 
                 pois={allPOIs}
                 listHeader={listHeader}

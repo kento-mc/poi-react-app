@@ -75,31 +75,34 @@ const FilterBar = ({ onUserInput, hasContributorFilter }) => {
   };
 
   return (
-    <Grid>
-      <Grid.Column width={textWidth}>
-        <Input fluid
-          onChange={handleTextChange}
-          icon='filter'
-          iconPosition='left'
-          placeholder='Filter Name/Description...' 
-        />
-      </Grid.Column>
-      <Grid.Column width={dropDownWidth}>
-        <Dropdown button basic floating 
-              onChange={handleCategoryChange}
-              fluid multiple selection options={catOptions} 
-              placeholder='All Categories' />
-      </Grid.Column>
-      {hasContributorFilter ? 
+    <>
+      <Grid>
+        <Grid.Column width={textWidth}>
+          <Input fluid
+            onChange={handleTextChange}
+            icon='filter'
+            iconPosition='left'
+            placeholder='Filter Name/Description...' 
+          />
+        </Grid.Column>
         <Grid.Column width={dropDownWidth}>
           <Dropdown button basic floating 
-              onChange={handleContributorChange}
-              fluid selection options={contOptions} 
-              placeholder='All Users' />
-        </Grid.Column> :
-        <span />
-      }
-    </Grid>  
+                onChange={handleCategoryChange}
+                fluid multiple selection options={catOptions} 
+                placeholder='All Categories' />
+        </Grid.Column>
+        {hasContributorFilter ? 
+          <Grid.Column width={dropDownWidth}>
+            <Dropdown button basic floating 
+                onChange={handleContributorChange}
+                fluid selection options={contOptions} 
+                placeholder='All Users' />
+          </Grid.Column> :
+          <span />
+        }
+      </Grid>
+    <br />
+    </>
   )
 };
 
