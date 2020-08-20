@@ -37,15 +37,15 @@ const LoginForm = (props) => {
   const getAuth = async (email, password) => {
     try {
       const response = await authenticate(email, password);
-      localStorage.setItem('authenticated', response.success);
-      localStorage.setItem('token', response.token);
-      localStorage.setItem('email', email);
-      authContext.updateAuth(email, response.success);
-      // const users = await getUsers();
-      // authContext.updateAuth(response.success);
-      // authContext.usersByEmailSetup(users);
-      // authContext.usersByIdSetup(users);
-      setToDashboard(true);
+      if (response.success) {
+        localStorage.setItem('authenticated', response.success);
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('email', email);
+        authContext.updateAuth(email, response.success);
+        setToDashboard(true);
+      } else {
+        alert('Wrong!')
+      }
     } catch (e) {
       console.log(e);
     }
