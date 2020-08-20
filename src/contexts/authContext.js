@@ -1,11 +1,12 @@
 import React, { useEffect, useState, createContext, useContext } from 'react';
-import { authenticate, getUser, getUsers, getPois } from '../api/poi-api';
+import { authenticate, getUsers, getPois } from '../api/poi-api';
 
 export const AuthContext = createContext();
 
 const AuthContextProvider = (props) => {
 
   const [auth, setAuth] = useState(null);
+  const [users, setUsers] = useState(null);
   const [usersByEmail, setUsersByEmail] = useState(null);
   const [usersByID, setUsersByID] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -40,6 +41,7 @@ const AuthContextProvider = (props) => {
 
   const usersSetup = async (auth) => {
     const users = await getUsers();
+    setUsers(users);
     usersByEmailSetup(users);
     usersByIdSetup(users);
   }
@@ -86,6 +88,7 @@ const AuthContextProvider = (props) => {
       value={{
         auth: auth?.auth,
         token: auth?.token,
+        users: users,
         loggedInUser: loggedInUser,
         updateAuth: updateAuth,
         // usersByEmailSetup: usersByEmailSetup,

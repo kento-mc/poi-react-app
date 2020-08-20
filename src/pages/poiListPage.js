@@ -1,19 +1,19 @@
-import React, { useContext} from 'react';
-import { AuthContext } from '../contexts/authContext';
-import { PoisContext } from '../contexts/poisContext';
+import React from 'react';
+import { Header } from 'semantic-ui-react';
 import Template from '../components/templateGlobal';
 import Panel from '../components/panel';
+import FilterBar from '../components/filterBar';
 import PoiTabs from '../components/poiTabs';
 
-const PoiListPage = () => {
+const PoiListPage = ({ user, pois, listHeader, handleChange }) => {
   
-  const authContext = useContext(AuthContext);
-  const poisContext = useContext(PoisContext);
-
   return (
-    <Template user={authContext.loggedInUser}>
+    <Template user={user}>
       <Panel columnCount='16' >
-        <PoiTabs pois={poisContext.pois} />
+        <Header as='H2'>{`${listHeader} (${pois.length})`}</Header>
+        <FilterBar onUserInput={handleChange} hasContributorFilter='false' />
+        <br />
+        <PoiTabs pois={pois} />
       </Panel>
     </Template>
   )

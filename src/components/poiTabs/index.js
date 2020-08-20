@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Tab } from 'semantic-ui-react';
 import PoiList from '../poiList';
 import PoiMap from '../poiMap';
@@ -7,6 +7,7 @@ const PoiTabs = ({ pois }) => {
 
   let poi;
   pois ? poi = pois[0] : poi = {}
+
   const panes = [
     { menuItem: 'List View', render: () => (
       <Tab.Pane>
@@ -15,7 +16,7 @@ const PoiTabs = ({ pois }) => {
     )},
     { menuItem: 'Map View', render: () => (
       <Tab.Pane>
-        <PoiMap poi={poi} />
+        <PoiMap pois={pois} />
       </Tab.Pane>
     )},
     { menuItem: 'Loadinig', render: () => 

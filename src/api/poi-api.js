@@ -43,9 +43,9 @@ export const getUsers = async () => {
   // .then(json => json.results);
 };
 
-export const getUser = async (user) => {
+export const getUser = async (userID) => {
   return fetch(
-    `${apiURL}/api/users/${user.id}`, {
+    `${apiURL}/api/users/${userID}`, {
       method: 'get',
       credentials: 'omit',
       headers: {
@@ -69,6 +69,32 @@ export const getUser = async (user) => {
 export const getPois = async () => {
   return fetch(
     `${apiURL}/api/pois`, {
+      method: 'get',
+      headers: {
+        'Authorization': 'bearer ' + localStorage.getItem('token'), 
+      },  
+    }
+  )
+  .then(res => res.json())
+  // .then(json => json.results);
+};
+
+export const getCategories = async () => {
+  return fetch(
+    `${apiURL}/api/categories`, {
+      method: 'get',
+      headers: {
+        'Authorization': 'bearer ' + localStorage.getItem('token'), 
+      },  
+    }
+  )
+  .then(res => res.json())
+  // .then(json => json.results);
+};
+
+export const getCategory = async (id) => {
+  return fetch(
+    `${apiURL}/api/categories/${id}`, {
       method: 'get',
       headers: {
         'Authorization': 'bearer ' + localStorage.getItem('token'), 

@@ -1,7 +1,6 @@
 import React from "react";
 import { Table } from 'semantic-ui-react';
 import POI from '../poiListSingle';
-import FilterBar from "../filterBar";
 
 const poiList = ({ pois }) => {
 
@@ -11,7 +10,7 @@ const poiList = ({ pois }) => {
 
   return (
     <>
-      <FilterBar />
+      {/* <FilterBar user={props.user} onUserInput={props.onUserInput} poiCount={props.poiCount} /> */}
       <Table>
         <Table.Header>
           <Table.Row>

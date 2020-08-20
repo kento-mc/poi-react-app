@@ -1,25 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../contexts/authContext';
-import { PoisContext } from '../contexts/poisContext';
+import React from 'react';
+import { Grid, Header } from 'semantic-ui-react';
 import Template from '../components/templateGlobal';
 import AddPoiForm from '../components/addPoiForm';
+import FilterBar from '../components/filterBar';
 import PoiTabs from '../components/poiTabs';
 import Panel from '../components/panel';
 import AddCategories from '../components/addCategories';
 
-const DashboardPage = () => {
+const DashboardPage = ({ user, pois, listHeader, handleChange }) => {
   
-  const authContext = useContext(AuthContext);
-  const poisContext = useContext(PoisContext);
-
-  useEffect(() => {
-    poisContext.getAllPOIs(authContext.loggedInUser);
-  }, [authContext.loggedInUser]);
-
   return (
-    <Template user={authContext.loggedInUser}>
+    <Template user={user}>
       <Panel columnCount='10' >
-        <PoiTabs pois={poisContext.userPOIs} />
+        <Header as='H2'>{`${listHeader} (${pois?.length})`}</Header>
+        <FilterBar onUserInput={handleChange} />
+        <br />
+        <PoiTabs pois={pois} />
       </Panel>
       <Panel columnCount='6' >
         <AddPoiForm />

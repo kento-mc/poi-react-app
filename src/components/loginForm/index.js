@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import useForm from "react-hook-form";
 import { Form, Grid, Segment, Button, Header  } from 'semantic-ui-react';
 import { Redirect } from "react-router-dom";
-import { authenticate, getUsers } from '../../api/poi-api';
+import { authenticate } from '../../api/poi-api';
 import { AuthContext } from '../../contexts/authContext';
 import { withRouter } from "react-router-dom";
 
@@ -37,15 +37,15 @@ const LoginForm = (props) => {
   const getAuth = async (email, password) => {
     try {
       const response = await authenticate(email, password);
-      localStorage.setItem('authenticated', response.success);
-      localStorage.setItem('token', response.token);
-      localStorage.setItem('email', email);
-      authContext.updateAuth(email, response.success);
-      // const users = await getUsers();
-      // authContext.updateAuth(response.success);
-      // authContext.usersByEmailSetup(users);
-      // authContext.usersByIdSetup(users);
-      setToDashboard(true);
+      if (response.success) {
+        localStorage.setItem('authenticated', response.success);
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('email', email);
+        authContext.updateAuth(email, response.success);
+        setToDashboard(true);
+      } else {
+        alert('Wrong!')
+      }
     } catch (e) {
       console.log(e);
     }
