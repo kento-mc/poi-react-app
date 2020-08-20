@@ -12,7 +12,7 @@ const DashboardPage = ({ user, pois, listHeader, handleChange }) => {
   return (
     <Template user={user}>
       <Panel columnCount='10' >
-        <Header as='H2'>{`${listHeader} (${pois.length})`}</Header>
+        <Header as='H2'>{`${listHeader} (${pois?.length})`}</Header>
         <FilterBar onUserInput={handleChange} />
         <PoiTabs pois={pois} />
       </Panel>

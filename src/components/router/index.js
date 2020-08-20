@@ -33,22 +33,29 @@ const Router = (props) => {
     const filteredPOIs = pois
       .filter(poi => {
         return poi.name.toLowerCase().search(poiFilter.toLowerCase()) !== -1;
-      })
-      .filter(poi => {
-        if (categoryID > 0) {
-          // let hasCategory;
-          for (let cat of poi.categories) {
-            return cat.name === categoryFilter ? true : false;
-          }
-        } else {
-          return true;
-        }
-        
-        // return  categoryID > 0
-        //   ? poi.categories.name === categoryFilter
-        //   : true;
       });
-    return filteredPOIs;
+
+      let catFiltered = []
+
+      if (categoryID > 0) {
+
+        for (let poi of filteredPOIs) {
+          let included = 0;
+          for (let cat of categoryFilter) {
+            for (let poiCat of poi.categories) {
+              if (poiCat.name === cat) {
+                included++;
+              }
+            }            
+          }
+          if (included === categoryFilter.length) {
+            catFiltered.push(poi);
+          }
+        }
+      } else {
+        catFiltered = [...filteredPOIs];
+      }
+    return catFiltered;
   }
 
   let userPOIs = displayedPOIs(poisContext.userPOIs);

@@ -27,7 +27,7 @@ const FilterBar = (props) => {
       });
 
       const options = availableCats.map((cat, i) => (
-        { key: `cat-${i}`, text: cat.name, value: i }
+        { key: `cat-${i}`, text: cat.name, value: cat.name }
       ));
 
       setOptions(options);
@@ -44,8 +44,8 @@ const FilterBar = (props) => {
     handleChange(e, "name", e.target.value);
   };
 
-  const handleCategoryChange = e => {
-    handleChange(e, "category", e.target.textContent);
+  const handleCategoryChange = (e, data) => {
+    handleChange(e, "category", data.value);
   };
 
   return (
