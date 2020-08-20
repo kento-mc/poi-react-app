@@ -18,6 +18,8 @@ const Router = (props) => {
   
   const [poiFilter, setPoiFilter] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
+  const [contributorFilter, setContributorFilter] = useState("");
+
   
   const categoryID = categoryFilter.length;
   const listHeader = `${ authContext.loggedInUser ? authContext.loggedInUser.firstName + '\'s Points of Interest' : '' }`;
@@ -34,6 +36,9 @@ const Router = (props) => {
       .filter(poi => {
         return poi.name.toLowerCase().search(poiFilter.toLowerCase()) !== -1 ||
                poi.description.toLowerCase().search(poiFilter.toLowerCase()) !== -1;
+      })
+      .filter(poi => {
+        return poi.contributor.fullName.search(contributorFilter) !== -1;
       });
 
       let catFiltered = []
@@ -63,10 +68,12 @@ const Router = (props) => {
   let allPOIs = displayedPOIs(poisContext.pois);
 
   const handleChange = (type, value) => {
-    if (type === "name") {
+    if (type === 'name') {
       setPoiFilter(value) 
-    } else {
+    } else if (type === 'category') {
       setCategoryFilter(value);
+    } else {
+      setContributorFilter(value);
     }
   };
 
