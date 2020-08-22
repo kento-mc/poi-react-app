@@ -17,7 +17,9 @@ const DashboardPage = ({ updateAuth, user, pois, listHeader, handleChange }) => 
   //   }  
   // }, []) 
 
-  const poisLength  = pois.length > 0 ? `(${pois.length})` : '';
+  // const poisLength  = pois.length > 0 ? `(${pois.length})` : '';
+  const poisLength  = '';
+
 
   if (!pois) {
     return (
