@@ -88,14 +88,14 @@ const FilterBar = ({ onUserInput, hasContributorFilter }) => {
         <Grid.Column width={dropDownWidth}>
           <Dropdown button basic floating 
                 onChange={handleCategoryChange}
-                fluid multiple selection options={catOptions} 
+                fluid multiple selection options={catOptions || [] } 
                 placeholder='All Categories' />
         </Grid.Column>
         {hasContributorFilter ? 
           <Grid.Column width={dropDownWidth}>
             <Dropdown button basic floating 
                 onChange={handleContributorChange}
-                fluid selection options={contOptions} 
+                fluid selection options={contOptions || []} 
                 placeholder='All Users' />
           </Grid.Column> :
           <span />

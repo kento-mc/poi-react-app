@@ -10,17 +10,26 @@ import AddCategories from '../components/addCategories';
 
 const DashboardPage = ({ updateAuth, user, pois, listHeader, handleChange }) => {
   
-  useEffect(() => {
-    if (!user && localStorage.authenticated) {
-      updateAuth(localStorage.email, localStorage.authenticated);
-      return <Redirect to='/dashboard' />;
-    }  
-  }, []) 
+  // useEffect(() => {
+  //   if (!user && localStorage.authenticated) {
+  //     updateAuth(localStorage.email, localStorage.authenticated);
+  //     return <Redirect to='/dashboard' />;
+  //   }  
+  // }, []) 
 
+  const poisLength  = pois.length > 0 ? `(${pois.length})` : '';
+
+  if (!pois) {
+    return (
+      <>
+        Loading...
+      </>
+    )
+  }
   return (
     <Template user={user}>
       <Panel columnCount='10' >
-        <Header as='H2'>{`${listHeader} (${pois?.length})`}</Header>
+        <Header as='h2'>{`${listHeader} ${poisLength}`}</Header>
         <FilterBar onUserInput={handleChange} />
         <PoiTabs pois={pois} />
       </Panel>

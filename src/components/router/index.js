@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import PrivateRoute from '../privateRoute';
 import { AuthContext } from '../../contexts/authContext';
 import { PoisContext } from '../../contexts/poisContext';
 import { CategoriesContext } from '../../contexts/categoriesContext';
@@ -26,8 +27,11 @@ const Router = (props) => {
 
   useEffect(() => {
     if (authContext.loggedInUser) {
-      poisContext.getAllPOIs(authContext.loggedInUser);
-      categoriesContext.getAllCategories(authContext.loggedInUser);
+      const getPoisCats = async (user) => {
+        await poisContext.getAllPOIs(user);
+        await categoriesContext.getAllCategories(user);
+      }
+      getPoisCats(authContext.loggedInUser);
     }
   }, [authContext.loggedInUser]);
 
@@ -104,11 +108,11 @@ const Router = (props) => {
               />
             }}
           />
-          <Route path="/pois/:id" component={PoiDetailPage} />
-          <Route path="/pois/:id/update" component={PoiDetailPage} />
-          <Route path="/pois/:id/images" component={PoiDetailPage} />
-          <Route path="/pois/:id/images/:image" component={PoiDetailPage} />
-          <Route exact path="/settings" component={SettingsPage} />
+          <PrivateRoute path="/pois/:id" component={PoiDetailPage} />
+          <PrivateRoute path="/pois/:id/update" component={PoiDetailPage} />
+          <PrivateRoute path="/pois/:id/images" component={PoiDetailPage} />
+          <PrivateRoute path="/pois/:id/images/:image" component={PoiDetailPage} />
+          <PrivateRoute exact path="/settings" component={SettingsPage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/signup" component={SignupPage} />
           <Route path="/" component={authContext.loggedInUser ? DashboardPage : LoginPage} />

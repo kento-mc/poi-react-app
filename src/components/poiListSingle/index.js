@@ -3,7 +3,7 @@ import { Image, Table } from 'semantic-ui-react';
 
 const poiListSingle = ({ poi }) => {
   return (
-    <Table.Row>
+    <Table.Row key={poi._id}>
       <Table.Cell>
         <Image alt="poi thumbnail" width="150" height="70"
           src={
@@ -21,7 +21,7 @@ const poiListSingle = ({ poi }) => {
       </Table.Cell>
       <Table.Cell>
         {poi.categories.map((cat, i) => (
-            <div>{cat.name}</div>
+            <div key={cat._id}>{cat.name}</div>
         ))}
       </Table.Cell>
       <Table.Cell>{poi.contributor.fullName}</Table.Cell>

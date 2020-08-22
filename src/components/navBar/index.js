@@ -31,11 +31,13 @@ const NavBar = ({ user }) => {
               onClick={handleItemClick}
             />
           </Link>
-          <Menu.Item
-            name='log out'
-            active={activeItem === 'log out'}
-            onClick={handleItemClick}
-          />
+          <Link to='/logout'>
+            <Menu.Item
+              name='log out'
+              active={activeItem === 'log out'}
+              onClick={handleItemClick}
+            />
+          </Link>
         </>
       )
     }else {
@@ -67,7 +69,7 @@ const NavBar = ({ user }) => {
       <Link to='/dashboard'>
         <header className="header item">Points of Interest</header>
       </Link>
-      <div class="right menu">
+      <div className="right menu">
         {menu(user, activeItem)}
       </div>
     </Menu>

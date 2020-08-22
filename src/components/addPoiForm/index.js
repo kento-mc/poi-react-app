@@ -9,7 +9,7 @@ const categoryOptions = [
 
 const AddPoiForm = ({ columnCount }) => {
   return (
-    <Segment fluid>
+    <Segment>
       <Form>
         <Header>Add a new Point of Interest</Header>
         <Form.Field
@@ -48,8 +48,8 @@ const AddPoiForm = ({ columnCount }) => {
           search
           searchInput={{ id: 'form-select-control-category' }}
         />
-        <label for="file-upload" class="ui blue button">
-          <i class="image icon"></i>
+        <label htmlFor="file-upload" className="ui blue button">
+          <i className="image icon"></i>
           Upload Image
         </label>
         <input id="file-upload" type="file" name="image" style={{display: "none"}}></input>

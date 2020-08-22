@@ -9,11 +9,16 @@ const PoiTabs = ({ pois }) => {
   pois ? poi = pois[0] : poi = {}
 
   const panes = [
+    pois.length > 0 ?
     { menuItem: 'List View', render: () => (
       <Tab.Pane>
         <PoiList pois={pois} />
       </Tab.Pane> 
-    )},
+    )} :
+    { menuItem: 'List View', render: () => 
+      <Tab.Pane loading>
+      </Tab.Pane> 
+    },
     { menuItem: 'Map View', render: () => (
       <Tab.Pane>
         <PoiMap pois={pois} />

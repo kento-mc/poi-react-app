@@ -18,27 +18,29 @@ const AddCategories = ({ columnCount }) => {
   ));
 
   return (
-    <Segment fluid>
+    <Segment>
       <Table basic='very' compact='very'>
-        <Table.Row>
-          <Table.Cell verticalAlign='middle'>
-            <Header as='h4' floated='left'>{catHeader}</Header>
-          </Table.Cell>
-          <Table.Cell>
-            <Form>
-              <Form.Field
-                id='form-input-control-name'
-                control={Input}
-                placeholder='Add new category'
-                action={
-                  <Button id='form-button-control-public' content='+' color='blue' />
-                }
-              />
-            </Form> 
-          </Table.Cell>
-        </Table.Row>  
+        <Table.Body>
+          <Table.Row>
+            <Table.Cell verticalAlign='middle'>
+              <Header as='h4' floated='left'>{catHeader}</Header>
+            </Table.Cell>
+            <Table.Cell>
+              <Form>
+                <Form.Field
+                  id='form-input-control-name'
+                  control={Input}
+                  placeholder='Add new category'
+                  action={
+                    <Button id='form-button-control-public' content='+' color='blue' />
+                  }
+                />
+              </Form> 
+            </Table.Cell>
+          </Table.Row>  
+        </Table.Body>
       </Table>
-      <Card.Group stackable='true' itemsPerRow='3'>
+      <Card.Group stackable={true} itemsPerRow='3'>
         {catList}
       </Card.Group>
     </Segment>

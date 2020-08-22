@@ -6,7 +6,7 @@ import { authenticate } from '../../api/poi-api';
 import { AuthContext } from '../../contexts/authContext';
 import { withRouter } from "react-router-dom";
 
-const LoginForm = (props) => {
+const LoginForm = (props, {user, updateAuth}) => {
 
   const authContext = useContext(AuthContext);
 
@@ -28,10 +28,10 @@ const LoginForm = (props) => {
 
   // useEffect(() => {
   //   if (authContext.loggedInUser) {
-  //     console.log('hi');
-  //     return <Redirect to={{ pathname: "/" }} />;
+  //     setToDashboard(true);
+  //     console.log('Login Form useEffect 2')
   //   }
-  // },[]);
+  // }, [authContext.loggedInUser]);
 
 
   const getAuth = async (email, password) => {
@@ -41,7 +41,7 @@ const LoginForm = (props) => {
         localStorage.setItem('authenticated', response.success);
         localStorage.setItem('token', response.token);
         localStorage.setItem('email', email);
-        authContext.updateAuth(email, response.success);
+        await authContext.updateAuth(email, response.success);
         setToDashboard(true);
       } else {
         alert('Wrong!')
@@ -60,11 +60,12 @@ const LoginForm = (props) => {
   // const { from } = props.location.state || { from: { pathname: "/" } };
 
   if (toDashboard) {
+    // return <Redirect to={from} />;
     return <Redirect to='/dashboard' />;
   }
   return (
     <Grid.Column width={props.columns}>
-      <Segment fluid>
+      <Segment>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Header>Login</Header>
             <Form.Input
