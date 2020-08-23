@@ -1,27 +1,44 @@
 import React, { useReducer, createContext, useContext } from "react";
 import { getUser, getPois, getCategories } from "../api/poi-api";
-import { AuthContext } from './authContext2';
 
 export const PoiContext = createContext(null);
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "load-all-pois":
-      return { pois: [...action.payload.populatedPOIs]};
+      return { 
+        pois: [...action.payload.pois],
+        userPOIs: [...state.userPOIs],
+        categories: [...state.categories],
+        userCustomCats: [...state.userCustomCats]
+      };
     case "load-user-pois":
-      return { userPOIs: [...action.payload.uPOIs]};
+      return { 
+        pois: [...state.pois],
+        userPOIs: [...action.payload.uPOIs],
+        categories: [...state.categories],
+        userCustomCats: [...state.userCustomCats]
+      };
     case "load-categories":
-      return { categories: [...action.payload.cats]};
+      return { 
+        pois: [...state.pois],
+        userPOIs: [...state.userPOIs],
+        categories: [...action.payload.cats],
+        userCustomCats: [...state.userCustomCats]
+      };
     case "load-custom-cats":
-      return { userCustomCats: [...action.payload.uCats]};
+      return { 
+        pois: [...state.pois],
+        userPOIs: [...state.userPOIs],
+        categories: [...state.categories],
+        userCustomCats: [...action.payload.uCats]
+      };
     default:
       return state;
   }
 };
 
 const PoiContextProvider = (props) => {
-
-  const authContext = useContext(AuthContext);
 
   const [state, dispatch] = useReducer(reducer, 
     { 
@@ -33,10 +50,12 @@ const PoiContextProvider = (props) => {
   );
 
   const getPoiData = async (user) => {
-    console.log(user);
+
     const rawPOIs = await getPois();
-    const populatedPOIs = [];
     const cats = await getCategories();
+    console.log('API cat data from PoiContext:');
+    console.log(cats);
+    const populatedPOIs = [];
 
     for (let rawPOI of rawPOIs) {
       const cats = [];
@@ -60,18 +79,39 @@ const PoiContextProvider = (props) => {
       }
       populatedPOIs.push(poi)
     }
-    console.log('Populated pois:');
-    console.log(populatedPOIs);
-    dispatch({ type: "load-all-pois", payload: { populatedPOIs } });
-    const uPOIs = populatedPOIs.filter(poi => poi.contributor._id === user._id);
-    console.log('User pois:\n');
-    console.log(uPOIs);
+    // console.log('Populated pois:');
+    // console.log(populatedPOIs);
+    // dispatch({ type: "load-all-pois", payload: { populatedPOIs } });
+    // const uPOIs = populatedPOIs.filter(poi => poi.contributor._id === user._id);
+    // console.log('User pois from PoiContext:');
+    // console.log(uPOIs);
+    // dispatch({ type: "load-user-pois", payload: { uPOIs } });
+    // dispatch({ type: "load-categories", payload: { cats } });
+    // const uCats = cats.filter(cat => cat.contributor === user._id);
+    // dispatch({ type: "load-custom-cats", payload: { uCats } });
+    return {pois: populatedPOIs, cats: cats};
+  };
+
+
+  const setPOIs = pois => {
+    dispatch({ type: "load-all-pois", payload: { pois } });
+  };
+
+  const setUserPOIs = (user, pois) => {
+    const uPOIs = pois.filter(poi => poi.contributor._id === user._id);
     dispatch({ type: "load-user-pois", payload: { uPOIs } });
+  };
+
+  const setCategories = (cats) => {
     dispatch({ type: "load-categories", payload: { cats } });
+  };
+
+  const setUserCategories = (user, cats) => {
     const uCats = cats.filter(cat => cat.contributor === user._id);
     dispatch({ type: "load-custom-cats", payload: { uCats } });
-
   };
+
+
 
   // const getUserPOIs = (user, pois) => {
   //   const uPOIs = pois.filter(poi => poi.contributor._id === user._id);
@@ -94,7 +134,12 @@ const PoiContextProvider = (props) => {
         pois: state.pois,
         userPOIs: state.userPOIs,
         categories: state.categories,
+        userCustomCats: state.userCustomCats,
         getPoiData: getPoiData,
+        setPOIs: setPOIs,
+        setUserPOIs: setUserPOIs,
+        setCategories: setCategories,
+        setUserCategories: setUserCategories
       }}
     >
       {props.children}
