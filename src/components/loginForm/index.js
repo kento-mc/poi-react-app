@@ -78,7 +78,9 @@ const LoginForm = (props, {user, updateAuth}) => {
   // Either / or the protected path user tried to access.
   const { from } = props.location.state || { from: { pathname: "/" } };
 
-  if (authContext.isAuthenticated === true) {
+  if (authContext.loggedInUser) {
+    console.log('Leaving login page');
+    console.log(authContext);
     return <Redirect to={from} />;
   }
 

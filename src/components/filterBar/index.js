@@ -27,7 +27,7 @@ const FilterBar = ({ onUserInput, hasContributorFilter }) => {
 
     let adminUser;
 
-    if (authContext.loggedInUser) {
+    if (authContext) {
       for (let user of authContext.users) {
         if (user.isAdmin && user.firstName === 'Admin') {
           adminUser = user;
