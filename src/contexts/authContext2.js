@@ -1,22 +1,69 @@
-import React, { useState, createContext, useEffect, useRef } from "react";
+import React, { useState, createContext, useEffect, useReducer, useRef } from "react";
 import { authenticate, getUsers } from '../api/poi-api';
 
 export const AuthContext = createContext(null);
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "load-credentials":
+      return { 
+        credentials: {...action.payload.credentials},
+        isAuthenticated: state.isAuthenticated,
+        users: [...state.users],
+        loggedInUser: state.loggedInUser
+      };
+    case "load-auth":
+      return { 
+        credentials: state.credentials,
+        isAuthenticated: action.payload.auth,
+        users: [...state.users],
+        loggedInUser: state.loggedInUser
+      };
+    case "load-users":
+      return { 
+        credentials: state.credentials,
+        isAuthenticated: state.isAuthenticated,
+        users: [...action.payload.users],
+        loggedInUser: state.loggedInUser
+      };
+    case "load-user":
+      return { 
+        credentials: state.credentials,
+        isAuthenticated: state.isAuthenticated,
+        users: [...state.users],
+        loggedInUser: action.payload.user
+      };
+    default:
+      return state;
+  }
+};
+
 const AuthContextProvider = (props) => {
-  const [credentials, setCredentials] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [users, setUsers] = useState(null);
-  const [loggedInUser, setLoggedInUser] = useState();
+  // const [credentials, setCredentials] = useState(null);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [users, setUsers] = useState(null);
+  // const [loggedInUser, setLoggedInUser] = useState();
+
+  const initialState = localStorage.getItem('auth-state')
+  ? JSON.parse(localStorage.getItem('auth-state'))
+  : { 
+      credentials: null,
+      isAuthenticated: false,
+      users: [],
+      loggedInUser: null
+    };
+
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const isMounted = useRef(null);
 
   useEffect(() => {
     isMounted.current = true;
-    if (credentials && isMounted.current) getAuth(credentials.email, credentials.password);
-    
+    if (state.credentials && isMounted.current) {
+      getAuth(state.credentials.email, state.credentials.password);
+    }  
     return () => isMounted.current = false;
-  }, [credentials])
+  }, [state.credentials])
 
   const authenticateUser = (email, password) => {
     setCredentials({ email: email, password: password })
@@ -30,6 +77,7 @@ const AuthContextProvider = (props) => {
         localStorage.setItem('isAuthenticated', response.success);
         localStorage.setItem('token', response.token);
         localStorage.setItem('email', email);
+        localStorage.setItem('user-state', JSON.stringify(response.user));
         setIsAuthenticated(true);
         setLoggedInUser(response.user);
         console.log('API response user:');
@@ -54,12 +102,31 @@ const AuthContextProvider = (props) => {
     setLoggedInUser(null);
   }
 
+  const setCredentials = (credentials) => {
+    dispatch({ type: "load-credentials", payload: { credentials } })
+  }
+
+  const setIsAuthenticated = (auth) => {
+    dispatch({ type: "load-auth", payload: { auth } })
+
+  };
+
+  const setUsers = (users) => {
+    dispatch({ type: "load-users", payload: { users } })
+
+  };
+
+  const setLoggedInUser = (user) => {
+    dispatch({ type: "load-user", payload: { user } })
+
+  };
+
   return (
     <AuthContext.Provider
       value={{
-        isAuthenticated,
-        users,
-        loggedInUser,
+        isAuthenticated: state.isAuthenticated,
+        users: state.users,
+        loggedInUser: state.loggedInUser,
         authenticateUser,
         signout,
       }}

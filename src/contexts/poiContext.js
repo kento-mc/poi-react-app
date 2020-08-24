@@ -1,4 +1,4 @@
-import React, { useReducer, createContext } from "react";
+import React, { useEffect, useReducer, createContext } from "react";
 import { getUser, getPois, getCategories } from "../api/poi-api";
 
 export const PoiContext = createContext(null);
@@ -7,6 +7,7 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "load-all-pois":
       return { 
+        // poiUser: {...state.user},
         pois: [...action.payload.pois],
         userPOIs: [...state.userPOIs],
         categories: [...state.categories],
@@ -14,6 +15,7 @@ const reducer = (state, action) => {
       };
     case "load-user-pois":
       return { 
+        // poiUser: {...state.user},
         pois: [...state.pois],
         userPOIs: [...action.payload.uPOIs],
         categories: [...state.categories],
@@ -21,6 +23,7 @@ const reducer = (state, action) => {
       };
     case "load-categories":
       return { 
+        // poiUser: {...state.user},
         pois: [...state.pois],
         userPOIs: [...state.userPOIs],
         categories: [...action.payload.cats],
@@ -28,6 +31,7 @@ const reducer = (state, action) => {
       };
     case "load-custom-cats":
       return { 
+        // poiUser: {...state.user},
         pois: [...state.pois],
         userPOIs: [...state.userPOIs],
         categories: [...state.categories],
@@ -40,14 +44,33 @@ const reducer = (state, action) => {
 
 const PoiContextProvider = (props) => {
 
-  const [state, dispatch] = useReducer(reducer, 
-    { 
-      pois: [],
-      userPOIs: [],
-      categories: [],
-      userCustomCats: []
+  const initialState = localStorage.getItem('poi-state')
+    ? JSON.parse(localStorage.getItem('poi-state'))
+    : { 
+        pois: [],
+        userPOIs: [],
+        categories: [],
+        userCustomCats: []
+      };
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    localStorage.setItem('poi-state', JSON.stringify(state));
+  })
+
+  const setPoiData = async (user) => {
+    if (JSON.parse(localStorage.getItem('poi-state')).pois.length === 0 ) {
+      const { pois, cats } = await getPoiData(user);
+      setPOIs(pois);
+      setCategories(cats);
+      setUserPOIs(user, pois);
+      setUserCategories(user, cats);
+    } else {
+      console.log('Loading from local...')
+      setFromLocalStorage();
     }
-  );
+  };
 
   const getPoiData = async (user) => {
 
@@ -79,19 +102,13 @@ const PoiContextProvider = (props) => {
       }
       populatedPOIs.push(poi)
     }
-    console.log('Populated pois:');
-    console.log(populatedPOIs);
-    // dispatch({ type: "load-all-pois", payload: { populatedPOIs } });
-    // const uPOIs = populatedPOIs.filter(poi => poi.contributor._id === user._id);
-    // console.log('User pois from PoiContext:');
-    // console.log(uPOIs);
-    // dispatch({ type: "load-user-pois", payload: { uPOIs } });
-    // dispatch({ type: "load-categories", payload: { cats } });
-    // const uCats = cats.filter(cat => cat.contributor === user._id);
-    // dispatch({ type: "load-custom-cats", payload: { uCats } });
+
     return {pois: populatedPOIs, cats: rawCats};
   };
 
+  const setFromLocalStorage = () => {
+    dispatch({ type: "load-from-local", payload: JSON.parse(localStorage.getItem('poi-state'))});
+  };
 
   const setPOIs = pois => {
     dispatch({ type: "load-all-pois", payload: { pois } });
@@ -111,23 +128,6 @@ const PoiContextProvider = (props) => {
     dispatch({ type: "load-custom-cats", payload: { uCats } });
   };
 
-
-
-  // const getUserPOIs = (user, pois) => {
-  //   const uPOIs = pois.filter(poi => poi.contributor._id === user._id);
-  //   console.log('User pois:\n');
-  //   console.log(uPOIs);
-  //   dispatch({ type: "load-user-pois", payload: { uPOIs } });
-  // };
-
-  // const getCats = async (user) => {
-  //   const cats = await getCategories();
-  //   dispatch({ type: "load-categories", payload: { cats } });
-  //   const uCats = cats.filter(cat => cat.contributor === user._id);
-  //   dispatch({ type: "load-custom-cats", payload: { uCats } });
-  //   return cats;
-  // };
-
   return (
     <PoiContext.Provider
       value={{
@@ -135,6 +135,7 @@ const PoiContextProvider = (props) => {
         userPOIs: state.userPOIs,
         categories: state.categories,
         userCustomCats: state.userCustomCats,
+        setPoiData: setPoiData,
         getPoiData: getPoiData,
         setPOIs: setPOIs,
         setUserPOIs: setUserPOIs,

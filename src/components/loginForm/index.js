@@ -10,64 +10,16 @@ const LoginForm = (props, {user, updateAuth}) => {
   const authContext = useContext(AuthContext);
 
   const { register, errors, handleSubmit, setValue, triggerValidation } = useForm();
-  // const [credentials, setCredentials] = useState(null);
-  // const [toDashboard, setToDashboard] = useState(false);
 
   useEffect(() => {
     register({ name: "email" }, { required: true });
     register({ name: "password" }, { required: true });
   }, [register]);
 
-  // useEffect(() => {
-  //   if (credentials) {
-  //     getAuth(credentials.email, credentials.password);
-  //     console.log('Login Form useEffect');
-  //   }
-  // }, [credentials]);
-
-  // // useEffect(() => {
-  // //   if (authContext.loggedInUser) {
-  // //     setToDashboard(true);
-  // //     console.log('Login Form useEffect 2')
-  // //   }
-  // // }, [authContext.loggedInUser]);
-
-
-  // const getAuth = async (email, password) => {
-  //   try {
-  //     const response = await authenticate(email, password);
-  //     if (response.success) {
-  //       localStorage.setItem('authenticated', response.success);
-  //       localStorage.setItem('token', response.token);
-  //       localStorage.setItem('email', email);
-  //       await authContext.updateAuth(email, response.success);
-  //       setToDashboard(true);
-  //     } else {
-  //       alert('Wrong!')
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
-  // const onSubmit = (data, e) => {
-  //   setCredentials({ email: data.email, password: data.password });
-  // };
-
-  // // console.log(errors);
-  
-  // // const { from } = props.location.state || { from: { pathname: "/" } };
-
-  // if (toDashboard) {
-  //   // return <Redirect to={from} />;
-  //   return <Redirect to='/dashboard' />;
-  // }
-
-
-
-
-
-
+  useEffect(() => {
+    console.log('When is this firing?');
+    console.log(authContext.loggedInUser);
+  })
 
   const onSubmit = (data, e) => {
     authContext.authenticateUser(data.email, data.password);

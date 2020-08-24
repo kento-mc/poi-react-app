@@ -21,24 +21,30 @@ const DashboardPage = (props) => {
   let listHeader = `${ authContext.loggedInUser ? authContext.loggedInUser.firstName + '\'s Points of Interest' : '' }`;
 
   useEffect(() => {
-    console.log('Logged in user from Dashboard:');
-    console.log(authContext.loggedInUser);
-    const setPOIs = async () => {
-      const { pois, cats } = await poiContext.getPoiData(authContext.loggedInUser);
-      poiContext.setPOIs(pois);
-      poiContext.setCategories(cats);
-      poiContext.setUserPOIs(authContext.loggedInUser, pois);
-      poiContext.setUserCategories(authContext.loggedInUser, cats);
-    }
-    try {
-      setPOIs();
-    } catch (e) {
-      console.log(e);
-    }
+    poiContext.setPoiData(authContext.loggedInUser);
+    console.log('this fires')
+    // console.log('Logged in user from Dashboard:');
+    // console.log(authContext.loggedInUser);
+    // const setPOIs = async () => {
+    //   const { pois, cats } = await poiContext.getPoiData(authContext.loggedInUser);
+    //   poiContext.setPOIs(pois);
+    //   poiContext.setCategories(cats);
+    //   poiContext.setUserPOIs(authContext.loggedInUser, pois);
+    //   poiContext.setUserCategories(authContext.loggedInUser, cats);
+    // }
+    // try {
+    //   setPOIs();
+    // } catch (e) {
+    //   console.log(e);
+    // }
   },[]);
 
   useEffect (() => {
-    if (poiContext.pois.length !== 0) {
+    console.log('Dashboard useEffect');
+    console.log(poiContext.pois);
+    // if (poiContext.pois.length !== 0) {
+    if (JSON.parse(localStorage.getItem('poi-state')).pois.length !== 0) {
+      console.log(JSON.parse(localStorage.getItem('poi-state')).pois);
       setIsLoaded(true);
     }
   },[poiContext.pois]);
