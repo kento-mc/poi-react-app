@@ -36,7 +36,7 @@ const PoiListPage = (props) => {
   return (
     <Template user={authContext.loggedInUser}>
       <Panel columnCount='16' >
-        <Header as='H2'>{`All of the wondrous points of interest! (${displayedPOIs(poiContext.pois).length})`}</Header>
+        <Header as='h2'>{`All of the wondrous points of interest! (${displayedPOIs(poiContext.pois).length})`}</Header>
         <FilterBar categories={poiContext.categories} onUserInput={handleChange} hasContributorFilter='true' />
         <PoiTabs pois={displayedPOIs(poiContext.pois)} />
       </Panel>

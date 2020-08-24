@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Image, Table } from 'semantic-ui-react';
 
 const poiListSingle = ({ poi }) => {

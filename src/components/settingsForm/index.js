@@ -3,7 +3,7 @@ import { Button, Form, Header, Input, Segment } from 'semantic-ui-react'
 
 const SettingsForm = () => {
   return (
-    <Segment fluid>
+    <Segment>
       <Form>
         <Header>User Settings</Header>
         <Form.Group widths='equal'>
