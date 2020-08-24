@@ -1,15 +1,21 @@
-import React, { useState, createContext, useEffect } from "react";
-import { authenticate } from '../api/poi-api';
+import React, { useState, createContext, useEffect, useRef } from "react";
+import { authenticate, getUsers } from '../api/poi-api';
 
 export const AuthContext = createContext(null);
 
 const AuthContextProvider = (props) => {
   const [credentials, setCredentials] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [users, setUsers] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState();
 
+  const isMounted = useRef(null);
+
   useEffect(() => {
-    if (credentials) getAuth(credentials.email, credentials.password);
+    isMounted.current = true;
+    if (credentials && isMounted.current) getAuth(credentials.email, credentials.password);
+    
+    return () => isMounted.current = false;
   }, [credentials])
 
   const authenticateUser = (email, password) => {
@@ -34,6 +40,12 @@ const AuthContextProvider = (props) => {
     } catch (e) {
       console.log(e);
     }
+    try {
+      const users = await getUsers();
+      setUsers(users);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const signout = () => {
@@ -46,6 +58,7 @@ const AuthContextProvider = (props) => {
     <AuthContext.Provider
       value={{
         isAuthenticated,
+        users,
         loggedInUser,
         authenticateUser,
         signout,

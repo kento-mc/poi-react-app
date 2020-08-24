@@ -1,16 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Dropdown, Grid, Input } from 'semantic-ui-react';
-import { AuthContext } from '../../contexts/authContext';
-import { CategoriesContext } from '../../contexts/categoriesContext';
+import { AuthContext } from '../../contexts/authContext2';
+import { PoiContext } from '../../contexts/poiContext';
 
 const FilterBar = ({ onUserInput, hasContributorFilter }) => {
 
   const authContext = useContext(AuthContext);
-  const categoriesContext = useContext(CategoriesContext);
+  const poiContext = useContext(PoiContext);
 
   const [catOptions, setCatOptions] = useState('');
   const [contOptions, setContOptions] = useState('');
-
 
   let textWidth;
   let dropDownWidth;
@@ -35,7 +34,7 @@ const FilterBar = ({ onUserInput, hasContributorFilter }) => {
         }
       }
       
-      const availableCats = categoriesContext.categories.filter(cat => {
+      const availableCats = poiContext.categories.filter(cat => {
         return cat.contributor === adminUser._id || cat.contributor === authContext.loggedInUser._id;
       });
 

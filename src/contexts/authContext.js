@@ -1,9 +1,9 @@
 import React, { useEffect, useState, createContext, useContext } from 'react';
 import { authenticate, getUsers, getPois } from '../api/poi-api';
 
-export const AuthContext = createContext();
+export const AuthContextX = createContext();
 
-const AuthContextProvider = (props) => {
+const AuthContextProviderX = (props) => {
 
   const [auth, setAuth] = useState(null);
   const [users, setUsers] = useState(null);
@@ -84,7 +84,7 @@ const AuthContextProvider = (props) => {
   // };
 
   return (
-    <AuthContext.Provider 
+    <AuthContextX.Provider 
       value={{
         auth: auth?.auth,
         token: auth?.token,
@@ -97,8 +97,8 @@ const AuthContextProvider = (props) => {
       }}
     >
       {props.children}
-    </AuthContext.Provider>
+    </AuthContextX.Provider>
   );
 };
 
-export default AuthContextProvider;
+export default AuthContextProviderX;

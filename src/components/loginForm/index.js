@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import useForm from "react-hook-form";
 import { Form, Grid, Segment, Button, Header  } from 'semantic-ui-react';
 import { Redirect } from "react-router-dom";
-import { authenticate } from '../../api/poi-api';
 import { AuthContext } from '../../contexts/authContext2';
 import { withRouter } from "react-router-dom";
 
@@ -80,7 +79,7 @@ const LoginForm = (props, {user, updateAuth}) => {
 
   if (authContext.loggedInUser) {
     console.log('Leaving login page');
-    console.log(authContext);
+    console.log(authContext.loggedInUser);
     return <Redirect to={from} />;
   }
 
