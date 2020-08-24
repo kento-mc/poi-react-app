@@ -21,7 +21,7 @@ const NavBar = ({ user }) => {
               as={NavLink}
               to={'/dashboard'}
               name='dashboard'
-              active={activeItem === 'dashboard'}
+              active={activeItem === 'dashboard' || activeItem === ''}
               onClick={handleItemClick}
             />
             <Menu.Item

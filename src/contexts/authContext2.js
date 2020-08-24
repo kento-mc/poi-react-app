@@ -99,7 +99,7 @@ const AuthContextProvider = (props) => {
       }
     } else {
       console.log('Loading from local...')
-      setFromLocalStorage();
+      // setFromLocalStorage();
     }
   };
 

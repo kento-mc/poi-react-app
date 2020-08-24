@@ -21,8 +21,9 @@ const DashboardPage = (props) => {
   let listHeader = `${ authContext.loggedInUser ? authContext.loggedInUser.firstName + '\'s Points of Interest' : '' }`;
 
   useEffect(() => {
-    poiContext.setPoiData(authContext.loggedInUser);
-    console.log('this fires')
+    if (JSON.parse(localStorage.getItem('poi-state')).pois.length === 0 ) {
+      poiContext.setPoiData(authContext.loggedInUser);
+    }
     // console.log('Logged in user from Dashboard:');
     // console.log(authContext.loggedInUser);
     // const setPOIs = async () => {

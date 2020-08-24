@@ -101,7 +101,7 @@ const App = () => {
               <Route exact path="/login" component={LoginPage} />
               <Route exact path="/signup" component={SignupPage} />
               <Route exact path="/signup" component={SignupPage} />
-              <PrivateRoute path='/' component={DashboardPage} />
+              <Redirect from='/' to='/dashboard' />
               <Redirect from="*" to="/" />
             </Switch>
           </FilterContextProvider>
