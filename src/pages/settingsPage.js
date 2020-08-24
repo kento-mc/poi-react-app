@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Image } from 'semantic-ui-react';
-import { AuthContext } from '../contexts/authContext';
+import { AuthContext } from '../contexts/authContext2';
 import Template from '../components/templateGlobal';
 import Panel from '../components/panel';
 import SettingsForm from '../components/settingsForm';

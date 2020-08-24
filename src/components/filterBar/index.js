@@ -1,16 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Dropdown, Grid, Input } from 'semantic-ui-react';
-import { AuthContext } from '../../contexts/authContext';
-import { CategoriesContext } from '../../contexts/categoriesContext';
+import { AuthContext } from '../../contexts/authContext2';
+import { PoiContext } from '../../contexts/poiContext';
 
-const FilterBar = ({ onUserInput, hasContributorFilter }) => {
+const FilterBar = ({ categories, onUserInput, hasContributorFilter }) => {
 
   const authContext = useContext(AuthContext);
-  const categoriesContext = useContext(CategoriesContext);
+  const poiContext = useContext(PoiContext);
 
   const [catOptions, setCatOptions] = useState('');
   const [contOptions, setContOptions] = useState('');
-
 
   let textWidth;
   let dropDownWidth;
@@ -24,10 +23,11 @@ const FilterBar = ({ onUserInput, hasContributorFilter }) => {
   }
 
   useEffect(() => {
-
+    console.log('Categories?');
+    console.log(categories);
     let adminUser;
 
-    if (authContext.loggedInUser) {
+    if (authContext) {
       for (let user of authContext.users) {
         if (user.isAdmin && user.firstName === 'Admin') {
           adminUser = user;
@@ -35,7 +35,7 @@ const FilterBar = ({ onUserInput, hasContributorFilter }) => {
         }
       }
       
-      const availableCats = categoriesContext.categories.filter(cat => {
+      const availableCats = categories.filter(cat => {
         return cat.contributor === adminUser._id || cat.contributor === authContext.loggedInUser._id;
       });
 
@@ -88,14 +88,14 @@ const FilterBar = ({ onUserInput, hasContributorFilter }) => {
         <Grid.Column width={dropDownWidth}>
           <Dropdown button basic floating 
                 onChange={handleCategoryChange}
-                fluid multiple selection options={catOptions || [] } 
+                fluid multiple selection options={ catOptions || [] } 
                 placeholder='All Categories' />
         </Grid.Column>
         {hasContributorFilter ? 
           <Grid.Column width={dropDownWidth}>
             <Dropdown button basic floating 
                 onChange={handleContributorChange}
-                fluid selection options={contOptions || []} 
+                fluid selection options={ contOptions || [] } 
                 placeholder='All Users' />
           </Grid.Column> :
           <span />

@@ -77,4 +77,4 @@ const NavBar = ({ user }) => {
   
 }
 
-export default  NavBar;
+export default NavBar;

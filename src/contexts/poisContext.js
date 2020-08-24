@@ -1,30 +1,7 @@
 import React, { useEffect, useState, useReducer, createContext, useContext } from "react";
 import { getUser, getPois, getCategory } from "../api/poi-api";
-import { AuthContext } from '../contexts/authContext';
 
 export const PoisContext = createContext(null);
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "add-favorite":
-      return {
-        movies: state.movies.filter((m) => m.id !== action.payload.movie.id),
-        favorites: [...state.favorites, action.payload.movie],
-      };
-    case "load-all-pois":
-      return { pois: [...action.payload.pois]};
-    case "add-review":
-      return {
-        movies: [...state.movies],
-        favorites: [
-          ...state.favorites.filter((m) => m.id !== action.payload.movie.id),
-          { ...action.payload.movie, review: action.payload.review },
-        ],
-      };
-    default:
-      return state;
-  }
-};
 
 const PoisContextProvider = (props) => {
 
