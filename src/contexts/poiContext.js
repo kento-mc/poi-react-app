@@ -52,17 +52,17 @@ const PoiContextProvider = (props) => {
   const getPoiData = async (user) => {
 
     const rawPOIs = await getPois();
-    const cats = await getCategories();
+    const rawCats = await getCategories();
     console.log('API cat data from PoiContext:');
-    console.log(cats);
+    console.log(rawCats);
     const populatedPOIs = [];
 
     for (let rawPOI of rawPOIs) {
       const cats = [];
       const poiUser = await getUser(rawPOI.contributor);
       for (let catId of rawPOI.categories) {
-        const cat = cats.filter((cat) => cat._id === catId);
-        cats.push(cat);
+        const cat = rawCats.filter((cat) => cat._id === catId);
+        cats.push(cat[0]);
       }
       const poi = {
         name: rawPOI.name,
@@ -79,8 +79,8 @@ const PoiContextProvider = (props) => {
       }
       populatedPOIs.push(poi)
     }
-    // console.log('Populated pois:');
-    // console.log(populatedPOIs);
+    console.log('Populated pois:');
+    console.log(populatedPOIs);
     // dispatch({ type: "load-all-pois", payload: { populatedPOIs } });
     // const uPOIs = populatedPOIs.filter(poi => poi.contributor._id === user._id);
     // console.log('User pois from PoiContext:');
@@ -89,7 +89,7 @@ const PoiContextProvider = (props) => {
     // dispatch({ type: "load-categories", payload: { cats } });
     // const uCats = cats.filter(cat => cat.contributor === user._id);
     // dispatch({ type: "load-custom-cats", payload: { uCats } });
-    return {pois: populatedPOIs, cats: cats};
+    return {pois: populatedPOIs, cats: rawCats};
   };
 
 
