@@ -5,7 +5,7 @@ import POI from '../poiListSingle';
 const poiList = ({ pois }) => {
 
   const poiList = pois?.map(poi => (
-    <POI key={poi.id} poi={poi} />
+    <POI key={poi._id} poi={poi} />
   ));
 
   return (

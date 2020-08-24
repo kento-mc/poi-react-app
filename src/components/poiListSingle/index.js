@@ -3,7 +3,7 @@ import { Image, Table } from 'semantic-ui-react';
 
 const poiListSingle = ({ poi }) => {
   return (
-    <Table.Row key={poi._id}>
+    <Table.Row>
       <Table.Cell>
         <Image alt="poi thumbnail" width="150" height="70"
           src={

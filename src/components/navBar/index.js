@@ -10,53 +10,53 @@ const NavBar = ({ user }) => {
     if (user) {
       return (
         <>
-          <Link to='/dashboard'>
-            <Menu.Item
-              name='dashboard'
-              active={activeItem === 'dashboard'}
-              onClick={handleItemClick}
-            />
-          </Link>
-          <Link to='/pois'>
-            <Menu.Item
-              name="points of interest"
-              active={activeItem === 'points of interest'}
-              onClick={handleItemClick}
-            />
-          </Link>
-          <Link to='/settings'>
-            <Menu.Item
-              name='settings'
-              active={activeItem === 'settings'}
-              onClick={handleItemClick}
-            />
-          </Link>
-          <Link to='/logout'>
-            <Menu.Item
-              name='log out'
-              active={activeItem === 'log out'}
-              onClick={handleItemClick}
-            />
-          </Link>
+          <Menu.Item
+            as={Link}
+            to={'/dashboard'}
+            name='dashboard'
+            active={activeItem === 'dashboard'}
+            onClick={handleItemClick}
+          />
+          <Menu.Item
+            as={Link}
+            to={'/pois'}
+            name="points of interest"
+            active={activeItem === 'points of interest'}
+            onClick={handleItemClick}
+          />
+          <Menu.Item
+            as={Link}
+            to={'/settings'}
+            name='settings'
+            active={activeItem === 'settings'}
+            onClick={handleItemClick}
+          />
+          <Menu.Item
+            as={Link}
+            to={'/logout'}
+            name='log out'
+            active={activeItem === 'log out'}
+            onClick={handleItemClick}
+          />
         </>
       )
     }else {
       return (
         <>
-          <Link to='/login'>
-            <Menu.Item
-              name='log in'
-              active={activeItem === 'log in'}
-              onClick={handleItemClick}
-            />
-          </Link>
-          <Link to='/signup'>
-            <Menu.Item
-              name="sign up"
-              active={activeItem === 'sign up'}
-              onClick={handleItemClick}
-            />
-          </Link>
+          <Menu.Item
+            as={Link}
+            to={'/login'}
+            name='log in'
+            active={activeItem === 'log in'}
+            onClick={handleItemClick}
+          />
+          <Menu.Item
+            as={Link}
+            to={'/signup'}
+            name="sign up"
+            active={activeItem === 'sign up'}
+            onClick={handleItemClick}
+          />
         </>
       )
     }
