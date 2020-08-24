@@ -56,7 +56,7 @@ const DashboardPage = (props) => {
   return (
     <Template user={authContext.loggedInUser}>
       <Panel columnCount='10' >
-        <Header as='h2'>{`${listHeader} (${poiContext.userPOIs.length})`}</Header>
+        <Header as='h2'>{`${listHeader} (${displayedPOIs(poiContext.userPOIs).length})`}</Header>
         <FilterBar categories={poiContext.categories} onUserInput={handleChange} />
         <PoiTabs pois={displayedPOIs(poiContext.userPOIs)} />
       </Panel>
