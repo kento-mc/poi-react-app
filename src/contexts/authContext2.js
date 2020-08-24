@@ -5,6 +5,8 @@ export const AuthContext = createContext(null);
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case "load-from-local":
+      return JSON.parse(localStorage.getItem('auth-state'));
     case "load-credentials":
       return { 
         credentials: {...action.payload.credentials},
@@ -39,10 +41,6 @@ const reducer = (state, action) => {
 };
 
 const AuthContextProvider = (props) => {
-  // const [credentials, setCredentials] = useState(null);
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
-  // const [users, setUsers] = useState(null);
-  // const [loggedInUser, setLoggedInUser] = useState();
 
   const initialState = localStorage.getItem('auth-state')
   ? JSON.parse(localStorage.getItem('auth-state'))
@@ -54,6 +52,10 @@ const AuthContextProvider = (props) => {
     };
 
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    localStorage.setItem('auth-state', JSON.stringify(state));
+  })
 
   const isMounted = useRef(null);
 
@@ -70,29 +72,34 @@ const AuthContextProvider = (props) => {
   };
 
   const getAuth = async (email, password) => {
-    // validate user
-    try {
-      const response = await authenticate(email, password);
-      if (response.success) {
-        localStorage.setItem('isAuthenticated', response.success);
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('email', email);
-        localStorage.setItem('user-state', JSON.stringify(response.user));
-        setIsAuthenticated(true);
-        setLoggedInUser(response.user);
-        console.log('API response user:');
-        console.log(response.user);
-      } else {
-        alert('Wrong!')
+    if (JSON.parse(localStorage.getItem('poi-state')).pois.length === 0 ) {
+      // validate user
+      try {
+        const response = await authenticate(email, password);
+        if (response.success) {
+          localStorage.setItem('isAuthenticated', response.success);
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('email', email);
+          localStorage.setItem('user-state', JSON.stringify(response.user));
+          setIsAuthenticated(true);
+          setLoggedInUser(response.user);
+          console.log('API response user:');
+          console.log(response.user);
+        } else {
+          alert('Wrong!')
+        }
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
-    }
-    try {
-      const users = await getUsers();
-      setUsers(users);
-    } catch (e) {
-      console.log(e);
+      try {
+        const users = await getUsers();
+        setUsers(users);
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      console.log('Loading from local...')
+      setFromLocalStorage();
     }
   };
 
@@ -101,6 +108,10 @@ const AuthContextProvider = (props) => {
     setIsAuthenticated(false);
     setLoggedInUser(null);
   }
+
+  const setFromLocalStorage = () => {
+    dispatch({ type: "load-from-local", payload: JSON.parse(localStorage.getItem('poi-state'))});
+  };
 
   const setCredentials = (credentials) => {
     dispatch({ type: "load-credentials", payload: { credentials } })

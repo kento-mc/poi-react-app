@@ -5,6 +5,8 @@ export const PoiContext = createContext(null);
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case "load-from-local":
+      return JSON.parse(localStorage.getItem('poi-state'));
     case "load-all-pois":
       return { 
         // poiUser: {...state.user},

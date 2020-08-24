@@ -7,7 +7,7 @@ const NavBar = ({ user }) => {
 
   const [activeItem, setActiveItem] = useState(null);
 
-  const handleItemClick = (e, { name }) =>     setActiveItem(name);
+  const handleItemClick = (e, { name }) => setActiveItem(name);
 
   return (
     <Menu inverted>

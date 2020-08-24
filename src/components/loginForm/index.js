@@ -16,11 +16,6 @@ const LoginForm = (props, {user, updateAuth}) => {
     register({ name: "password" }, { required: true });
   }, [register]);
 
-  useEffect(() => {
-    console.log('When is this firing?');
-    console.log(authContext.loggedInUser);
-  })
-
   const onSubmit = (data, e) => {
     authContext.authenticateUser(data.email, data.password);
   };
