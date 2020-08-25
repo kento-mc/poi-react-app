@@ -9,6 +9,7 @@ import FilterContextProvider from './contexts/filterContext';
 import DashboardPage from './pages/dashboardPage';
 import PoiListPage from './pages/poiListPage';
 import PoiDetailPage from './pages/poiDetailPage';
+import PoiImagePage from './pages/poiImagePage';
 import SettingsPage from './pages/settingsPage';
 import LoginPage from './pages/loginPage';
 import SignupPage from './pages/signupPage';
@@ -24,9 +25,9 @@ const App = () => {
               <PrivateRoute path='/dashboard' component={DashboardPage} />
               <PrivateRoute exact path='/pois' component={PoiListPage} />
               <PrivateRoute exact path="/pois/:id" component={PoiDetailPage} />
-              <PrivateRoute path="/pois/:id/update" component={PoiDetailPage} />
-              <PrivateRoute path="/pois/:id/images" component={PoiDetailPage} />
-              <PrivateRoute path="/pois/:id/images/:image" component={PoiDetailPage} />
+              <PrivateRoute exact path="/pois/:id/update" component={PoiDetailPage} />
+              <PrivateRoute exact path="/pois/:id/images" component={PoiDetailPage} />
+              <PrivateRoute exact path="/pois/:id/images/:image" component={PoiImagePage} />
               <PrivateRoute exact path="/settings" component={SettingsPage} />
               <Route exact path="/login" component={LoginPage} />
               <Route exact path="/signup" component={SignupPage} />

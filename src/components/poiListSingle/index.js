@@ -1,6 +1,6 @@
 import React from "react";
 import './poiListSingle.css';
-import { Redirect, withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Image, Table } from 'semantic-ui-react';
 
 const PoiListSingle = ({ poi, history }) => {
