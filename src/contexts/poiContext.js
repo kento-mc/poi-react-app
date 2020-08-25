@@ -108,6 +108,13 @@ const PoiContextProvider = (props) => {
     return {pois: populatedPOIs, cats: rawCats};
   };
 
+  const clearData = () => {
+    setPOIs([]);
+    setUserPOIs(null, []);
+    setCategories([]);
+    setUserCategories(null, []);
+  };
+
   const setFromLocalStorage = () => {
     dispatch({ type: "load-from-local", payload: JSON.parse(localStorage.getItem('poi-state'))});
   };
@@ -142,7 +149,8 @@ const PoiContextProvider = (props) => {
         setPOIs: setPOIs,
         setUserPOIs: setUserPOIs,
         setCategories: setCategories,
-        setUserCategories: setUserCategories
+        setUserCategories: setUserCategories,
+        clearData: clearData
       }}
     >
       {props.children}

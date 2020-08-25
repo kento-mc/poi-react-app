@@ -1,14 +1,29 @@
-import React, { useState } from 'react'
-import { Link, NavLink } from "react-router-dom";
+import React, { useState, useContext } from 'react'
+import { Link, NavLink, Redirect } from "react-router-dom";
 import { Menu } from 'semantic-ui-react'
-import { useEffect } from 'react';
+import { AuthContext } from '../../contexts/authContext2';
+import { PoiContext } from '../../contexts/poiContext';
+import { withRouter } from "react-router-dom";
 
 const NavBar = ({ user }) => {
 
+  const authContext = useContext(AuthContext);
+  const poiContext = useContext(PoiContext);
+
   const [activeItem, setActiveItem] = useState(null);
+  const [logout, setLogout] = useState(false);
 
   const handleItemClick = (e, { name }) => setActiveItem(name);
 
+  const handleLogOut = (e) => {
+    poiContext.clearData();
+    authContext.signout();
+    setLogout(true);
+  };
+
+  if (logout) {
+    return <Redirect to='/login' />;
+  }
   return (
     <Menu inverted>
       <Link to='/dashboard'>
@@ -39,11 +54,9 @@ const NavBar = ({ user }) => {
               onClick={handleItemClick}
             />
             <Menu.Item
-              as={NavLink}
-              to={'/logout'}
               name='log out'
               active={activeItem === 'log out'}
-              onClick={handleItemClick}
+              onClick={handleLogOut}
             />
           </>
           :
@@ -67,82 +80,6 @@ const NavBar = ({ user }) => {
       </div>
     </Menu>
   )
-
-  // const [activeItem, setActiveItem] = useState({ activeItem: 'dashboard' })
-
-  // const menu = (user, activeItem) => {
-  //   if (user) {
-  //     return (
-  //       <>
-  //         <Menu.Item
-  //           as={Link}
-  //           to={'/dashboard'}
-  //           name='dashboard'
-  //           active={activeItem === 'dashboard'}
-  //           onClick={handleItemClick}
-  //         />
-  //         <Menu.Item
-  //           as={Link}
-  //           to={'/pois'}
-  //           name="points of interest"
-  //           active={activeItem === 'points of interest'}
-  //           onClick={handleItemClick}
-  //         />
-  //         <Menu.Item
-  //           as={Link}
-  //           to={'/settings'}
-  //           name='settings'
-  //           active={activeItem === 'settings'}
-  //           onClick={handleItemClick}
-  //         />
-  //         <Menu.Item
-  //           as={Link}
-  //           to={'/logout'}
-  //           name='log out'
-  //           active={activeItem === 'log out'}
-  //           onClick={handleItemClick}
-  //         />
-  //       </>
-  //     )
-  //   }else {
-  //     return (
-  //       <>
-  //         <Menu.Item
-  //           as={Link}
-  //           to={'/login'}
-  //           name='log in'
-  //           active={activeItem === 'log in'}
-  //           onClick={handleItemClick}
-  //         />
-  //         <Menu.Item
-  //           as={Link}
-  //           to={'/signup'}
-  //           name="sign up"
-  //           active={activeItem === 'sign up'}
-  //           onClick={handleItemClick}
-  //         />
-  //       </>
-  //     )
-  //   }
-  // };
-
-  // const handleItemClick = (e, { name }) => {
-  //   console.log(e);
-  //   console.log(name);
-  //   setActiveItem({ activeItem: name })
-  // }
-
-  // return (
-  //   <Menu inverted>
-  //     <Link to='/dashboard'>
-  //       <header className="header item">Points of Interest</header>
-  //     </Link>
-  //     <div className="right menu">
-  //       {menu(user, activeItem)}
-  //     </div>
-  //   </Menu>
-  // )
-  
 }
 
-export default NavBar;
+export default withRouter(NavBar);

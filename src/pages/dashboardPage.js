@@ -44,9 +44,11 @@ const DashboardPage = (props) => {
     console.log('Dashboard useEffect');
     console.log(poiContext.pois);
     // if (poiContext.pois.length !== 0) {
-    if (JSON.parse(localStorage.getItem('poi-state')).pois.length !== 0) {
-      console.log(JSON.parse(localStorage.getItem('poi-state')).pois);
-      setIsLoaded(true);
+    if (JSON.parse(localStorage.getItem('auth-state'))) {
+      if (JSON.parse(localStorage.getItem('poi-state')).pois.length !== 0) {
+        console.log(JSON.parse(localStorage.getItem('poi-state')).pois);
+        setIsLoaded(true);
+      }
     }
   },[poiContext.pois]);
 

@@ -62,7 +62,10 @@ const AuthContextProvider = (props) => {
   useEffect(() => {
     isMounted.current = true;
     if (state.credentials && isMounted.current) {
-      getAuth(state.credentials.email, state.credentials.password);
+      console.log(JSON.parse(localStorage.getItem('auth-state')).credentials.email);
+      if (JSON.parse(localStorage.getItem('auth-state')).credentials.email) {
+        getAuth(state.credentials.email, state.credentials.password);
+      }
     }  
     return () => isMounted.current = false;
   }, [state.credentials])
@@ -80,7 +83,6 @@ const AuthContextProvider = (props) => {
           localStorage.setItem('isAuthenticated', response.success);
           localStorage.setItem('token', response.token);
           localStorage.setItem('email', email);
-          localStorage.setItem('user-state', JSON.stringify(response.user));
           setIsAuthenticated(true);
           setLoggedInUser(response.user);
           console.log('API response user:');
@@ -106,7 +108,9 @@ const AuthContextProvider = (props) => {
   const signout = () => {
     setCredentials(null);
     setIsAuthenticated(false);
+    setUsers([]);
     setLoggedInUser(null);
+    localStorage.clear();
   }
 
   const setFromLocalStorage = () => {
