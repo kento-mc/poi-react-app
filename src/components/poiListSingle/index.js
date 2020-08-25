@@ -1,18 +1,32 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import './poiListSingle.css';
+import { Redirect, withRouter, Link } from "react-router-dom";
 import { Image, Table } from 'semantic-ui-react';
 
-const poiListSingle = ({ poi }) => {
+const PoiListSingle = ({ poi, history }) => {
+
+  const handleClick = (id) => {
+    history.push({
+      pathname: `/pois/${id}`,
+      state: { poi: poi }
+    });
+  };
+
   return (
-    <Table.Row>
+    <Table.Row
+      className='poi-row'
+      onClick={() => {
+        handleClick(poi._id);
+      }}
+    >
       <Table.Cell>
         <Image alt="poi thumbnail" width="150" height="70"
           src={
             poi.thumbnailURL
             ? poi.thumbnailURL
             : "./film-poster-placeholder.png"
-          }>
-        </Image>
+          } 
+        />
       </Table.Cell>
       <Table.Cell>{poi.name}</Table.Cell>
       <Table.Cell>{poi.description}</Table.Cell>
@@ -30,4 +44,4 @@ const poiListSingle = ({ poi }) => {
   );
 };
 
-export default poiListSingle;
+export default withRouter(PoiListSingle);

@@ -8,20 +8,19 @@ import PoiDetail from '../components/poiDetail';
 import PoiMap from '../components/poiMap';
 import ImageGallery from '../components/imageGallery';
 
-const PoiDetailPage = () => {
+const PoiDetailPage = (props) => {
 
   const authContext = useContext(AuthContext);
-  const poiContext = useContext(PoiContext);
   
   return (
     <Template user={authContext.loggedInUser}>
       <Panel columnCount='6' >
-        <PoiDetail poi={poiContext.pois[0]} />
+        <PoiDetail poi={props.location.state.poi} />
       </Panel>
       <Panel columnCount='10' >
         <Segment fluid>
-          <PoiMap poi={poiContext.pois[0]}/>
-          <ImageGallery poi={poiContext.pois[0]} /> 
+          <PoiMap poi={props.location.state.poi}/>
+          <ImageGallery poi={props.location.state.poi} /> 
         </Segment>
       </Panel>
     </Template>

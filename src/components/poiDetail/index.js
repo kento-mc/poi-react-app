@@ -44,7 +44,7 @@ const PoiDetail = ({ poi }) => {
           {poi.categories.map((cat, i) => {
             return (
               <Card key={i}>
-                <Button disabled basic size='mini'>{cat}</Button>
+                <Button disabled basic size='mini'>{cat.name}</Button>
               </Card>
             );
           })}
