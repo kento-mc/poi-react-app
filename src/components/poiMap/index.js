@@ -11,21 +11,37 @@ L.Icon.Default.mergeOptions({
     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 
-const PoiMap = ({ poi }) => {
+const PoiMap = ({ poi, pois }) => {
 
-  const position = [poi.location.lat, poi.location.lon];
-  // const position = [50, 30]
-
+  const position = poi ? [poi.location.lat, poi.location.lon] : [0, 0];
+  const zoom = poi ? 5 : 1;
+  const popup = (poi) => (
+    <>
+      {poi.name}<br />{`${poi.location.lat}, ${poi.location.lon}`}
+    </>
+  );
 
   return (
-    <Map center={position} zoom={5}>
+    <Map center={position} zoom={zoom}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
       />
-      <Marker position={position}>
-        <Popup>A pretty CSS3 popup.<br />Easily customizable.</Popup>
-      </Marker>
+      { poi ?
+        <Marker position={position}>
+          <Popup>{popup(poi)}.</Popup>
+        </Marker>
+        :
+        <>
+          {pois.map(poi => (
+            <Marker 
+              key={poi._id}
+              position={[poi.location.lat, poi.location.lon]}>
+              <Popup>{popup(poi)}.</Popup>
+            </Marker>
+          ))}     
+        </>
+      }
     </Map>
   )
 }
