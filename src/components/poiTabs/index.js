@@ -23,12 +23,7 @@ const PoiTabs = ({ pois }) => {
       <Tab.Pane>
         <PoiMap pois={pois} />
       </Tab.Pane>
-    )},
-    { menuItem: 'Loadinig', render: () => 
-      <Tab.Pane loading>
-        Tab 3 Content
-      </Tab.Pane> 
-    }
+    )}
   ]
 
   return (
