@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import 'fomantic-ui-css/semantic.css';
+import 'leaflet/dist/leaflet.css';
 import { BrowserRouter, Route, Redirect, Switch} from "react-router-dom";
 import PrivateRoute from './components/privateRoute';
 import AuthContextProvider from './contexts/authContext2';

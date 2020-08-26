@@ -19,7 +19,9 @@ const PoiDetailPage = (props) => {
       </Panel>
       <Panel columnCount='10' >
         <Segment fluid>
-          <PoiMap poi={props.location.state.poi}/>
+          <div id='leaflet-container'>
+            <PoiMap poi={props.location.state.poi}/>
+          </div>
           <ImageGallery poi={props.location.state.poi} /> 
         </Segment>
       </Panel>
