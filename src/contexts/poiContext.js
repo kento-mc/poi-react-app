@@ -74,6 +74,14 @@ const PoiContextProvider = (props) => {
     }
   };
 
+  const updatePoiData = async (user) => {
+    const { pois, cats } = await getPoiData(user);
+    setPOIs(pois);
+    setCategories(cats);
+    setUserPOIs(user, pois);
+    setUserCategories(user, cats);
+  };
+
   const getPoiData = async (user) => {
 
     const rawPOIs = await getPois();
@@ -144,7 +152,7 @@ const PoiContextProvider = (props) => {
         userPOIs: state.userPOIs,
         categories: state.categories,
         userCustomCats: state.userCustomCats,
-        getPoiData: getPoiData,
+        updatePoiData: updatePoiData,
         setPoiData: setPoiData,
         getPoiData: getPoiData,
         setPOIs: setPOIs,

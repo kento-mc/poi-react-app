@@ -57,10 +57,10 @@ const AddPoiForm = ({ user, categories, updatePOIs }) => {
 
   useEffect(() => {
     if (newPOI) {
-      updatePOIs();
+      updatePOIs(user);
       console.log('New POI:', newPOI);
     }
-  }, [newPOI, updatePOIs]);
+  }, [newPOI]);
 
   const onSubmit = (data, e) => {
     console.log(e, data);
