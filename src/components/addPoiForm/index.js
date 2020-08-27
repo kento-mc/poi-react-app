@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import useForm from "react-hook-form";
 import { Form, Segment, Grid, TextArea, Button, Select, Header  } from 'semantic-ui-react';
-import { addPOI } from '../../api/poi-api';
+import { addPOI, uploadImage } from '../../api/poi-api';
 import ImageUploader from '../../components/imageUploader';
 
-const AddPoiForm = ({categories}) => {
+const AddPoiForm = ({ user, categories }) => {
 
-  // const [poiToSubmit, setPoiToSubmit] = useState({});
-  const [formImage, setFormImage] = useState('');
+  const [formImageName, setFormImage] = useState('');
+  const [submittedImage, setSubmittedImage] = useState(null);
+  const [cloudinaryImageData, setCloudinaryImageData] = useState(null);
+  const [poiImageUrl, setPoiImageUrl] = useState(null);
+  const [poiPayload, setPoiPayload] = useState(null);
 
   const { register, errors, handleSubmit, setValue, triggerValidation } = useForm();
 
@@ -19,27 +22,59 @@ const AddPoiForm = ({categories}) => {
     register({ name: "categories" }, { required: false });
   }, [register]);
 
+  useEffect(() => {
+    if (submittedImage) {
+      const getImage = async (image) => {
+        const res = await uploadImage(image);
+        setCloudinaryImageData(res);
+      }
+      getImage(submittedImage);
+    }
+  }, [submittedImage]);
+
+  useEffect(() => {
+    console.log(cloudinaryImageData);
+    if (cloudinaryImageData) setPoiImageUrl(cloudinaryImageData.url);
+  }, [cloudinaryImageData]);
+
   const categoryOptions = categories.map((cat, i) => (
-    { key: i, text: cat.name, value: cat.name }
+    { key: i, text: cat.name, value: cat }
   ));
+
+  useEffect(() => {
+    if (poiPayload !== null) {
+      const addNewPOI = async (poi) => {
+        const res = await addPOI(poi);
+        return res;
+      }
+      const newPOI = addNewPOI(poiPayload);
+      console.log(newPOI);
+    }
+  }, [poiPayload]);
 
   const onSubmit = (data, e) => {
     console.log(e, data);
-    // const catStrings = [];
+  
+    const catIds = [];
+    for (let cat of data.categories) {
+      catIds.push(cat._id);
+    }
+    console.log(data.latitude);
 
-    // const poiPayload = {
-    //   name: data.name,
-    //   description: data.description,
-    //   location: {
-    //     lat: data.latitude,
-    //     lon: data.longitude,
-    //   },
-    //   categories: data.categories,
-    //   imageURL: imageURL,
-    //   thumbnailURL: imageURL[0],
-    //   contributor: this.loggedInUser._id
-    // }
+    const poiPayload = {
+      name: data.name,
+      description: data.description,
+      location: {
+        lat: data.latitude,
+        lon: data.longitude,
+      },
+      categories: catIds,
+      imageURL: poiImageUrl ? [poiImageUrl] : null,
+      thumbnailURL: poiImageUrl ? poiImageUrl : null,
+      contributor: user._id
+    }
 
+    setPoiPayload(poiPayload);
     // const response = await this.httpClient.post('/api/pois', poiPayload);
 
     // const poi = poiPayload;
@@ -57,6 +92,7 @@ const AddPoiForm = ({categories}) => {
   const handleImageFile = (image) => {
     console.log(image);
     setFormImage(image.name);
+    setSubmittedImage(image);
   };
 
   return (
@@ -91,7 +127,7 @@ const AddPoiForm = ({categories}) => {
             <ImageUploader handleImageFile={handleImageFile} />
           </Grid.Column>
           <Grid.Column width='9'>
-            <p>{formImage}</p>
+            <p>{formImageName}</p>
           </Grid.Column>
         </Grid>
         <br />

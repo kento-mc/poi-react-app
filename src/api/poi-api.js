@@ -97,16 +97,49 @@ export const getCategory = async (id) => {
   .then(res => res.json())
 };
 
-export const addPOI = (submittedPOI) => {
+export const addPOI = (poi) => {
 
-  const formBody = setFormBody(submittedPOI);
+  // const formData = new FormData();
+  // formData.append('name', poi.name);
+  // formData.append('description', poi.description);
+  // formData.append('location', {
+  //   lat: poi.location.latitude,
+  //   lon: poi.location.longitude,
+  // });
+  // formData.append('categories', poi.categories);
+  // formData.append('imageURL', poi.imageURL);
+  // formData.append('thumbnailURL', poi.thumbnailURL);
+  // formData.append('contributor', poi.contributor);
+
+  // console.log(formData);
+
+  const setPoiFormBody = (poi) => {
+    let formBody = [];
+    for (let property in poi) {
+      const encodedKey = encodeURIComponent(property);
+      let encodedValue =''
+      if (property === 'location') {
+        encodedValue = encodeURIComponent(JSON.stringify(poi.location));
+      } else if (property === 'categories') {
+        encodedValue = encodeURIComponent([...poi.categories]);
+      } else {
+        encodedValue = encodeURIComponent(poi[property]);
+      }
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+    formBody = formBody.join("&");
+    return formBody;
+  };
+
+  const formBody = setPoiFormBody(poi);
 
   return fetch(
     `${apiURL}/api/pois`, {
       method: 'post',
       headers: {
+        'Authorization': 'bearer ' + localStorage.getItem('token'), 
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-      },
+      },  
       body: formBody
     }
   )
@@ -119,20 +152,21 @@ export const uploadImage = async (file) => {
   formData.append('file', file);
   formData.append('upload_preset', 'asbqtcgx');
 
-  // try {
-  //   const response = await cloudClient.post('/image/upload', formData);
-  //   console.log(response.content);
-  //   return response.content;
-  // } catch (err) {
-  //   console.log(err)
-  // }
+  // const details = {
+  //   'file': file,
+  //   'upload_preset': 'asbqtcgx',
+  // };
+
+  // const formBody = setFormBody(details)
+
   return fetch(
-    `https://api.cloudinary.com/v1_1/dwgak0rbs'/image/upload`, {
+    `https://api.cloudinary.com/v1_1/dwgak0rbs/image/upload`, {
       method: 'post',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-      },
-      body: 'formBody'
+      mode: 'cors',
+      // headers: {
+      //   'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      // },
+      body: formData
     }
   )
     .then(res => res.json())

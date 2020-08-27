@@ -18,7 +18,7 @@ const ImageUploader = props => {
   };
   return (
     <>
-      <Button color='blue' onClick={handleClick}>
+      <Button type='button' color='blue' onClick={handleClick}>
         Upload Image
       </Button>
       <input
