@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import useForm from "react-hook-form";
 import { Form, Grid, Segment, Button, Header  } from 'semantic-ui-react';
 import { Redirect } from "react-router-dom";
 import { AuthContext } from '../../contexts/authContext2';
 import { withRouter } from "react-router-dom";
 
-const LoginForm = (props, {user, updateAuth}) => {
+const LoginForm = (props) => {
 
   const authContext = useContext(AuthContext);
 
@@ -33,31 +33,32 @@ const LoginForm = (props, {user, updateAuth}) => {
   return (
     <Grid.Column width={props.columns}>
       <Segment>
+        
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Header>Login</Header>
-            <Form.Input
-              name='email'
-              fluid
-              label='Email'
-              placeholder='homer@simpson.com'
-              onChange={async (e, { name, value }) => {
-                setValue(name, value);
-                await triggerValidation({ name });
-              }}
-              error={errors.firstName ? true : false}
-            />
-            <Form.Input
-              name='password'
-              type='password'
-              fluid
-              label='Password'
-              placeholder='*********'
-              onChange={async (e, { name, value }) => {
-                setValue(name, value);
-                await triggerValidation({ name });
-              }}
-              error={errors.lastName ? true : false}
-            />
+          <Form.Input
+            name='email'
+            fluid
+            label='Email'
+            placeholder='homer@simpson.com'
+            onChange={async (e, { name, value }) => {
+              setValue(name, value);
+              await triggerValidation({ name });
+            }}
+            error={errors.firstName ? true : false}
+          />
+          <Form.Input
+            name='password'
+            type='password'
+            fluid
+            label='Password'
+            placeholder='*********'
+            onChange={async (e, { name, value }) => {
+              setValue(name, value);
+              await triggerValidation({ name });
+            }}
+            error={errors.lastName ? true : false}
+          />
           <Button type='submit' color='blue'>Submit</Button>
         </Form>
       </Segment>

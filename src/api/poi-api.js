@@ -1,5 +1,16 @@
 const apiURL = 'http://localhost:3000'
 
+const setFormBody = (details) => {
+  let formBody = [];
+  for (let property in details) {
+    const encodedKey = encodeURIComponent(property);
+    const encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
+  formBody = formBody.join("&");
+  return formBody;
+};
+
 export const authenticate = (email, password) => {
 
   const details = {
@@ -8,13 +19,7 @@ export const authenticate = (email, password) => {
     // 'grant_type': 'password'
   };
 
-  let formBody = [];
-  for (let property in details) {
-    const encodedKey = encodeURIComponent(property);
-    const encodedValue = encodeURIComponent(details[property]);
-    formBody.push(encodedKey + "=" + encodedValue);
-  }
-  formBody = formBody.join("&");
+  const formBody = setFormBody(details);
 
   return fetch(
     `${apiURL}/api/users/authenticate`, {
@@ -40,7 +45,6 @@ export const getUsers = async () => {
     }
   )
   .then(res => res.json())
-  // .then(json => json.results);
 };
 
 export const getUser = async (userID) => {
@@ -55,16 +59,7 @@ export const getUser = async (userID) => {
     }
   )
   .then(res => res.json())
-  // .then(json => json.results);
 };
-
-// export const getPois = () => {
-//   return fetch(
-//     `${apiURL}/api/pois`
-//   )
-//     .then(res => res.json())
-//     // .then(json => json.results);
-// };
 
 export const getPois = async () => {
   return fetch(
@@ -76,7 +71,6 @@ export const getPois = async () => {
     }
   )
   .then(res => res.json())
-  // .then(json => json.results);
 };
 
 export const getCategories = async () => {
@@ -89,7 +83,6 @@ export const getCategories = async () => {
     }
   )
   .then(res => res.json())
-  // .then(json => json.results);
 };
 
 export const getCategory = async (id) => {
@@ -102,5 +95,45 @@ export const getCategory = async (id) => {
     }
   )
   .then(res => res.json())
-  // .then(json => json.results);
 };
+
+export const addPOI = (submittedPOI) => {
+
+  const formBody = setFormBody(submittedPOI);
+
+  return fetch(
+    `${apiURL}/api/pois`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      },
+      body: formBody
+    }
+  )
+    .then(res => res.json())
+};
+
+export const uploadImage = async (file) => {
+
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', 'asbqtcgx');
+
+  // try {
+  //   const response = await cloudClient.post('/image/upload', formData);
+  //   console.log(response.content);
+  //   return response.content;
+  // } catch (err) {
+  //   console.log(err)
+  // }
+  return fetch(
+    `https://api.cloudinary.com/v1_1/dwgak0rbs'/image/upload`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      },
+      body: 'formBody'
+    }
+  )
+    .then(res => res.json())
+}
