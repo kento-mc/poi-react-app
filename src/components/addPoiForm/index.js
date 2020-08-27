@@ -1,19 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import useForm from "react-hook-form";
-import { Form, Segment, Grid, TextArea, Button, Select, Header  } from 'semantic-ui-react';
+import { Form, Segment, Grid, TextArea, Button, Select, Header, Loader  } from 'semantic-ui-react';
 import { addPOI, uploadImage } from '../../api/poi-api';
+import { PoiContext } from '../../contexts/poiContext';
 import ImageUploader from '../../components/imageUploader';
+import { Redirect, withRouter } from "react-router-dom";
 
-const AddPoiForm = ({ user, categories, updatePOIs }) => {
+const AddPoiForm = ({ location, user, categories, updatePOIs, poiCount }) => {
 
-  const [formImageName, setFormImage] = useState('');
+  const poiContext = useContext(PoiContext);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formImageName, setFormImageName] = useState('');
   const [submittedImage, setSubmittedImage] = useState(null);
   const [cloudinaryImageData, setCloudinaryImageData] = useState(null);
   const [poiImageUrl, setPoiImageUrl] = useState(null);
   const [poiPayload, setPoiPayload] = useState(null);
   const [newPOI, setNewPOI] = useState(null);
 
-  const { register, errors, handleSubmit, setValue, triggerValidation } = useForm();
+  const { register, errors, handleSubmit, setValue, triggerValidation, reset } = useForm();
 
   useEffect(() => {
     register({ name: "name" }, { required: true });
@@ -62,8 +67,19 @@ const AddPoiForm = ({ user, categories, updatePOIs }) => {
     }
   }, [newPOI]);
 
+
+  useEffect(() => {
+    setIsSubmitting(false);
+    if (newPOI) window.location.reload(false);
+  }, [poiCount])
+
   const onSubmit = (data, e) => {
+    setIsSubmitting(true);
     console.log(e, data);
+    e.target.reset();
+    setValue('categories', null);
+    reset(data);
+    setFormImageName('');
   
     const catIds = [];
     for (let cat of data.categories) {
@@ -85,28 +101,23 @@ const AddPoiForm = ({ user, categories, updatePOIs }) => {
     }
 
     setPoiPayload(poiPayload);
-    // const response = await this.httpClient.post('/api/pois', poiPayload);
-
-    // const poi = poiPayload;
-    // const poiCats = []
-    // for (let catString of selectedCategories) {
-    //   let category = await this.getCategoryById(catString);
-    //   poiCats.push(category)
-    // }
-    // poi.categories = poiCats;
-    // poi.contributor = this.loggedInUser;
-    // this.pois.push(poi);
-    // this.loggedInUser.contributedPOIs++;
   };
 
   const handleImageFile = (image) => {
     console.log(image);
-    setFormImage(image.name);
+    setFormImageName(image.name);
     setSubmittedImage(image);
   };
 
+  // if (isSubmitting) {
+  //   return (
+  //     <Segment>
+  //       <Loader active inline='centered' size='large'/>
+  //     </Segment>
+  //   )
+  // }
   return (
-    <Segment>
+    <Segment loading={isSubmitting}>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Header>Add a new Point of Interest</Header>
         <Form.Input
@@ -172,6 +183,7 @@ const AddPoiForm = ({ user, categories, updatePOIs }) => {
             label='Categories'
             placeholder='Categories'
             onChange={async (e, { name, value }) => {
+              // if (poiPayload) setValue(name, '');
               setValue(name, value);
               await triggerValidation({ name });
             }}

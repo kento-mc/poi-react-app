@@ -1,9 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import useForm from "react-hook-form";
 import { Form, Grid, Segment, Button, Header  } from 'semantic-ui-react';
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import { AuthContext } from '../../contexts/authContext2';
-import { withRouter } from "react-router-dom";
 
 const LoginForm = (props) => {
 
