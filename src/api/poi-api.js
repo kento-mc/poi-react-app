@@ -97,21 +97,7 @@ export const getCategory = async (id) => {
   .then(res => res.json())
 };
 
-export const addPOI = (poi) => {
-
-  // const formData = new FormData();
-  // formData.append('name', poi.name);
-  // formData.append('description', poi.description);
-  // formData.append('location', {
-  //   lat: poi.location.latitude,
-  //   lon: poi.location.longitude,
-  // });
-  // formData.append('categories', poi.categories);
-  // formData.append('imageURL', poi.imageURL);
-  // formData.append('thumbnailURL', poi.thumbnailURL);
-  // formData.append('contributor', poi.contributor);
-
-  // console.log(formData);
+export const addPOI = async (poi) => {
 
   const setPoiFormBody = (poi) => {
     let formBody = [];
@@ -119,7 +105,7 @@ export const addPOI = (poi) => {
       const encodedKey = encodeURIComponent(property);
       let encodedValue =''
       if (property === 'location') {
-        encodedValue = encodeURIComponent(JSON.stringify(poi.location));
+        encodedValue = encodeURIComponent([poi.location.lat, poi.location.lon]);
       } else if (property === 'categories') {
         encodedValue = encodeURIComponent([...poi.categories]);
       } else {

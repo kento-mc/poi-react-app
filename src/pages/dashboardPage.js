@@ -70,7 +70,7 @@ const DashboardPage = (props) => {
         <PoiTabs pois={displayedPOIs(poiContext.userPOIs)} />
       </Panel>
       <Panel columnCount='6' >
-        <AddPoiForm user={authContext.loggedInUser} categories={poiContext.categories} />
+        <AddPoiForm user={authContext.loggedInUser} categories={poiContext.categories} updatePOIs={poiContext.getPoiData} />
         <AddCategories />
       </Panel>
     </Template>

@@ -4,13 +4,14 @@ import { Form, Segment, Grid, TextArea, Button, Select, Header  } from 'semantic
 import { addPOI, uploadImage } from '../../api/poi-api';
 import ImageUploader from '../../components/imageUploader';
 
-const AddPoiForm = ({ user, categories }) => {
+const AddPoiForm = ({ user, categories, updatePOIs }) => {
 
   const [formImageName, setFormImage] = useState('');
   const [submittedImage, setSubmittedImage] = useState(null);
   const [cloudinaryImageData, setCloudinaryImageData] = useState(null);
   const [poiImageUrl, setPoiImageUrl] = useState(null);
   const [poiPayload, setPoiPayload] = useState(null);
+  const [newPOI, setNewPOI] = useState(null);
 
   const { register, errors, handleSubmit, setValue, triggerValidation } = useForm();
 
@@ -45,12 +46,21 @@ const AddPoiForm = ({ user, categories }) => {
     if (poiPayload !== null) {
       const addNewPOI = async (poi) => {
         const res = await addPOI(poi);
+        console.log('Response:', res)
+        setNewPOI(res);
         return res;
       }
       const newPOI = addNewPOI(poiPayload);
       console.log(newPOI);
     }
   }, [poiPayload]);
+
+  useEffect(() => {
+    if (newPOI) {
+      updatePOIs();
+      console.log('New POI:', newPOI);
+    }
+  }, [newPOI, updatePOIs]);
 
   const onSubmit = (data, e) => {
     console.log(e, data);

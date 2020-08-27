@@ -144,6 +144,7 @@ const PoiContextProvider = (props) => {
         userPOIs: state.userPOIs,
         categories: state.categories,
         userCustomCats: state.userCustomCats,
+        getPoiData: getPoiData,
         setPoiData: setPoiData,
         getPoiData: getPoiData,
         setPOIs: setPOIs,
