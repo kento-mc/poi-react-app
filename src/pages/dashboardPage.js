@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useRef } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Header, Loader } from 'semantic-ui-react';
 import { AuthContext } from '../contexts/authContext2';
 import { PoiContext } from '../contexts/poiContext';
@@ -32,20 +32,6 @@ const DashboardPage = (props) => {
     if (JSON.parse(localStorage.getItem('poi-state')).pois.length === 0 ) {
       poiContext.setPoiData(authContext.loggedInUser);
     }
-    // console.log('Logged in user from Dashboard:');
-    // console.log(authContext.loggedInUser);
-    // const setPOIs = async () => {
-    //   const { pois, cats } = await poiContext.getPoiData(authContext.loggedInUser);
-    //   poiContext.setPOIs(pois);
-    //   poiContext.setCategories(cats);
-    //   poiContext.setUserPOIs(authContext.loggedInUser, pois);
-    //   poiContext.setUserCategories(authContext.loggedInUser, cats);
-    // }
-    // try {
-    //   setPOIs();
-    // } catch (e) {
-    //   console.log(e);
-    // }
   },[]);
 
   useEffect (() => {

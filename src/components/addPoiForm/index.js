@@ -1,14 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import useForm from "react-hook-form";
-import { Form, Segment, Grid, TextArea, Button, Select, Header, Loader  } from 'semantic-ui-react';
+import { Form, Segment, Grid, TextArea, Button, Select, Header  } from 'semantic-ui-react';
 import { addPOI, uploadImage } from '../../api/poi-api';
-import { PoiContext } from '../../contexts/poiContext';
 import ImageUploader from '../../components/imageUploader';
-import { Redirect, withRouter } from "react-router-dom";
 
 const AddPoiForm = ({ user, categories, updatePOIs, poiCount }) => {
-
-  const poiContext = useContext(PoiContext);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formImageName, setFormImageName] = useState('');

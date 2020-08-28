@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import useForm from "react-hook-form";
-import { Form, Grid, Segment, Input, Button, Header  } from 'semantic-ui-react';
+import { Form, Grid, Segment, Button, Header  } from 'semantic-ui-react';
 import { addUser } from '../../api/poi-api';
 import { Redirect, withRouter } from "react-router-dom";
 import { AuthContext } from '../../contexts/authContext2';

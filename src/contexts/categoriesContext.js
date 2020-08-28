@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer, createContext, useContext } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import { getCategories } from "../api/poi-api";
 
 export const CategoriesContext = createContext(null);
@@ -9,7 +9,6 @@ const CategoriesContextProvider = (props) => {
   const [categories, setCategories] = useState([]);
   const [catUser, setCatUser] = useState(null);
   const [userCustomCats, setUserCustomCats] = useState([]);
-  const [userCategories, setUserCategories] = useState([]);
 
   useEffect(() => {
     if (catUser) getUserCustomCats(catUser);
