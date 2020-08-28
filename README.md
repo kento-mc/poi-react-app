@@ -90,38 +90,53 @@ This third iteration is a React web app, fully rebuilt and implementing some add
 ![stories](images/storybook.png)
 
 Additional compoonents not imiplemented in Storybook:
-+ ...
++ src/components/imageSingle/index.js
++ src/components/mapSingle/index.js
++ src/components/imageUploader/index.js
++ src/components/panel/index.js
++ src/components/poiTabs/index.js
++ src/components/privateRoute/index.js
++ src/components/router/index.js *This component is not used in final release version*
+
 
 ### UI Design
 
-...... Insert screenshots of the app's views (see example below) with appropriate captions (For extension to the Movies Fan App, only show the new/modified views) ........
-
 ![signup](images/signup.png)
 >Shows simple sigunup form, with fields for first and last names, email, and password.
+-----
 
 ![login](images/login.png)
 >Shows simple login form, with fields for email and password.
+-----
 
 ![dashboard-list](images/dashboard-list.png)
 >Displays a list of POIs with a thumbnail, name, description, location, and contributor. The POIs displyed on the list can be filtered for either name or description via text entry and also by a drowpdown selection of categories. The top form on the right panel allows a user to create a new POI, including uploading a local image file. The added POI will appear immediately in the list of POIs. The bottom form on the right panel allows the user to view their custom categories (certain categories are available by default) and add additional custom categories. The newly added categories will appear immediately in the dropdown list of available categories for selection in the above add POI form.
+-----
 
 ![dashboard-map](images/dashboard-map.png)
 >Another tab on the left dashboard panel displays the same list but on an interactive map with pins in the locaion of each POI. The pins are clickable to display the POI name and location coordinates. Subject to same filtering as the list view.
+-----
 
 ![all-pois-list](images/all-pois-list.png)
 > The main POI list has the same features as the POI view panel on the dashboard page, but includes all POIs from all contributors. In addition, the list/map is filterable by an additional metric - POI contributors.
+-----
 
 ![all-pois-map](images/all-pois-map.png)
 >An interactive map showing the locations of all POIs. Subject to same filtering as the list view.
+-----
 
 ![poi-view](images/poi-view.png)
 >Displays all POI data and an interactive map showing the POI location. Additional, smaller thumbnails of all POI images are displayed beneath the map. Each smaller thumbnail is clickable and opens the image full-size on its own page. 
+-----
 
 ![image-view](images/image-view.png)
 >Displays a full-size POI image. Also displays the smaller thumbnail links of other POI images below.
+-----
 
 ![user-settings](images/user-settings.png)
 >Displays user data.
+-----
+
 
 ### Routing
 
@@ -139,23 +154,22 @@ Additional compoonents not imiplemented in Storybook:
 
 ## React feature set
 
-+ useState and useEffect hooks - src/components/addPoiForm.js
++ useState and useEffect hooks - src/components/addPoiForm/index.js
 + useContext hook - src/pages/dashboardPage.js
 + useReducer hook - src/contexts/poiContext.js
-+ useForm hook - src/components/loginForm.js
++ useForm hook - src/components/loginForm/index.js
 + useRef hook - src/contexts/authContext2.js
-+ Link - src/components/navBar.js
-+ NavLink - src/components/navBar.js
-+ Redirect - src/components/signup.js
++ Link - src/components/navBar/index.js
++ NavLink - src/components/navBar/index.js
++ Redirect - src/components/signup/index.js
 + Provider pattern - src/contexts/*.js
-+ Container pattern - src/components/templateGlobal.js
++ Container pattern - src/components/templateGlobal/index.js
 + Programmatic navigation (Declarative) - src/index.js
-+ Programmatic navigation (Imperative) - src/components/imageGallery.js
++ Programmatic navigation (Imperative) - src/components/imageGallery/index.js
 + Unidirectional dataflow - src/contexts/filterContext.js
 
-## Independent learning
 
-. . . . . Briefly state the technologies/techniques used in your project codebase that were not covered in the lectures/labs. Provide source code filename references to support your assertions and include source material references (articles/blogs) ......... 
+## Independent learning
 
 + [Local Storage for persisting state/authentication](https://stackoverflow.com/questions/28314368/how-to-maintain-state-after-a-page-refresh-in-react-js) - as in src/contexts/poiContext.js - idea taken from linked Stack Overflow thread, with a custom implementation
 + [Advanced Web Form processing - React Hook Form](https://react-hook-form.com/) - 'react-hook-form' in src/components/addCategories.js and other forms - 
