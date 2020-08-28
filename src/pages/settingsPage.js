@@ -15,7 +15,7 @@ const SettingsPage = () => {
         <SettingsForm />
       </Panel>
       <Panel columnCount='8' >
-        <Image src='../../public/film-poster-placeholder.png' />
+        <Image src='https://res.cloudinary.com/dwgak0rbs/image/upload/v1598574714/ISS_uerhgy.jpg' />
       </Panel>
     </Template>
   )

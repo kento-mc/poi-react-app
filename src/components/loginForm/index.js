@@ -31,8 +31,7 @@ const LoginForm = (props) => {
 
   return (
     <Grid.Column width={props.columns}>
-      <Segment>
-        
+      <Segment>    
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Header>Login</Header>
           <Form.Input

@@ -33,6 +33,22 @@ export const authenticate = (email, password) => {
     .then(res => res.json())
 };
 
+export const addUser = async (credentials) => {
+
+  const formBody = setFormBody(credentials);
+
+  return fetch(
+    `${apiURL}/api/users`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: formBody
+    }
+  )
+    .then(res => res.json())
+}
+
 export const getUsers = async () => {
   return fetch(
     `${apiURL}/api/users`, {

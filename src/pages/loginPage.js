@@ -12,7 +12,7 @@ const LoginPage = (props) => {
         <LoginForm></LoginForm>
       </Panel>
       <Panel columnCount='8' >
-        <Image src='../../public/film-poster-placeholder.png' />
+        <Image src='https://res.cloudinary.com/dwgak0rbs/image/upload/v1598574714/map-pin-shallow_ak6d0e.jpg' />
       </Panel>
     </Template>
   )
