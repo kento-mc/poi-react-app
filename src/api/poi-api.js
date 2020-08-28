@@ -97,6 +97,28 @@ export const getCategory = async (id) => {
   .then(res => res.json())
 };
 
+export const addCategory = async (id, cat) => {
+
+  const details = {
+    'name': cat,
+    // 'grant_type': 'password'
+  };
+
+  const formBody = setFormBody(details);
+
+  return fetch(
+    `${apiURL}/api/users/${id}/categories`, {
+      method: 'post',
+      headers: {
+        'Authorization': 'bearer ' + localStorage.getItem('token'), 
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      },   
+      body: formBody
+    }
+  )
+  .then(res => res.json())
+};
+
 export const addPOI = async (poi) => {
 
   const setPoiFormBody = (poi) => {

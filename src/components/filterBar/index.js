@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import './filterBar.css';
 import { Dropdown, Grid, Input } from 'semantic-ui-react';
 import { AuthContext } from '../../contexts/authContext2';
 import { PoiContext } from '../../contexts/poiContext';

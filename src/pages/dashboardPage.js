@@ -20,6 +20,14 @@ const DashboardPage = (props) => {
   
   let listHeader = `${ authContext.loggedInUser ? authContext.loggedInUser.firstName + '\'s Points of Interest' : '' }`;
 
+  // Create default category list. This should be moved to poiContext
+  let adminIDs = [];
+  const adminUsers = authContext.users.filter(user => user.isAdmin);
+  adminUsers.forEach(user => adminIDs.push(user._id));
+  const adminCats = poiContext.categories.filter(cat => {
+    return adminIDs.includes(cat.contributor);
+  });
+
   useEffect(() => {
     if (JSON.parse(localStorage.getItem('poi-state')).pois.length === 0 ) {
       poiContext.setPoiData(authContext.loggedInUser);
@@ -72,10 +80,14 @@ const DashboardPage = (props) => {
       <Panel columnCount='6' >
         <AddPoiForm 
           user={authContext.loggedInUser} 
-          categories={poiContext.categories} 
+          categories={[...adminCats, ...poiContext.userCustomCats]} 
           updatePOIs={poiContext.updatePoiData}
           poiCount={displayedPOIs(poiContext.userPOIs).length} />
-        <AddCategories />
+        <AddCategories 
+          user={authContext.loggedInUser} 
+          userCategories={poiContext.userCustomCats}
+          setUserCategories={poiContext.setUserCategories}
+          catCount={poiContext.userCustomCats.length} />
       </Panel>
     </Template>
   )

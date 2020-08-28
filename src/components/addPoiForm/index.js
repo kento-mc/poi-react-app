@@ -6,7 +6,7 @@ import { PoiContext } from '../../contexts/poiContext';
 import ImageUploader from '../../components/imageUploader';
 import { Redirect, withRouter } from "react-router-dom";
 
-const AddPoiForm = ({ location, user, categories, updatePOIs, poiCount }) => {
+const AddPoiForm = ({ user, categories, updatePOIs, poiCount }) => {
 
   const poiContext = useContext(PoiContext);
 
@@ -77,8 +77,6 @@ const AddPoiForm = ({ location, user, categories, updatePOIs, poiCount }) => {
     setIsSubmitting(true);
     console.log(e, data);
     e.target.reset();
-    setValue('categories', null);
-    reset(data);
     setFormImageName('');
   
     const catIds = [];
@@ -183,7 +181,6 @@ const AddPoiForm = ({ location, user, categories, updatePOIs, poiCount }) => {
             label='Categories'
             placeholder='Categories'
             onChange={async (e, { name, value }) => {
-              // if (poiPayload) setValue(name, '');
               setValue(name, value);
               await triggerValidation({ name });
             }}

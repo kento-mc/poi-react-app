@@ -1,24 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import useForm from "react-hook-form";
 import { Card, Form, Segment, Button, Input, Header, Table  } from 'semantic-ui-react';
+import { addCategory } from '../../api/poi-api';
 
-const catHeader = `Custom Categories`;
+const AddCategories = ({ user, userCategories, setUserCategories, catCount }) => {
 
-const categoryOptions = [
-  { key: '0', text: 'D\'oh!', value: 'd\'oh' },
-  { key: '1', text: 'Mmmmm Duff', value: 'mmmmm duff' },
-  { key: '2', text: 'Go Topes!', value: 'go topes!' },
-]
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [newCatPayload, setNewCatPayload] = useState(null);
+  const [newCat, setNewCat] = useState(null);
 
-const AddCategories = ({ columnCount }) => {
+  const { register, errors, handleSubmit, setValue, triggerValidation, reset } = useForm();
 
-  const catList = categoryOptions?.map((cat, i) => (
-    <Card key={i}>
-      <Button disabled basic size='mini'>{cat.text}</Button>
+  useEffect(() => {
+    register({ name: "category" }, { required: true });
+  }, [register]);
+
+  useEffect(() => {
+    reset('');  
+    const sendCat = async (id, cat) => {
+      const newC = await addCategory(id, cat);
+      setNewCat(newC);
+      setUserCategories(user, [...userCategories, newC])
+    }
+    if (newCatPayload) sendCat(user._id, newCatPayload);
+  }, [newCatPayload]);
+
+  useEffect(() => {
+    if (newCat) window.location.reload(false);
+    setIsSubmitting(false);
+  }, [catCount])
+
+
+  const catHeader = `Custom Categories`;
+
+  const catList = userCategories?.map((cat, i) => (
+    <Card key={cat._id}>
+      <Button disabled basic size='mini'>{cat.name}</Button>
     </Card>
   ));
 
+  const onSubmit = (e, data) => {
+    setIsSubmitting(true)
+    setNewCatPayload(e.category);
+    reset({
+      'category': ''
+    });
+  };
+
   return (
-    <Segment>
+    <Segment loading={isSubmitting}>
       <Table basic='very' compact='very'>
         <Table.Body>
           <Table.Row>
@@ -26,14 +56,20 @@ const AddCategories = ({ columnCount }) => {
               <Header as='h4' floated='left'>{catHeader}</Header>
             </Table.Cell>
             <Table.Cell>
-              <Form>
-                <Form.Field
-                  id='form-input-control-name'
-                  control={Input}
+              <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form.Input
+                  name='category'
+                  
+                  label=''
                   placeholder='Add new category'
                   action={
-                    <Button id='form-button-control-public' content='+' color='blue' />
+                    <Button content='+' color='blue' />
                   }
+                  onChange={async (e, { name, value }) => {
+                    setValue(name, value);
+                    await triggerValidation({ name });
+                  }}
+                  error={errors.lastName ? true : false}
                 />
               </Form> 
             </Table.Cell>

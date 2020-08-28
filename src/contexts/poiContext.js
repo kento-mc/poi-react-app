@@ -84,6 +84,8 @@ const PoiContextProvider = (props) => {
 
   const getPoiData = async (user) => {
 
+    const defaultImage = 'https://res.cloudinary.com/dwgak0rbs/image/upload/v1584097750/iv7qqqtkwzcdedn1wqve.jpg';
+
     const rawPOIs = await getPois();
     const rawCats = await getCategories();
     console.log('API cat data from PoiContext:');
@@ -105,8 +107,8 @@ const PoiContextProvider = (props) => {
           lon: rawPOI.location.lon,
         },
         categories: cats,
-        imageURL: rawPOI.imageURL,
-        thumbnailURL: rawPOI.thumbnailURL,
+        imageURL: rawPOI.imageURL ? rawPOI.imageURL : [defaultImage],
+        thumbnailURL: rawPOI.thumbnailURL ? rawPOI.thumbnailURL : defaultImage,
         contributor: poiUser,
         _id: rawPOI._id
       }
