@@ -47,7 +47,7 @@ const FilterBar = ({ categories, onUserInput, hasContributorFilter }) => {
       ));
 
       contOptions.unshift(
-        { key: 'all-users', text: 'All Users', value: '' }
+        { key: 'all-users', text: 'All Contributors', value: '' }
       );
 
       setCatOptions(catOptions);
@@ -95,7 +95,7 @@ const FilterBar = ({ categories, onUserInput, hasContributorFilter }) => {
             <Dropdown button basic floating 
                 onChange={handleContributorChange}
                 fluid selection options={ contOptions || [] } 
-                placeholder='All Users' />
+                placeholder='All Contributors' />
           </Grid.Column> :
           <span />
         }

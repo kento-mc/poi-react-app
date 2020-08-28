@@ -24,12 +24,12 @@ const PoiListSingle = ({ poi, isDashboard, history }) => {
           src={
             poi.thumbnailURL
             ? poi.thumbnailURL
-            : "./film-poster-placeholder.png"
+            : '../../../public/film-poster-placeholder.png'
           } 
         />
       </Table.Cell>
       <Table.Cell>{poi.name}</Table.Cell>
-      <Table.Cell>{poi.description}</Table.Cell>
+      <Table.Cell>{poi.description.slice(0, 50)}...</Table.Cell>
       <Table.Cell>
         <div>Lat: {poi.location.lat}</div>
         <div>Lon: {poi.location.lon}</div>
