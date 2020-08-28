@@ -61,7 +61,7 @@ const DashboardPage = (props) => {
       <Panel columnCount='10' >
         <Header as='h2'>{`${listHeader} (${displayedPOIs(poiContext.userPOIs).length})`}</Header>
         <FilterBar categories={poiContext.categories} onUserInput={handleChange} />
-        <PoiTabs pois={displayedPOIs(poiContext.userPOIs)} />
+        <PoiTabs pois={displayedPOIs(poiContext.userPOIs)} isDashboard={true} />
       </Panel>
       <Panel columnCount='6' >
         <AddPoiForm 

@@ -3,16 +3,13 @@ import { Tab } from 'semantic-ui-react';
 import PoiList from '../poiList';
 import PoiMap from '../poiMap';
 
-const PoiTabs = ({ pois }) => {
-
-  let poi;
-  pois ? poi = pois[0] : poi = {}
+const PoiTabs = ({ pois, isDashboard }) => {
 
   const panes = [
     pois.length > 0 ?
     { menuItem: 'List View', render: () => (
       <Tab.Pane>
-        <PoiList pois={pois} />
+        <PoiList pois={pois} isDashboard={isDashboard} />
       </Tab.Pane> 
     )} :
     { menuItem: 'List View', render: () => 

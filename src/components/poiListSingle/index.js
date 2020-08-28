@@ -3,7 +3,7 @@ import './poiListSingle.css';
 import { withRouter } from "react-router-dom";
 import { Image, Table } from 'semantic-ui-react';
 
-const PoiListSingle = ({ poi, history }) => {
+const PoiListSingle = ({ poi, isDashboard, history }) => {
 
   const handleClick = (id) => {
     history.push({
@@ -39,7 +39,10 @@ const PoiListSingle = ({ poi, history }) => {
             <div key={cat._id}>{cat.name}</div>
         ))}
       </Table.Cell>
-      <Table.Cell>{poi.contributor.fullName}</Table.Cell>
+      { isDashboard 
+        ? <></>
+        : <Table.Cell>{poi.contributor.fullName}</Table.Cell>
+      }
     </Table.Row>
   );
 };
