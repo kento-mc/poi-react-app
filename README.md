@@ -1,12 +1,12 @@
-# Project - Points of Interest (POI) ReactJS app.
+# Project - Points of Interest (POI) ReactJS app
 
 Name: Kent Chadwick
 
-## Overview.
+## Overview
 
-This is the third iteration of an application that allows users to add and view various points of interest, as developed in the web development and enterprise web modules of the WIT HDIP course. The [first iteration](https://github.com/kento-mc/poi-app) was a server-rendered web app, built with hapi.js. The [second iteration] (https://github.com/kento-mc/poi-app) was an extension of the first, with a client SPA built with Aurelia, consuming an API built on top of the original hapi.js backend.
+This is the third iteration of an application that allows users to add and view various points of interest, as developed in the web development and enterprise web modules of the WIT HDIP course. The [first iteration](https://github.com/kento-mc/poi-app) was a server-rendered web app, built with hapi.js and a MongoDB Atlas database. The [second iteration] (https://github.com/kento-mc/poi-app) was an extension of the first, with a client SPA built with Aurelia, consuming an API built on top of the original hapi.js backend.
 
-This iteration is a React web app, fully rebuilt and implementing some additioanl features, and consuming the same API on the hapi.js backend. It includes the following features:
+This third iteration is a React web app, fully rebuilt and implementing some additioanl features, consuming the same API served by the hapi.js backend. It includes the following features:
  
  + User signup
  + User login/authentication
@@ -27,11 +27,11 @@ This iteration is a React web app, fully rebuilt and implementing some additioan
   + All of the POI details
   + An interactive map showing the single POI location. Additional, smaller thumbnails of all POI images. Each smaller thumbnail is clickable and open the image full size on its own page. This page also includes the smaller thumbnail links of other images below.
 
-## Setup requirements.
+## Setup requirements
 
 ...... Insert a brief explanation (to a third party) of any non-standard setup steps necessary to run your app/client locally (after cloning the repo) ........
 
-## API Data Model.
+## API Data Model
 
 ![][model]
 
@@ -88,51 +88,90 @@ This iteration is a React web app, fully rebuilt and implementing some additioan
 }
 ```
 
+## App Design
 
-......[For projects that expanded the Movies Fan app] Specify the additional TMDB endpoints used and show sample responses, in JSON .........
-
-## App Design.
-
-### Component catalogue.
-
-....... Insert a screenshot from the Storybook UI showing your components' stories. [For projects that expanded the Movies app, hi-light stories relating to new/modified components - see example screenshot below] .......
+### Component catalogue
 
 ![][stories]
 
-### UI Design.
+Additional compoonents not imiplemented in Storybook:
++ ...
+
+### UI Design
 
 ...... Insert screenshots of the app's views (see example below) with appropriate captions (For extension to the Movies Fan App, only show the new/modified views) ........
 
-![][view]
+![][view1]
 >Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
 
-### Routing.
+![][view2]
+>Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
 
-...... Insert a list of the routes supported by your app and state the associated view. If relevant, specify which of the routes require authentication, i.e. protected/private. For projects that expanded the Movies Fan app, only new routes should be listed ......... 
+![][view3]
+>Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
 
-+ /blogs - displays all published blogs.
-+ /blogs/:id (private) - detail view of a particular blog.
-+ /blogs/:id/comments (private) - detail view of a particular blog and its comments.
-+ etc.
-+ etc.
+![][view4]
+>Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
 
-## React feature set.
+![][view5]
+>Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
 
-..... Insert a bullet-point list of the React features used in your project, including one source code file references for each - see examples below ......
+![][view6]
+>Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
 
-+ useState and useEffect hooks - src/components/fileA.js
-+ useContext hook - src/components/fileb.js
-+ Extended Link - src/components/fileA.js
-+ Programmatic navigation - src/pages/fileC.js
-+ etc
-+ etc
-+ etc
+![][view7]
+>Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
 
-## Independent learning.
+![][view8]
+>Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
+
+### Routing
+
++ /dashboard (private) - displays list/map of user POIs with filter controls and forms for adding new POIs and categories
++ /pois (private) - displays list/map of all POIs with filter controls
++ /pois/:id (private) - displays individual POI detail page
++ /pois/:id/update (private) - *not implemented in this release* displays form to update POI data
++ /pois/:id/images (private) - *not implemented in this release* displays thumbnails for POI images
++ /pois/:id/images/:image (private) - displays full size POI image and other POI images as clickable thumbnails underneath
++ /settings (private) - displays user data
++ /login - displays login form
++ /signup - displays signup form
++ / - redirects to /login or /dashboard if authenticated
+
+
+## React feature set
+
++ useState and useEffect hooks - src/components/addPoiForm.js
++ useContext hook - src/pages/dashboardPage.js
++ useReducer hook - src/contexts/poiContext.js
++ useForm hook - src/components/loginForm.js
++ useRef hook - src/contexts/authContext2.js
++ Link - src/components/navBar.js
++ NavLink - src/components/navBar.js
++ Redirect - src/components/signup.js
++ Provider pattern - src/contexts/*.js
++ Container pattern - src/components/templateGlobal.js
++ Programmatic navigation (Declarative) - src/index.js
++ Programmatic navigation (Imperative) - src/components/imageGallery.js
++ Unidirectional dataflow - src/contexts/filterContext.js
+
+## Independent learning
 
 . . . . . Briefly state the technologies/techniques used in your project codebase that were not covered in the lectures/labs. Provide source code filename references to support your assertions and include source material references (articles/blogs) ......... 
 
++ [Local Storage for persisting state/authentication](https://stackoverflow.com/questions/28314368/how-to-maintain-state-after-a-page-refresh-in-react-js) - as in src/contexts/poiContext.js - idea taken from linked Stack Overflow thread, with a custom implementation
++ [Advanced Web Form processing - React Hook Form](https://react-hook-form.com/) - 'react-hook-form' in src/components/addCategories.js and other forms - 
++ [Semanti UI React](https://react.semantic-ui.com/) - 'semantic-ui-react' in src/components/addPoiForm.js and many others - 
++ [React Leaflet](https://react-leaflet.js.org/) - 'react-leaflet' in src/components/poiMap.js - 
+
 
 [model]: ./React POI API data model.png
-[view]: ./view.png
 [stories]: ./storybook.png
+[view1]: ./view.png
+[view2]: ./view.png
+[view3]: ./view.png
+[view4]: ./view.png
+[view5]: ./view.png
+[view6]: ./view.png
+[view7]: ./view.png
+[view8]: ./view.png
