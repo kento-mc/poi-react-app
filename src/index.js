@@ -1,38 +1,44 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import 'fomantic-ui-css/semantic.css';
-import { BrowserRouter, Route, Redirect, Switch, Link } from "react-router-dom";
-import "../node_modules/bootstrap/dist/css/bootstrap.css";
-import HomePage from "./pages/homePage";
-import MoviePage from './pages/movieDetailsPage'
-import FavoriteMoviesPage from './pages/favoritesMoviesPage'
-import MovieReviewPage from "./pages/movieReviewPage";
-import SiteHeader from './components/siteHeader'
-import MoviesContextProvider from "./contexts/moviesContext";
-import GenresContextProvider from "./contexts/genresContext";
-import AddMovieReviewPage from './pages/addMovieReviewPage'
+import 'leaflet/dist/leaflet.css';
+import { BrowserRouter, Route, Redirect, Switch} from "react-router-dom";
+import PrivateRoute from './components/privateRoute';
+import AuthContextProvider from './contexts/authContext';
+import PoiContextProvider from './contexts/poiContext';
+import FilterContextProvider from './contexts/filterContext';
+import DashboardPage from './pages/dashboardPage';
+import PoiListPage from './pages/poiListPage';
+import PoiDetailPage from './pages/poiDetailPage';
+import PoiImagePage from './pages/poiImagePage';
+import SettingsPage from './pages/settingsPage';
+import LoginPage from './pages/loginPage';
+import SignupPage from './pages/signupPage';
 
 const App = () => {
+
   return (
     <BrowserRouter>
-      <div className="jumbotron">
-        <SiteHeader />
-      <div className="container-fluid">
-        <MoviesContextProvider>
-          <GenresContextProvider>
+      <AuthContextProvider>
+        <PoiContextProvider>
+          <FilterContextProvider>
             <Switch>
-              <Route exact path="/reviews/form" component={AddMovieReviewPage} />
-              <Route path="/reviews/:id" component={MovieReviewPage} />
-              <Route exact path="/movies/favorites" component={FavoriteMoviesPage} />
-              <Route path="/movies/:id" component={MoviePage} />
-              <Route path="/" component={HomePage} />
+              <PrivateRoute path='/dashboard' component={DashboardPage} />
+              <PrivateRoute exact path='/pois' component={PoiListPage} />
+              <PrivateRoute exact path="/pois/:id" component={PoiDetailPage} />
+              {/* <PrivateRoute exact path="/pois/:id/update" component={PoiDetailPage} /> */}
+              {/* <PrivateRoute exact path="/pois/:id/images" component={PoiDetailPage} /> */}
+              <PrivateRoute exact path="/pois/:id/images/:image" component={PoiImagePage} />
+              <PrivateRoute exact path="/settings" component={SettingsPage} />
+              <Route exact path="/login" component={LoginPage} />
+              <Route exact path="/signup" component={SignupPage} />
+              <Redirect from='/' to='/dashboard' />
               <Redirect from="*" to="/" />
             </Switch>
-          </GenresContextProvider>
-        </MoviesContextProvider>
-      </div>
-    </div>
-  </BrowserRouter>
+          </FilterContextProvider>
+        </PoiContextProvider>
+      </AuthContextProvider>
+    </BrowserRouter>
   );
 };
 

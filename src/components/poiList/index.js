@@ -2,13 +2,14 @@ import React from "react";
 import { Table } from 'semantic-ui-react';
 import POI from '../poiListSingle';
 
-const poiList = props => {
-  const pois = props.pois.map(poi => (
-    <POI key={poi.id} poi={poi} />
+const poiList = ({ pois, isDashboard }) => {
+
+  const poiList = pois?.map(poi => (
+    <POI key={poi._id} poi={poi} isDashboard={isDashboard} />
   ));
 
   return (
-    <Table padded>
+    <Table>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Image</Table.HeaderCell>
@@ -16,11 +17,14 @@ const poiList = props => {
           <Table.HeaderCell>Description</Table.HeaderCell>
           <Table.HeaderCell>Location</Table.HeaderCell>
           <Table.HeaderCell>Categories</Table.HeaderCell>
-          <Table.HeaderCell>Contributor</Table.HeaderCell>
+          { isDashboard 
+            ? <></>
+            : <Table.HeaderCell>Contributor</Table.HeaderCell>
+          }
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {pois}
+        {poiList}
       </Table.Body>
     </Table>
   );
