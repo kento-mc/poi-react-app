@@ -4,7 +4,7 @@ Name: Kent Chadwick
 
 ## Overview
 
-This is the third iteration of an application that allows users to add and view various points of interest, as developed in the web development and enterprise web modules of the WIT HDIP course. The [first iteration](https://github.com/kento-mc/poi-app) was a server-rendered web app, built with hapi.js and a MongoDB Atlas database. The [second iteration] (https://github.com/kento-mc/poi-app) was an extension of the first, with a client SPA built with Aurelia, consuming an API built on top of the original hapi.js backend.
+This is the third iteration of an application that allows users to add and view various points of interest, as developed in the web development and enterprise web modules of the WIT HDIP course. The [first iteration](https://github.com/kento-mc/poi-app) was a server-rendered web app, built with hapi.js and a MongoDB Atlas database. The [second iteration](https://github.com/kento-mc/poi-app) was an extension of the first, with a client SPA built with Aurelia, consuming an API built on top of the original hapi.js backend.
 
 This third iteration is a React web app, fully rebuilt and implementing some additioanl features, consuming the same API served by the hapi.js backend. It includes the following features:
  
@@ -13,18 +13,13 @@ This third iteration is a React web app, fully rebuilt and implementing some add
  + Persistent authentication in browser. Tab or window can be closed and re-openened with the user's session and data still available.
  + Interactive navbar navigation to a user dashboard, full list of points of interest, and settings page displaying the user's details.
  + The user dashboard includes three sections:
-   + The POI view panel
-     + Displays a list of POIs with a thumbnail, name, description, location, and contributor.
-     + Another tab displays the same list but on an interactive map with pins in the locaion of each POI. The pins are clickable to display the POI name and location coordinates.
-     + The POIs displyed on the list and map can be filtered for either name or description via text entry and also by a drowpdown selection of categories.
+   + The POI view panel, displaying a list of POIs
    + Add POI form
-     + The form allows a user to create a new POI, including uploading a local image file. The added POI will appear immediately in the list of POIs.
    + User custom categories
-     + The user can view their custom categories (certain categories are available by default) and add additional custom categories. The newly added categories will appear immediately in the dropdown list of available categories for selection in the add poi form.
-+ The main POI list page has the same features as the POI view panel on the dashboard page, but includes all POIs from all contributors. In addition, the list/map is filterable by an additional metric - POI contributors.
++ The main POI list page displays all POIs
 + The individual POI entries in the POI lists are clickable and direct the users to a display page for an individual POI. This page includes:
   + An enlarged thumbnail
-  + All of the POI details
+  + All POI details
   + An interactive map showing the single POI location. Additional, smaller thumbnails of all POI images. Each smaller thumbnail is clickable and open the image full size on its own page. This page also includes the smaller thumbnail links of other images below.
 
 ## Setup requirements
@@ -102,31 +97,31 @@ Additional compoonents not imiplemented in Storybook:
 ...... Insert screenshots of the app's views (see example below) with appropriate captions (For extension to the Movies Fan App, only show the new/modified views) ........
 
 ![signup](images/signup.png)
->Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
+>Shows simple sigunup form, with fields for first and last names, email, and password.
 
 ![login](images/login.png)
->Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
+>Shows simple login form, with fields for email and password.
 
 ![dashboard-list](images/dashboard-list.png)
->Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
+>Displays a list of POIs with a thumbnail, name, description, location, and contributor. The POIs displyed on the list can be filtered for either name or description via text entry and also by a drowpdown selection of categories. The top form on the right panel allows a user to create a new POI, including uploading a local image file. The added POI will appear immediately in the list of POIs. The bottom form on the right panel allows the user to view their custom categories (certain categories are available by default) and add additional custom categories. The newly added categories will appear immediately in the dropdown list of available categories for selection in the above add POI form.
 
 ![dashboard-map](images/dashboard-map.png)
->Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
+>Another tab on the left dashboard panel displays the same list but on an interactive map with pins in the locaion of each POI. The pins are clickable to display the POI name and location coordinates. Subject to same filtering as the list view.
 
 ![all-pois-list](images/all-pois-list.png)
->Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
+> The main POI list has the same features as the POI view panel on the dashboard page, but includes all POIs from all contributors. In addition, the list/map is filterable by an additional metric - POI contributors.
 
 ![all-pois-map](images/all-pois-map.png)
->Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
+>An interactive map showing the locations of all POIs. Subject to same filtering as the list view.
 
 ![poi-view](images/poi-view.png)
->Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
+>Displays all POI data and an interactive map showing the POI location. Additional, smaller thumbnails of all POI images are displayed beneath the map. Each smaller thumbnail is clickable and opens the image full-size on its own page. 
 
 ![image-view](images/image-view.png)
->Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
+>Displays a full-size POI image. Also displays the smaller thumbnail links of other POI images below.
 
 ![user-settings](images/user-settings.png)
->Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
+>Displays user data.
 
 ### Routing
 
