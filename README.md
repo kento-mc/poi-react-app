@@ -33,7 +33,7 @@ This third iteration is a React web app, fully rebuilt and implementing some add
 
 ## API Data Model
 
-![][model]
+![Data Model](images/react-poi-api-data-model.png)
 
 #### User
 
@@ -92,7 +92,7 @@ This third iteration is a React web app, fully rebuilt and implementing some add
 
 ### Component catalogue
 
-![][stories]
+![stories](images/storybook.png)
 
 Additional compoonents not imiplemented in Storybook:
 + ...
@@ -101,28 +101,31 @@ Additional compoonents not imiplemented in Storybook:
 
 ...... Insert screenshots of the app's views (see example below) with appropriate captions (For extension to the Movies Fan App, only show the new/modified views) ........
 
-![][view1]
+![signup](images/signup.png)
 >Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
 
-![][view2]
+![login](images/login.png)
 >Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
 
-![][view3]
+![dashboard-list](images/dashboard-list.png)
 >Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
 
-![][view4]
+![dashboard-map](images/dashboard-map.png)
 >Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
 
-![][view5]
+![all-pois-list](images/all-pois-list.png)
 >Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
 
-![][view6]
+![all-pois-map](images/all-pois-map.png)
 >Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
 
-![][view7]
+![poi-view](images/poi-view.png)
 >Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
 
-![][view8]
+![image-view](images/image-view.png)
+>Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
+
+![user-settings](images/user-settings.png)
 >Shows detailed information on a movie. Clicking the 'Show Reviews' button will display extracts from critic reviews.
 
 ### Routing
@@ -163,15 +166,3 @@ Additional compoonents not imiplemented in Storybook:
 + [Advanced Web Form processing - React Hook Form](https://react-hook-form.com/) - 'react-hook-form' in src/components/addCategories.js and other forms - 
 + [Semanti UI React](https://react.semantic-ui.com/) - 'semantic-ui-react' in src/components/addPoiForm.js and many others - 
 + [React Leaflet](https://react-leaflet.js.org/) - 'react-leaflet' in src/components/poiMap.js - 
-
-
-[model]: ./React POI API data model.png
-[stories]: ./storybook.png
-[view1]: ./view.png
-[view2]: ./view.png
-[view3]: ./view.png
-[view4]: ./view.png
-[view5]: ./view.png
-[view6]: ./view.png
-[view7]: ./view.png
-[view8]: ./view.png
