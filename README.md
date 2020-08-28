@@ -20,7 +20,8 @@ This third iteration is a React web app, fully rebuilt and implementing some add
 + The individual POI entries in the POI lists are clickable and direct the users to a display page for an individual POI. This page includes:
   + An enlarged thumbnail
   + All POI details
-  + An interactive map showing the single POI location. Additional, smaller thumbnails of all POI images. Each smaller thumbnail is clickable and open the image full size on its own page. This page also includes the smaller thumbnail links of other images below.
+  + An interactive map showing the single POI location.
+  + A gallery of smaller thumbnail links of other POI images.
 
 ## Setup requirements
 
