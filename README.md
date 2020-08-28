@@ -39,16 +39,16 @@ This iteration is a React web app, fully rebuilt and implementing some additioan
 
 ```json
 {
-		"_id":"5f48db5e41b3780e64e9415d",
-		"contributedPOIs":8,
-		"firstName":"Homer",
-		"lastName":"Simpson",
-		"fullName":"Homer Simpson",
-		"email":"homer@simpson.com",
-		"password":"secret",
-		"isAdmin":false,
-		"customCategories":2,
-		"__v":0
+  "_id":"5f48db5e41b3780e64e9415d",
+  "contributedPOIs":8,
+  "firstName":"Homer",
+  "lastName":"Simpson",
+  "fullName":"Homer Simpson",
+  "email":"homer@simpson.com",
+  "password":"secret",
+  "isAdmin":false,
+  "customCategories":2,
+  "__v":0
 }
 ```
 
@@ -56,23 +56,23 @@ This iteration is a React web app, fully rebuilt and implementing some additioan
 
 ```json
 {
-		"_id":"5f48db5f41b3780e64e9416c",
-		"name":"Springfield Gorge",
-		"description":"Jump it!",
-		"location": {
-				"lat":2.3243,
-				"lon":35.4343
-			},
-		"categories": [
-				"5f48db5f41b3780e64e94167"
-			],
-		"imageURL": [
-				"http://res.cloudinary.com/dwgak0rbs/image/upload/v1583703565/i8f4phhwngskyfnk45ym.png",
-				"http://res.cloudinary.com/dwgak0rbs/image/upload/v1583703588/jvqbrydf3qxpen6hshzg.jpg"
-			],
-		"contributor":"5f48db5e41b3780e64e9415f",
-		"thumbnailURL":"http://res.cloudinary.com/dwgak0rbs/image/upload/v1583703565/i8f4phhwngskyfnk45ym.png",
-		"__v":0
+  "_id":"5f48db5f41b3780e64e9416c",
+  "name":"Springfield Gorge",
+  "description":"Jump it!",
+  "location": {
+    "lat":2.3243,
+    "lon":35.4343
+  },
+  "categories": [
+    "5f48db5f41b3780e64e94167"
+  ],
+  "imageURL": [
+    "http://res.cloudinary.com/dwgak0rbs/image/upload/v1583703565/i8f4phhwngskyfnk45ym.png",
+    "http://res.cloudinary.com/dwgak0rbs/image/upload/v1583703588/jvqbrydf3qxpen6hshzg.jpg"
+  ],
+  "contributor":"5f48db5e41b3780e64e9415f",
+  "thumbnailURL":"http://res.cloudinary.com/dwgak0rbs/image/upload/v1583703565/i8f4phhwngskyfnk45ym.png",
+  "__v":0
 }
  ```
  
