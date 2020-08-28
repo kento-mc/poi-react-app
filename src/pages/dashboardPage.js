@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Header, Loader } from 'semantic-ui-react';
-import { AuthContext } from '../contexts/authContext2';
+import { AuthContext } from '../contexts/authContext';
 import { PoiContext } from '../contexts/poiContext';
 import { FilterContext } from '../contexts/filterContext';
 import Template from '../components/templateGlobal';

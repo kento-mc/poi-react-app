@@ -3,7 +3,7 @@ import useForm from "react-hook-form";
 import { Form, Grid, Segment, Button, Header  } from 'semantic-ui-react';
 import { addUser } from '../../api/poi-api';
 import { Redirect, withRouter } from "react-router-dom";
-import { AuthContext } from '../../contexts/authContext2';
+import { AuthContext } from '../../contexts/authContext';
 
 const SignupForm = ({ location }) => {
 

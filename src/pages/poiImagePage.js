@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { AuthContext } from '../contexts/authContext2';
+import { AuthContext } from '../contexts/authContext';
 import Template from '../components/templateGlobal';
 import Panel from '../components/panel';
 import ImageSingle from '../components/imageSingle';

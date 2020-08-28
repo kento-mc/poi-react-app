@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { Link, NavLink, Redirect } from "react-router-dom";
 import { Menu } from 'semantic-ui-react'
-import { AuthContext } from '../../contexts/authContext2';
+import { AuthContext } from '../../contexts/authContext';
 import { PoiContext } from '../../contexts/poiContext';
 import { withRouter } from "react-router-dom";
 

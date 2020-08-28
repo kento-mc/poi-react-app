@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import useForm from "react-hook-form";
 import { Form, Grid, Segment, Button, Header  } from 'semantic-ui-react';
 import { Redirect, withRouter } from "react-router-dom";
-import { AuthContext } from '../../contexts/authContext2';
+import { AuthContext } from '../../contexts/authContext';
 
 const LoginForm = (props) => {
 

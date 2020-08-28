@@ -1,104 +1,154 @@
-import React, { useEffect, useState, createContext, useContext } from 'react';
-import { authenticate, getUsers, getPois } from '../api/poi-api';
+import React, { useState, createContext, useEffect, useReducer, useRef } from "react";
+import { authenticate, getUsers } from '../api/poi-api';
 
-export const AuthContextX = createContext();
+export const AuthContext = createContext(null);
 
-const AuthContextProviderX = (props) => {
-
-  const [auth, setAuth] = useState(null);
-  const [users, setUsers] = useState(null);
-  const [usersByEmail, setUsersByEmail] = useState(null);
-  const [usersByID, setUsersByID] = useState(null);
-  const [loggedInUser, setLoggedInUser] = useState(null);
-
-  const userEmailKeys = new Map();
-  const userIdKeys = new Map();
-
-  useEffect(() => {
-    if (localStorage.authenticated) updateAuth(localStorage.email, localStorage.authenticated);
-  }, [])
-
-  useEffect(() => {
-    if (auth) usersSetup(auth);
-  }, [auth])
-
-  useEffect(() => {
-    if (auth) {
-      console.log(auth);
-      console.log('Inside the authConetext useEffect Hook:')
-      console.log(usersByEmail);
-      console.log(usersByID);
-      if (usersByEmail) {
-        const user = usersByEmail.get(auth.email);
-        getLoggedIn(user);
-      }
-    }
-  }, [usersByID]);
-
-  useEffect(() => {
-    if (loggedInUser) console.log(`${loggedInUser?.fullName} logged in`)
-  }, [loggedInUser])
-
-  const usersSetup = async (auth) => {
-    const users = await getUsers();
-    setUsers(users);
-    usersByEmailSetup(users);
-    usersByIdSetup(users);
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "load-from-local":
+      return JSON.parse(localStorage.getItem('auth-state'));
+    case "load-credentials":
+      return { 
+        credentials: {...action.payload.credentials},
+        isAuthenticated: state.isAuthenticated,
+        users: [...state.users],
+        loggedInUser: state.loggedInUser
+      };
+    case "load-auth":
+      return { 
+        credentials: state.credentials,
+        isAuthenticated: action.payload.auth,
+        users: [...state.users],
+        loggedInUser: state.loggedInUser
+      };
+    case "load-users":
+      return { 
+        credentials: state.credentials,
+        isAuthenticated: state.isAuthenticated,
+        users: [...action.payload.users],
+        loggedInUser: state.loggedInUser
+      };
+    case "load-user":
+      return { 
+        credentials: state.credentials,
+        isAuthenticated: state.isAuthenticated,
+        users: [...state.users],
+        loggedInUser: action.payload.user
+      };
+    default:
+      return state;
   }
+};
 
-  // const prevAuth = window.localStorage.getItem('auth') || false;
-  // const prevAuthBody = window.localStorage.getItem('authBody') || null;
+const AuthContextProvider = (props) => {
 
-  // const [authenticated, setAuthenticated] = useState(prevAuth);
-  // const [authBody, setAuthBody] = useState(prevAuthBody);
-
-  // const submitCredentials = (email, password) => {
-  //   setCredentials({email: email, password: password});
-  // };
-
-  const updateAuth = (email, auth) => {
-    setAuth({email: email, status: auth});
-  };
-
-  const usersByEmailSetup = (users) => {
-    for (let i = 0; i < users.length; i++) {
-      userEmailKeys.set(users[i].email, users[i]);
-      userIdKeys.set(users[i]._id, users[i]);
+  const initialState = localStorage.getItem('auth-state')
+  ? JSON.parse(localStorage.getItem('auth-state'))
+  : { 
+      credentials: null,
+      isAuthenticated: false,
+      users: [],
+      loggedInUser: null
     };
-    setUsersByEmail(userEmailKeys);
-  }
 
-  const usersByIdSetup = () => {
-    setUsersByID(userIdKeys);
-  }
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const getLoggedIn = (user) => {
-    setLoggedInUser(user);
+  useEffect(() => {
+    localStorage.setItem('auth-state', JSON.stringify(state));
+  })
+
+  const isMounted = useRef(null);
+
+  useEffect(() => {
+    isMounted.current = true;
+    if (state.credentials && isMounted.current) {
+      console.log(JSON.parse(localStorage.getItem('auth-state')).credentials.email);
+      if (JSON.parse(localStorage.getItem('auth-state')).credentials.email) {
+        getAuth(state.credentials.email, state.credentials.password);
+      }
+    }  
+    return () => isMounted.current = false;
+  }, [state.credentials])
+
+  const authenticateUser = (email, password) => {
+    setCredentials({ email: email, password: password })
   };
 
-  // const defaultContext = {
-  //   authenticated,
-  //   setAuthenticated,
-  //   authBody,
-  //   setAuthBody
-  // };
+  const getAuth = async (email, password) => {
+    if (JSON.parse(localStorage.getItem('poi-state')).pois.length === 0 ) {
+      // validate user
+      try {
+        const response = await authenticate(email, password);
+        if (response.success) {
+          localStorage.setItem('isAuthenticated', response.success);
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('email', email);
+          setIsAuthenticated(true);
+          setLoggedInUser(response.user);
+          console.log('API response user:');
+          console.log(response.user);
+        } else {
+          alert('Wrong!')
+        }
+      } catch (e) {
+        console.log(e);
+      }
+      try {
+        const users = await getUsers();
+        setUsers(users);
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      console.log('Loading from local...')
+      // setFromLocalStorage();
+    }
+  };
+
+  const signout = () => {
+    setCredentials(null);
+    setIsAuthenticated(false);
+    setUsers([]);
+    setLoggedInUser(null);
+    localStorage.clear();
+  }
+
+  const setFromLocalStorage = () => {
+    dispatch({ type: "load-from-local", payload: JSON.parse(localStorage.getItem('poi-state'))});
+  };
+
+  const setCredentials = (credentials) => {
+    dispatch({ type: "load-credentials", payload: { credentials } })
+  }
+
+  const setIsAuthenticated = (auth) => {
+    dispatch({ type: "load-auth", payload: { auth } })
+
+  };
+
+  const setUsers = (users) => {
+    dispatch({ type: "load-users", payload: { users } })
+
+  };
+
+  const setLoggedInUser = (user) => {
+    dispatch({ type: "load-user", payload: { user } })
+
+  };
 
   return (
-    <AuthContextX.Provider 
+    <AuthContext.Provider
       value={{
-        auth: auth?.auth,
-        token: auth?.token,
-        users: users,
-        loggedInUser: loggedInUser,
-        updateAuth: updateAuth,
-        // usersByEmailSetup: usersByEmailSetup,
-        // usersByIdSetup: usersByIdSetup,
-        getLoggedIn: getLoggedIn
+        isAuthenticated: state.isAuthenticated,
+        users: state.users,
+        loggedInUser: state.loggedInUser,
+        authenticateUser,
+        signout,
       }}
     >
       {props.children}
-    </AuthContextX.Provider>
+    </AuthContext.Provider>
   );
 };
 
-export default AuthContextProviderX;
+export default AuthContextProvider;

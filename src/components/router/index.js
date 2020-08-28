@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import PrivateRoute from '../privateRoute';
-import { AuthContext } from '../../contexts/authContext2';
+import { AuthContext } from '../../contexts/authContext';
 import { PoiContext } from '../../contexts/poiContext';
 import DashboardPage from '../../pages/dashboardPage';
 import PoiListPage from '../../pages/poiListPage';
