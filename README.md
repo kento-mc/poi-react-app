@@ -33,7 +33,10 @@ This third iteration is a React web app, fully rebuilt and implementing some add
 4. Clone this repo in a different directory
 5. Run 'npm install'
 6. Run 'npm run start' and enter 'y' when prompted to run the app on a port other than 3000
-7. Note that with subsequent reboots of the api server, clearing the localStorage in the browser where the client app is running, and re-logging in will be necessary to receive a new token and fetch updated data. 
+7. A new user can register, but two test users will also be available with relevant pre-populted data:
+  + homer@simpson.com, password: 'secret'
+  + bart@simpson.com, password: 'secret'
+8. Note that with subsequent reboots of the api server, clearing the localStorage in the browser where the client app is running, and re-logging in will be necessary to receive a new token and fetch updated data. 
 
 
 ## API Data Model
