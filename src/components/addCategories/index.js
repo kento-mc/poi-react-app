@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import useForm from "react-hook-form";
-import { Card, Form, Segment, Button, Input, Header, Table  } from 'semantic-ui-react';
+import useForm from 'react-hook-form';
+import { Card, Form, Segment, Button, Header, Table  } from 'semantic-ui-react';
 import { addCategory } from '../../api/poi-api';
 
 const AddCategories = ({ user, userCategories, setUserCategories, catCount }) => {

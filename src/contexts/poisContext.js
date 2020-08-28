@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer, createContext, useContext } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import { getUser, getPois, getCategory } from "../api/poi-api";
 
 export const PoisContext = createContext(null);

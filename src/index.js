@@ -26,12 +26,11 @@ const App = () => {
               <PrivateRoute path='/dashboard' component={DashboardPage} />
               <PrivateRoute exact path='/pois' component={PoiListPage} />
               <PrivateRoute exact path="/pois/:id" component={PoiDetailPage} />
-              <PrivateRoute exact path="/pois/:id/update" component={PoiDetailPage} />
-              <PrivateRoute exact path="/pois/:id/images" component={PoiDetailPage} />
+              {/* <PrivateRoute exact path="/pois/:id/update" component={PoiDetailPage} /> */}
+              {/* <PrivateRoute exact path="/pois/:id/images" component={PoiDetailPage} /> */}
               <PrivateRoute exact path="/pois/:id/images/:image" component={PoiImagePage} />
               <PrivateRoute exact path="/settings" component={SettingsPage} />
               <Route exact path="/login" component={LoginPage} />
-              <Route exact path="/signup" component={SignupPage} />
               <Route exact path="/signup" component={SignupPage} />
               <Redirect from='/' to='/dashboard' />
               <Redirect from="*" to="/" />

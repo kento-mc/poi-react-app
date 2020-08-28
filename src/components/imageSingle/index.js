@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Image, Card } from 'semantic-ui-react';
+import { Header, Image } from 'semantic-ui-react';
 import { withRouter } from "react-router-dom";
 
 const ImageSingle = ({ poi, image, history }) => {

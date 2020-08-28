@@ -2,12 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import './filterBar.css';
 import { Dropdown, Grid, Input } from 'semantic-ui-react';
 import { AuthContext } from '../../contexts/authContext2';
-import { PoiContext } from '../../contexts/poiContext';
 
 const FilterBar = ({ categories, onUserInput, hasContributorFilter }) => {
 
   const authContext = useContext(AuthContext);
-  const poiContext = useContext(PoiContext);
 
   const [catOptions, setCatOptions] = useState('');
   const [contOptions, setContOptions] = useState('');

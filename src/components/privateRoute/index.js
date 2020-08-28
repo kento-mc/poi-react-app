@@ -9,7 +9,7 @@ const PrivateRoute = props => {
   // Destructure props from <privateRoute> 
   const { component: Component, ...rest } = props;
   console.log(props.location)
-  return localStorage.isAuthenticated ? (
+  return localStorage.isAuthenticated ? ( // Check authentication from localStorage rather than authContext
     <Route {...rest} render={props => <Component {...props} />} />
   ) : (
     <Redirect
