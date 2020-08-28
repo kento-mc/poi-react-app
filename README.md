@@ -25,18 +25,19 @@ This third iteration is a React web app, fully rebuilt and implementing some add
 
 ## Setup requirements
 
+1. Clone the repo and run 'npm install'
+2. Run 'npm run start'
+3. A new user can register, but two test users will also be available with relevant pre-populted data:
+   + homer@simpson.com, password: 'secret'
+   + bart@simpson.com, password: 'secret'
+
+The API server is set up remotely on Heroku, but in the event of that failing, the api server can be cloned and run locally as follows:
 1. Clone the repo for the backend/api server: https://github.com/kento-mc/poi-app/tree/react-api
    + Ensure that it is the "react-api" branch 
    + Note that the .env file is included in the repo to allow connection to the remote database
 2. Run 'npm install'
 3. Run 'npm start' to start the api server on port 3000 and seed the database
-4. Clone this repo in a different directory
-5. Run 'npm install'
-6. Run 'npm run start' and enter 'y' when prompted to run the app on a port other than 3000
-7. A new user can register, but two test users will also be available with relevant pre-populted data:
-   + homer@simpson.com, password: 'secret'
-   + bart@simpson.com, password: 'secret'
-8. Note that with subsequent reboots of the api server, clearing the localStorage in the browser where the client app is running, and re-logging in will be necessary to receive a new token and fetch updated data. 
+4. Note that with subsequent reboots of the local api server, clearing the localStorage in the browser where the client app is running and re-logging in will be necessary to receive a new token and fetch updated data. 
 
 
 ## API Data Model

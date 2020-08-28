@@ -56,12 +56,12 @@ const PoiDetail = ({ poi }) => {
           label='Contributor'
           placeholder={poi.contributor.fullName}
         />
-        <Form.Field
+        {/* <Form.Field
           id='form-button-control-public'
           control={Button}
           content='Edit'
           color='blue'
-        />
+        /> */}
       </Form>
     </Segment>
   )

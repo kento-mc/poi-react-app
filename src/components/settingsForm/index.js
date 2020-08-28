@@ -34,12 +34,12 @@ const SettingsForm = () => {
             label='Password'
             placeholder='********'
           />
-          <Form.Field
+          {/* <Form.Field
             id='form-button-control-update-settings'
             control={Button}
             content='Update'
             color='blue'
-          />
+          /> */}
       </Form>
     </Segment>
   )
